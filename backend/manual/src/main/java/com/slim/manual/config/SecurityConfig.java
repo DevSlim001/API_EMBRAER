@@ -16,22 +16,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UsuarioServiceImpl usuarioService;
+
     /**
      * Criptografa senhas
      */
     @Bean
     public PasswordEncoder passwordEncoder(){
-
         return new BCryptPasswordEncoder();
     }
+
     /**
      * Configura a autenticação do usuário
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /* auth
+        auth
             .userDetailsService(usuarioService)
-            .passwordEncoder(passwordEncoder()); */
+            .passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -42,9 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
+                .antMatchers("/usuarios/**")
+                    .permitAll()
                 .antMatchers("/usuarios/cadastro")
-                .hasRole("ADMIN")
+                    .hasRole("ADMIN")
             .and()
-                .formLogin().disable() ;
+                .httpBasic();
     }
 }

@@ -21,12 +21,12 @@ public class ManualApplication implements CommandLineRunner {
     @Override
 	public void run(String... args) throws Exception {
         Usuario usuario =  Usuario
-        .builder()
-        .nome("Nicholas")
-        .email("nicholas@email.com")
-        .senha("admin")
-        .role("ADMIN")
-        .build();
+            .builder()
+            .nome("Nicholas")
+            .email("nicholas@email.com")
+            .senha("admin")
+            .role("ADMIN")
+            .build();
         usuarioService.create(usuario);
 
     }
