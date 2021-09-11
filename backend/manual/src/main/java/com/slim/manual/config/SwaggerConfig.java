@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("Api Gerador Manual")
-                .description("API para o Projeto Integrador do 4º Semestre de ADS 2021")
+                .description("API criada para o projeto integrador do grupo Slim do 4º Semestre de ADS 2021 da FATEC São José dos Campos - Prof. Jessen Vidal")
                 .contact(contact())
                 .build();
     }

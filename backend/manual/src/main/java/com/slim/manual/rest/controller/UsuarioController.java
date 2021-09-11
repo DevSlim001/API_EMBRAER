@@ -2,7 +2,6 @@ package com.slim.manual.rest.controller;
 
 import javax.transaction.Transactional;
 
-import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.exception.SenhaInvalidaException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.TokenDTO;
