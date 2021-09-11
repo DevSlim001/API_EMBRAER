@@ -90,4 +90,12 @@ public class JwtService {
         return (String) obterClaims(token).getSubject();
     }
 
+    public Integer obterCodUsuario(String token){
+        return Integer.valueOf(obterClaims(token).get("codUsuario").toString());
+    }
+
+    public String obterRoleUsuario(String token){
+        return (String) obterClaims(token).get("role").toString();
+    }
+
 }
