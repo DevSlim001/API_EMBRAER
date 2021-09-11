@@ -28,7 +28,7 @@ public class Usuario {
     @NotEmpty(message = "{campo.senha.obrigatorio}")
     private String senha;
 
-    @Column
+    @Column(unique = true)
     @NotEmpty(message = "{campo.email.obrigatorio}")
     private String email;
 

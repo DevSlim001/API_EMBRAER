@@ -39,15 +39,13 @@ public class JwtService {
         
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("codUsuario",usuario.getCodUsuario());
-        claims.put("email",usuario.getEmail());
         claims.put("nome",usuario.getNome());
         claims.put("role",usuario.getRole());
-
         return Jwts
                 .builder()
-                .setSubject(usuario.getCodUsuario().toString())
-                .setExpiration(data)
                 .setClaims(claims)
+                .setSubject(usuario.getEmail())
+                .setExpiration(data)
                 .signWith(SignatureAlgorithm.HS512, chaveAssinatura)
                 .compact();
     }
@@ -88,8 +86,8 @@ public class JwtService {
      * @param token
      * @return codUsuario
      */
-    public Integer obterCodUsuario(String token){
-        return Integer.valueOf(obterClaims(token).getSubject());
+    public String obterEmailUsuario(String token){
+        return (String) obterClaims(token).getSubject();
     }
 
 }
