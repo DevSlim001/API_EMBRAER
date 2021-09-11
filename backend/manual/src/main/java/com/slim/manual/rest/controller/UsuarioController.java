@@ -1,5 +1,7 @@
 package com.slim.manual.rest.controller;
 
+import javax.transaction.Transactional;
+
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.rest.dto.UsuarioDTO;
 import com.slim.manual.service.UsuarioService;
@@ -22,7 +24,8 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> createUser(@RequestBody Usuario usuario ) throws Exception {
+    @Transactional
+    public ResponseEntity<UsuarioDTO> createUser(@RequestBody UsuarioDTO usuario ) throws Exception {
         return ResponseEntity
                 .ok()
                 .body(usuarioService.create(usuario));

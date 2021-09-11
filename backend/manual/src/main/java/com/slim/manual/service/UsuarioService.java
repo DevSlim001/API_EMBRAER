@@ -5,6 +5,8 @@ import javax.transaction.Transactional;
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
 import com.slim.manual.rest.dto.UsuarioDTO;
+import com.slim.manual.utils.GeradorSenha;
+import com.slim.manual.utils.SenderMailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,13 +16,18 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
 public class UsuarioService {
+
+    private final PasswordEncoder passwordEncoder ;
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    SenderMailService senderMailService;
     
-    private final PasswordEncoder passwordEncoder ;
+
+
 
     /**
      * Cria um usuário
@@ -28,9 +35,14 @@ public class UsuarioService {
      * @return UsuarioDTO
      */
     @Transactional
-    public UsuarioDTO create(Usuario usuario){
-        String senhaCripto = passwordEncoder.encode(usuario.getSenha());
+    public UsuarioDTO create(UsuarioDTO usuarioDTO){
+        GeradorSenha geradorSenha = new GeradorSenha();
+        String senha = geradorSenha.gerarSenha();
+        String senhaCripto = passwordEncoder.encode(senha);
+        //String senhaCripto = passwordEncoder.encode(usuario.getSenha());
+        Usuario usuario = usuarioDTO.toEntityInsert();
         usuario.setSenha(senhaCripto);
+        senderMailService.enviar(usuario.getEmail(),"Conta criada","Sua conta foi criada.\nSua senha é: "+senha);
         return usuarioRepository
                 .save(usuario)
                 .toUserDTO();
