@@ -39,7 +39,6 @@ public class Usuario {
     public UsuarioDTO toUserDTO(){
         return UsuarioDTO
                     .builder()
-                    .codUsuario(this.codUsuario)
                     .nome(this.nome)
                     .email(this.email)
                     .role(this.role)

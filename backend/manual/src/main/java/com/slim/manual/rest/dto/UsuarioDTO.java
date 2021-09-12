@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 @Builder
 public class UsuarioDTO {
-    private Integer codUsuario;
     private String nome;
     private String email;
     private String role;
@@ -20,7 +19,6 @@ public class UsuarioDTO {
         new Usuario();
         return Usuario
                     .builder()
-                    .codUsuario(codUsuario)
                     .email(email)
                     .nome(nome)
                     .role(role)

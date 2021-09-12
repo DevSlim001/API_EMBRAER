@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/usuarios")
-@Api("API de usuários")
+@Api(tags = "Usuários")
 public class UsuarioController {
 
     @Autowired
@@ -30,6 +31,7 @@ public class UsuarioController {
 
     @PostMapping
     @Transactional
+    @ApiOperation(value = "Cria um usuário.")
     public ResponseEntity<UsuarioDTO> createUser(@RequestBody UsuarioDTO usuario ) throws Exception {
         return ResponseEntity
                 .ok()
@@ -37,6 +39,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/auth")
+    @ApiOperation(value = "Faz a autenticação de um usuário.")
     public TokenDTO auth(@RequestBody CredenciaisDTO credenciais){
         TokenDTO token;
         try {

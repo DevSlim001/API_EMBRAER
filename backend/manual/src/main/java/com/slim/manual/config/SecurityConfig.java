@@ -6,6 +6,7 @@ import com.slim.manual.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -57,12 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/usuarios/auth")
+                .antMatchers(HttpMethod.POST,"/usuarios/auth")
                     .permitAll()
+                .antMatchers(HttpMethod.POST,"/usuarios")
+                    .hasRole("ADMIN")
                 .antMatchers("/usuarios/**")
                     .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/usuarios/cadastro")
-                    .hasRole("ADMIN")
+                
                 
             .and()
                 .sessionManagement()

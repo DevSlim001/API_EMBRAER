@@ -57,7 +57,7 @@ public class UsuarioService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        
+        System.out.println(email);
         Usuario usuario = usuarioRepository
             .findByEmail(email)
             .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado nos registros."));
@@ -83,7 +83,6 @@ public class UsuarioService implements UserDetailsService{
             String token = jwtService.gerarToken(usuario);
             return TokenDTO
                         .builder()
-                        .email(usuario.getEmail())
                         .token(token)
                         .build();
         }
