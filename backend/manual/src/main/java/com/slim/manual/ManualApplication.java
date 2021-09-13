@@ -27,8 +27,8 @@ public class ManualApplication implements CommandLineRunner {
         //a senha é admin
         Usuario usuario =  Usuario
             .builder()
-            .nome("Nicholas")
-            .email("nicholas@email.com")
+            .nome("Admin")
+            .email("admin@email.com")
             .senha("$2a$12$PiXpqF0LLgwv6ZRrj1gtYegpx2EKZHUz31TrtYVeq2JZy15x46uCK")
             .role("ADMIN")
             .build();

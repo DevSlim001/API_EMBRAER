@@ -2,9 +2,10 @@ package com.slim.manual.service;
 
 import javax.transaction.Transactional;
 
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
-import com.slim.manual.exception.SenhaInvalidaException;
+import com.slim.manual.exception.CredencialException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.TokenDTO;
 import com.slim.manual.rest.dto.UsuarioDTO;
@@ -17,8 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,11 +48,11 @@ public class UsuarioService implements UserDetailsService{
      * @return UsuarioDTO
      */
     @Transactional
-    public UsuarioDTO create(UsuarioDTO usuarioDTO){
+    public UsuarioDTO create(UsuarioDTO user){
         GeradorSenha geradorSenha = new GeradorSenha();
         String senha = geradorSenha.gerarSenha();
         String senhaCripto = passwordEncoder.encode(senha);
-        Usuario usuario = usuarioDTO.toEntityInsert();
+        Usuario usuario = user.toEntityInsert();
         usuario.setSenha(senhaCripto);
         senderMailService.enviar(usuario.getEmail(),"Conta criada","Sua conta foi criada.\nSua senha é: "+senha);
         return usuarioRepository
@@ -56,11 +61,11 @@ public class UsuarioService implements UserDetailsService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         System.out.println(email);
         Usuario usuario = usuarioRepository
             .findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado nos registros."));
+            .orElseThrow(() -> new CredencialException("Usuário não encontrado nos registros."));
         String[] roles = usuario.getRole().equals("ADMIN") ? 
                         new String[] {"ADMIN","USER"} : 
                         new String[] {"USER"} ;
@@ -86,6 +91,22 @@ public class UsuarioService implements UserDetailsService{
                         .token(token)
                         .build();
         }
-        throw new SenhaInvalidaException();
+        throw new CredencialException("Senha inválida.");
+    }
+
+    public UsuarioDTO updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+            Usuario usuario = usuarioRepository
+                .findById(codUsuario)
+                .orElseThrow(()-> new CredencialException("Usuário não encontrado."));
+            Usuario usuarioAtualizado = applyPatchToUsuario(patch,usuario);
+            usuarioRepository.save(usuarioAtualizado);
+            return usuarioAtualizado.toUserDTO();
+
+    }
+
+    private Usuario applyPatchToUsuario(JsonPatch patch, Usuario usuario) throws JsonPatchException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode patched = patch.apply(objectMapper.convertValue(usuario, JsonNode.class));
+        return objectMapper.treeToValue(patched, Usuario.class);
     }
 }

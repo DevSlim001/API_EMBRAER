@@ -21,19 +21,15 @@ public class Usuario {
     private Integer codUsuario;
 
     @Column
-    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column
-    @NotEmpty(message = "{campo.senha.obrigatorio}")
     private String senha;
 
     @Column(unique = true)
-    @NotEmpty(message = "{campo.email.obrigatorio}")
     private String email;
 
     @Column
-    @NotEmpty(message = "{campo.role.obrigatorio}")
     private String role;
 
     public UsuarioDTO toUserDTO(){
