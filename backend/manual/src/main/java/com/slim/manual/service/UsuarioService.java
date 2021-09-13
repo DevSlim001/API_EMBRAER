@@ -8,6 +8,7 @@ import com.slim.manual.domain.repository.UsuarioRepository;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.UsuarioNotFoundException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
+import com.slim.manual.rest.dto.SenhaDTO;
 import com.slim.manual.rest.dto.TokenDTO;
 import com.slim.manual.rest.dto.UsuarioDTO;
 import com.slim.manual.security.jwt.JwtService;
@@ -63,7 +64,6 @@ public class UsuarioService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        System.out.println(email);
         Usuario usuario = usuarioRepository
             .findByEmail(email)
             .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado nos registros."));
@@ -104,6 +104,15 @@ public class UsuarioService implements UserDetailsService{
             return usuarioAtualizado.toUserDTO();
     }
 
+    public void updateSenhaUsuario(Integer codUsuario, SenhaDTO senha){
+        Usuario usuario = usuarioRepository
+            .findById(codUsuario)
+            .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
+            String senhaCripto = passwordEncoder.encode(senha.getSenha());
+            usuario.setSenha(senhaCripto);
+            usuarioRepository.save(usuario);
+    }
+
     public void deleteUsuario(Integer codUsuario){
         usuarioRepository
             .findById(codUsuario)
@@ -113,7 +122,11 @@ public class UsuarioService implements UserDetailsService{
             })
             .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado"));
 
-}
+    }
+
+    
+
+
 
     private Usuario applyPatchToUsuario(JsonPatch patch, Usuario usuario) throws JsonPatchException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

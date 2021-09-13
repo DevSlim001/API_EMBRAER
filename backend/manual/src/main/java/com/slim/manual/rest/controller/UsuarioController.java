@@ -8,6 +8,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
+import com.slim.manual.rest.dto.SenhaDTO;
 import com.slim.manual.rest.dto.TokenDTO;
 import com.slim.manual.rest.dto.UsuarioDTO;
 import com.slim.manual.service.UsuarioService;
@@ -89,6 +90,18 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public UsuarioDTO updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
         return usuarioService.updateUsuario(codUsuario, patch);
+    }
+
+    /**
+     * Atualiza a senha do usuário
+     * @param codUsuario
+     * @param senha
+     */
+    @PatchMapping("/senha/{codUsuario}")
+    @ApiOperation(value = "Faz a atualização da senha de um usuário.")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateSenhaUsuario(@PathVariable Integer codUsuario , @RequestBody SenhaDTO senha) {
+        usuarioService.updateSenhaUsuario(codUsuario, senha);
     }
 
     /**
