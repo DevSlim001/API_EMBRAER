@@ -5,15 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
-import com.slim.manual.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 @SpringBootApplication
 public class ManualApplication implements CommandLineRunner {
-    
-    @Autowired
-    private UsuarioService usuarioService;
     
 
     @Autowired

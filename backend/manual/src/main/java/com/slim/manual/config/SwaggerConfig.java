@@ -1,6 +1,5 @@
 package com.slim.manual.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

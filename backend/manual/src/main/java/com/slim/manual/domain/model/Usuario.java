@@ -1,7 +1,6 @@
 package com.slim.manual.domain.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 import com.slim.manual.rest.dto.UsuarioDTO;
 
