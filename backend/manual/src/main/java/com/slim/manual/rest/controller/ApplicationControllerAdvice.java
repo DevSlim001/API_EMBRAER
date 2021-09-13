@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.slim.manual.ApiErrors;
 import com.slim.manual.exception.CredencialException;
+import com.slim.manual.exception.UsuarioNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,6 +22,13 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(CredencialException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiErrors handleCredencialException(CredencialException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleUsuarioNotFoundException(UsuarioNotFoundException ex){
         String mensagem = ex.getMessage();
         return new ApiErrors(mensagem);
     }

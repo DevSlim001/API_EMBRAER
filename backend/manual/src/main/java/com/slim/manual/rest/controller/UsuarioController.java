@@ -13,12 +13,14 @@ import com.slim.manual.rest.dto.UsuarioDTO;
 import com.slim.manual.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -41,11 +43,10 @@ public class UsuarioController {
     @PostMapping
     @Transactional
     @ApiOperation(value = "Cria um usuário.")
-    public ResponseEntity<UsuarioDTO> createUser(@RequestBody @Valid UsuarioDTO usuario ) throws CredencialException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsuarioDTO createUser(@RequestBody @Valid UsuarioDTO usuario ) throws CredencialException {
         try {
-            return ResponseEntity
-                .ok()
-                .body(usuarioService.create(usuario));
+            return usuarioService.create(usuario);
         } catch (CredencialException e) {
             throw new CredencialException(e.getMessage());
         }
@@ -58,14 +59,13 @@ public class UsuarioController {
      */
     @PostMapping("/auth")
     @ApiOperation(value = "Faz a autenticação de um usuário.")
+    @ResponseStatus(HttpStatus.OK)
     public TokenDTO auth(@RequestBody CredenciaisDTO credenciais){
-        TokenDTO token;
         try {
-            token = usuarioService.auth(credenciais);
+            return usuarioService.auth(credenciais);
         } catch (CredencialException e) {
             throw new CredencialException(e.getMessage());
         }
-        return token;
     }
     
     /**
@@ -76,7 +76,8 @@ public class UsuarioController {
      *      {"op":"replace","path":"/telephone","value":"001-555-5678"}, atualiza o valor do campo telephone
      *      {"op":"test","path":"/telephone","value":"001-555-5678"} verifica se o valor é igual
      * ] EXEMPLO objeto requisição
-     * ATENÇÃO: quando o campo a ser atualizado for senha, tem que criptografar a senha no frontend antes de atualizar no backend
+     * ATENÇÃO: quando o campo a ser atualizado for senha, 
+     * tem que criptografar a senha no frontend antes de atualizar no backend
      * @param codUsuario
      * @param patch
      * @return usuarioDTO
@@ -85,8 +86,19 @@ public class UsuarioController {
      */
     @PatchMapping(path="{codUsuario}",consumes = "application/json-patch+json")
     @ApiOperation(value = "Faz a atualização parcial de um usuário.")
-    public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
-        UsuarioDTO usuarioDTO = usuarioService.updateUsuario(codUsuario, patch);
-        return ResponseEntity.ok(usuarioDTO);
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioDTO updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+        return usuarioService.updateUsuario(codUsuario, patch);
+    }
+
+    /**
+     * Deleta um usuário
+     * @param codUsuario
+     */
+    @DeleteMapping("{codUsuario}")
+    @ApiOperation(value = "Deleta um usuário.")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUsuario(@PathVariable Integer codUsuario){
+        usuarioService.deleteUsuario(codUsuario);
     }
 }

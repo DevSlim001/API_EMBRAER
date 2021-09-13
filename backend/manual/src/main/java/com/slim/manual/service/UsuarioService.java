@@ -6,6 +6,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
 import com.slim.manual.exception.CredencialException;
+import com.slim.manual.exception.UsuarioNotFoundException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.TokenDTO;
 import com.slim.manual.rest.dto.UsuarioDTO;
@@ -65,7 +66,7 @@ public class UsuarioService implements UserDetailsService{
         System.out.println(email);
         Usuario usuario = usuarioRepository
             .findByEmail(email)
-            .orElseThrow(() -> new CredencialException("Usuário não encontrado nos registros."));
+            .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado nos registros."));
         String[] roles = usuario.getRole().equals("ADMIN") ? 
                         new String[] {"ADMIN","USER"} : 
                         new String[] {"USER"} ;
@@ -97,12 +98,22 @@ public class UsuarioService implements UserDetailsService{
     public UsuarioDTO updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
             Usuario usuario = usuarioRepository
                 .findById(codUsuario)
-                .orElseThrow(()-> new CredencialException("Usuário não encontrado."));
+                .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
             Usuario usuarioAtualizado = applyPatchToUsuario(patch,usuario);
             usuarioRepository.save(usuarioAtualizado);
             return usuarioAtualizado.toUserDTO();
-
     }
+
+    public void deleteUsuario(Integer codUsuario){
+        usuarioRepository
+            .findById(codUsuario)
+            .map((usuario)->{
+                usuarioRepository.delete(usuario);
+                return usuario;
+            })
+            .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado"));
+
+}
 
     private Usuario applyPatchToUsuario(JsonPatch patch, Usuario usuario) throws JsonPatchException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
