@@ -27,6 +27,8 @@ http://localhost:8080/swagger-ui/index.html
                 <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#memobooksdart-disciplina-focal-point-engenharia-de-software-ii">Disciplina Focal Point</a>
                 <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#disciplinas-integradas-memo">Disciplinas Integradas</a>
               </ul>
+              <h3>User Roles</h3>
+              <img src="" width=550px height=500px>
               <h3>:hourglass_flowing_sand: Entregas</h3>
               <h4>Primeira entrega :clock12:</h4>
               <p align="justify">Texto sprint 1</p>
