@@ -93,7 +93,7 @@ public class UsuarioController {
     }
 
     /**
-     * Atualiza a senha do usuário
+     * Atualiza a senha do usuário pelo id
      * @param codUsuario
      * @param senha
      */
@@ -102,6 +102,18 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public void updateSenhaUsuario(@PathVariable Integer codUsuario , @RequestBody SenhaDTO senha) {
         usuarioService.updateSenhaUsuario(codUsuario, senha);
+    }
+
+    /**
+     * Atualiza a senha do usuário pelo email
+     * @param email
+     * @param senha
+     */
+    @PatchMapping("/senha/{email}/update")
+    @ApiOperation(value = "Faz a atualização da senha de um usuário.")
+    @ResponseStatus(HttpStatus.OK)
+    public void esqueciSenha(@PathVariable String email) {
+        usuarioService.esqueciSenha(email);
     }
 
     /**

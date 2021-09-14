@@ -41,6 +41,7 @@ public class UsuarioService implements UserDetailsService{
 
     @Autowired
     SenderMailService senderMailService;
+
     
     private final PasswordEncoder passwordEncoder ;
     
@@ -108,9 +109,25 @@ public class UsuarioService implements UserDetailsService{
         Usuario usuario = usuarioRepository
             .findById(codUsuario)
             .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
-            String senhaCripto = passwordEncoder.encode(senha.getSenha());
+            updateSenha(usuario, senha.getSenha());
+    }
+
+    private void updateSenha(Usuario usuario, String senha){
+            String senhaCripto = passwordEncoder.encode(senha);
             usuario.setSenha(senhaCripto);
             usuarioRepository.save(usuario);
+    }
+
+    public void esqueciSenha(String email){
+        Usuario usuario = usuarioRepository
+            .findByEmail(email)
+            .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
+        
+        GeradorSenha geradorSenha = new GeradorSenha();
+        String senha = geradorSenha.gerarSenha();
+        updateSenha(usuario, senha);
+        senderMailService.enviar(email,"Recuperação de senha","Sua nova senha é: "+senha);
+
     }
 
     public void deleteUsuario(Integer codUsuario){
