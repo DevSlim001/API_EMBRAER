@@ -11,3 +11,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Login{
+  display: block;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    text-align: center;
+    background: url(../src/aviaobackground.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+button{
+  border: none;
+  background-color: rgba(14, 14, 92, 0.932);
+  color: white;
+  width: 100px;
+  font-family: 'arial';
+  margin-left: 50px;
+}
+
+#panel-left{
+  background-color: rgba(44, 44, 201, 0.822);
+  position: absolute;
+  text-align: left;
+  height: 100%;
+  width: 50%;
+}
+#foto-perf{
+  margin-top: 10px;
+  margin-left: 200px;
+}
+#login-inputs{
+  margin-top: 20px;
+  margin-left: 200px;
+}
+.text{
+  display: inline;
+  text-align: center;
+  color: white;
+}
+.link{
+  font-size: small;
+  display: inline;
+}
+
