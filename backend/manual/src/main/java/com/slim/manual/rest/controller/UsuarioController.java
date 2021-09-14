@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -45,6 +47,10 @@ public class UsuarioController {
     @Transactional
     @ApiOperation(value = "Cria um usuário.")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Usuário criado."),
+        @ApiResponse(code = 400,message = "Informações inválidas.")
+    })
     public UsuarioDTO createUser(@RequestBody @Valid UsuarioDTO usuario ) throws CredencialException {
         try {
             return usuarioService.create(usuario);
@@ -61,6 +67,10 @@ public class UsuarioController {
     @PostMapping("/auth")
     @ApiOperation(value = "Faz a autenticação de um usuário.")
     @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Usuário autenticado."),
+        @ApiResponse(code = 401,message = "Credenciais inválidas.")
+    })
     public TokenDTO auth(@RequestBody CredenciaisDTO credenciais){
         try {
             return usuarioService.auth(credenciais);
@@ -87,9 +97,13 @@ public class UsuarioController {
      */
     @PatchMapping(path="{codUsuario}",consumes = "application/json-patch+json")
     @ApiOperation(value = "Faz a atualização parcial de um usuário.")
-    @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
-        return usuarioService.updateUsuario(codUsuario, patch);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses({
+        @ApiResponse(code = 204,message = "Usuário atualizado."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
+    })
+    public void updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+        usuarioService.updateUsuario(codUsuario, patch);
     }
 
     /**
@@ -99,7 +113,11 @@ public class UsuarioController {
      */
     @PatchMapping("/senha/{codUsuario}")
     @ApiOperation(value = "Faz a atualização da senha de um usuário.")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses({
+        @ApiResponse(code = 204,message = "Usuário atualizado."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
+    })
     public void updateSenhaUsuario(@PathVariable Integer codUsuario , @RequestBody SenhaDTO senha) {
         usuarioService.updateSenhaUsuario(codUsuario, senha);
     }
@@ -111,7 +129,11 @@ public class UsuarioController {
      */
     @PatchMapping("/senha/{email}/update")
     @ApiOperation(value = "Faz a atualização da senha de um usuário.")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses({
+        @ApiResponse(code = 204,message = "Usuário atualizado."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
+    })
     public void esqueciSenha(@PathVariable String email) {
         usuarioService.esqueciSenha(email);
     }
@@ -123,6 +145,10 @@ public class UsuarioController {
     @DeleteMapping("{codUsuario}")
     @ApiOperation(value = "Deleta um usuário.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses({
+        @ApiResponse(code = 204,message = "Usuário removido."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
+    })
     public void deleteUsuario(@PathVariable Integer codUsuario){
         usuarioService.deleteUsuario(codUsuario);
     }

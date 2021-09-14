@@ -96,13 +96,12 @@ public class UsuarioService implements UserDetailsService{
         throw new CredencialException("Senha inválida.");
     }
 
-    public UsuarioDTO updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+    public void updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
             Usuario usuario = usuarioRepository
                 .findById(codUsuario)
                 .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
             Usuario usuarioAtualizado = applyPatchToUsuario(patch,usuario);
             usuarioRepository.save(usuarioAtualizado);
-            return usuarioAtualizado.toUserDTO();
     }
 
     public void updateSenhaUsuario(Integer codUsuario, SenhaDTO senha){
