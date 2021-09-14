@@ -73,7 +73,6 @@ http://localhost:8080/swagger-ui/index.html
                             <td><p align="center"><a href="">Visualizar</p></td>
                      </tr>
               </table>
-        
               <h2>Integrantes da equipe :girl::boy:</h2>
               <ul>
                     <li><a href="">Nicholas Gabriel dos Santos Roque</a> (<i>Scrum Master</i>)
@@ -87,7 +86,6 @@ http://localhost:8080/swagger-ui/index.html
               <ul>
                      <li>M2 (Master dos Masters): Prof. Gerson da Penha Neto
                      <li>P2 (PO dos PO's): Prof. Juliana Forin Pasquini Martinez
-          
               </ul>
               <h2>Disciplinas Integradas :memo:</h2>
               <ul>
