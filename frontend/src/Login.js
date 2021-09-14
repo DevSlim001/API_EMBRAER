@@ -1,6 +1,9 @@
 import './index.css';
 import aviaobackground from './aviaobackground.jpg'
 import aviaologo from './aviaologo.png'
+import Cadastro from './Cadastro';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 function Login(){
     return(
@@ -14,7 +17,7 @@ function Login(){
 
                 <div id="login-inputs">
                     <h6 className="text">E-mail</h6><br/>
-                    <input type='text'/><br/><br/>
+                    <input type='email'/><br/><br/>
 
                     <h6 className="text">Senha</h6><br/>
                     <input type='password'/><br/><br/>
@@ -29,6 +32,8 @@ function Login(){
             </div>
         </div>
     );
+  
+    
 }
 
 export default Login;

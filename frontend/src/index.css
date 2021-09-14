@@ -49,6 +49,18 @@ button{
   margin-top: 20px;
   margin-left: 200px;
 }
+#title-cadastro{
+  margin-left: 30px;
+}
+#cadastrarUsuario{
+  margin-top: 80px;
+  font-family: arial;
+  font-size: 25px;
+  margin-left: 40vh;
+}
+#textbox{
+  width: 80vh;
+}
 .text{
   display: inline;
   text-align: center;
@@ -57,5 +69,21 @@ button{
 .link{
   font-size: small;
   display: inline;
+}
+.header{
+  background-color: rgba(11, 11, 129, 0.959);
+  height: 50px;
+}
+.cadastro-inputs{
+  text-align: right;
+  margin-top: 30px;
+  margin-right: 50vh;
+  margin-bottom: 10vh;
+}
+.inline{
+  display: inline;
+}
+.salvar{
+  margin-right: 35vh;
 }
 
