@@ -76,13 +76,12 @@ http://localhost:8080/swagger-ui/index.html
         
               <h2>Integrantes da equipe :girl::boy:</h2>
               <ul>
-                     <li><a href="">Nicholas Gabriel dos Santos Roque</a> (<i>Scrum Master</i>)
-                     <li><a href="">Brenno Richard Rabelo de Almeida
-</a> (<i>Product Owner</i>)
-                     <li><a href="">Cristian Mateus Teixeira Barbosa</a> (<i>Development Team</i>)
-                     <li><a href="">Victor Gabriel Andrade de Melo</a> (<i>Development Team</i>)
-                     <li><a href="">Rafael Bettini Dias</a> (<i>Development Team</i>)
-                     <li><a href="">José Alberto Martins de França</a> (<i>Development Team</i>)
+                    <li><a href="">Nicholas Gabriel dos Santos Roque</a> (<i>Scrum Master</i>)
+                    <li><a href="">Brenno Richard Rabelo de Almeida</a> (<i>Product Owner</i>)
+                    <li><a href="">Cristian Mateus Teixeira Barbosa</a> (<i>Development Team</i>)
+                    <li><a href="">Victor Gabriel Andrade de Melo</a> (<i>Development Team</i>)
+                    <li><a href="">Rafael Bettini Dias</a> (<i>Development Team</i>)
+                    <li><a href="">José Alberto Martins de França</a> (<i>Development Team</i>)
               </ul>
               <h2>:memo::books::dart: Disciplina Focal Point: Engenharia de Software III</h2>
               <ul>
@@ -92,10 +91,10 @@ http://localhost:8080/swagger-ui/index.html
               </ul>
               <h2>Disciplinas Integradas :memo:</h2>
               <ul>
-                     <li>Banco de dados (Ministrada por: Prof. Juliana Forin Pasquini Martinez)
-                     <li>Engenharia de Software III (Ministrada por: Prof. Gerson da Penha Neto)
-                     <li>Programação de Scripts (Ministrada por: Prof. Arley Ferreira de Souza)
-                     <li>Sistemas Operacionais II (Ministrada por: Prof. Jean Carlos Lourenço Costa)
+                    <li>Banco de dados (Ministrada por: Prof. Juliana Forin Pasquini Martinez)
+                    <li>Engenharia de Software III (Ministrada por: Prof. Gerson da Penha Neto)
+                    <li>Programação de Scripts (Ministrada por: Prof. Arley Ferreira de Souza)
+                    <li>Sistemas Operacionais II (Ministrada por: Prof. Jean Carlos Lourenço Costa)
               </ul>
        </body>
 </html>
