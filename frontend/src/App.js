@@ -1,8 +1,7 @@
 import React from 'react';
 import './index.css';
-import Login from './pages/Login/Login';
-import Cadastro from './pages/Cadastro/Cadastro';
+import Routes from './routes'
 
-const App = ()=>(<Login/>)
+const App = ()=>(<Routes/>)
 
 export default App;

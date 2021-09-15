@@ -3,18 +3,20 @@ import aviaologo from './../../images/aviaologo.png'
 import auth from '../../js/Usuario/Auth';
 import esqueciSenha from '../../js/Usuario/EsqueciSenha';
 
-import { Modal,Button, Alert } from 'react-bootstrap'
+import { Modal,Button, Alert, Spinner } from 'react-bootstrap'
 import { useState } from 'react'
+
+import { useHistory } from 'react-router-dom';
 
 import $ from 'jquery';
 
 
 function Login(){
+    const hist = useHistory();
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
     const [showMsgLogin, setshowMsgLogin] = useState(false);
 
 
@@ -34,7 +36,8 @@ async function handleSubmit(e){
             
         }
         else{
-            $("#msgLogin").html()
+            localStorage.setItem("token",res.data.token)
+            hist.push("/cadastro");
         }
     })
 
@@ -42,23 +45,30 @@ async function handleSubmit(e){
 
 async function handleEsqueceuSenha(e){
     e.preventDefault();
-    $("#btn-recupera-senha").attr("disabled",true)
-    let email = $("#email-recuperacao").val()
 
+    let spinner = $("#spinner-esqueci-senha")
+    let btn = $("#btn-recupera-senha")
+    let msg = $("#msgModal")
+    btn.attr("disabled",true)
+    spinner.css("display","inline-block")
+
+    let email = $("#email-recuperacao").val()
     await esqueciSenha(email).then((res)=>{
         if(res.status!==204){
-            $("#msgModal").html(`<h3>✗ ${res.data.errors[0]}</h3>`);
+            spinner.css("display","none")
+            msg.html(`<h3>✗ ${res.data.errors[0]}</h3>`);
             setTimeout(() => {
-                $("#msgModal").html("")
-                $("#btn-recupera-senha").attr("disabled",false)
-            }, 5000);
+                msg.html("")
+                btn.attr("disabled",false)
+            }, 4000);
         }
         else{
-            $("#msgModal").html(`<h3>✓Senha enviada para seu email.</h3>`)
+            spinner.css("display","none")
+            msg.html(`<h3>✓Senha enviada para seu email.</h3>`)
             setTimeout(() => {
-                handleClose()
-                $("#msgModal").html("")
-            }, 5000);
+                handleCloseModal()
+                msg.html("")
+            }, 4000);
         }
     })  
 }
@@ -97,12 +107,12 @@ async function handleEsqueceuSenha(e){
                         <Button type="submit" variant="primary">Login</Button>
                         
                         <br />
-                        <Button type="button" variant="dark" onClick={handleShow}>Esqueceu sua senha?</Button>
+                        <Button type="button" variant="dark" onClick={handleShowModal}>Esqueceu sua senha?</Button>
 
                     </form>
                 </div>
             </div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                   <Modal.Title>Recuperação de senha</Modal.Title>
                 </Modal.Header>
@@ -116,8 +126,11 @@ async function handleEsqueceuSenha(e){
                     <span id="msgModal"></span>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>Voltar</Button>
-                  <Button type="button" id="btn-recupera-senha" variant="primary" onClick={handleEsqueceuSenha}>Confirmar</Button>
+                    <Button variant="secondary" onClick={handleCloseModal}>Voltar</Button>
+                    <Button type="button" id="btn-recupera-senha" variant="primary" onClick={handleEsqueceuSenha}>
+                    <Spinner id="spinner-esqueci-senha" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                    Confirmar
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </div>
