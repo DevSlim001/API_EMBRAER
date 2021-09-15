@@ -3,7 +3,7 @@ import aviaologo from './../../images/aviaologo.png'
 import auth from '../../js/Usuario/Auth';
 import esqueciSenha from '../../js/Usuario/EsqueciSenha';
 
-import { Modal,Button } from 'react-bootstrap'
+import { Modal,Button, Alert } from 'react-bootstrap'
 import { useState } from 'react'
 
 import $ from 'jquery';
@@ -15,13 +15,26 @@ function Login(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [showMsgLogin, setshowMsgLogin] = useState(false);
+
+
 async function handleSubmit(e){
     e.preventDefault();
-    let senha = document.getElementById("senha").value
-    let email = document.getElementById("email").value
+    let senha = $("#senha").val()
+    let email = $("#email").val()
+
     await auth(email,senha).then((res)=>{
         if(res.status!==200){
-
+            setshowMsgLogin(true)
+            let alert = `${res.data.errors[0]}`
+            $("#msgLogin").html(alert)
+            setTimeout(() => {
+                setshowMsgLogin(false)
+            }, 5000);
+            
+        }
+        else{
+            $("#msgLogin").html()
         }
     })
 
@@ -30,7 +43,7 @@ async function handleSubmit(e){
 async function handleEsqueceuSenha(e){
     e.preventDefault();
     $("#btn-recupera-senha").attr("disabled",true)
-    let email = document.getElementById("email-recuperacao").value
+    let email = $("#email-recuperacao").val()
 
     await esqueciSenha(email).then((res)=>{
         if(res.status!==204){
@@ -39,14 +52,12 @@ async function handleEsqueceuSenha(e){
                 $("#msgModal").html("")
                 $("#btn-recupera-senha").attr("disabled",false)
             }, 5000);
-
         }
         else{
             $("#msgModal").html(`<h3>✓Senha enviada para seu email.</h3>`)
             setTimeout(() => {
                 handleClose()
                 $("#msgModal").html("")
-
             }, 5000);
         }
     })  
@@ -55,17 +66,21 @@ async function handleEsqueceuSenha(e){
     return(
         <div className = "Login">
             <div id ="panel-left">
+
                 <img src={aviaologo} width='50px' alt="LogoAvião"/>
                 <h4 className="text">  Slim Aircraft Manual Composer</h4>
                 <hr/>
                 <div className="mb-3">
                     <center>
-                        <img id="foto-perf" src={aviaologo} width= '100px' alt="Logo"/><br/>
+                        <img id="foto-perf" src={aviaologo} width= '100em' alt="Logo"/><br/>
                         <h1 className="text">Slim</h1><br/>
                     </center>
                     
                 </div>
                 <div className="form-div">
+                    {showMsgLogin &&
+                        <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setshowMsgLogin(false)} dismissible></Alert>
+                    }
                     <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">Email</label>
