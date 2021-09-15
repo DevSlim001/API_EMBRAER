@@ -1,5 +1,6 @@
 package com.slim.manual.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import com.github.fge.jsonpatch.JsonPatchException;
@@ -104,7 +105,10 @@ public class UsuarioService implements UserDetailsService{
             usuarioRepository.save(usuarioAtualizado);
     }
 
-    public void updateSenhaUsuario(Integer codUsuario, SenhaDTO senha){
+    public void updateSenhaUsuario(SenhaDTO senha, HttpServletRequest request){
+        String authorization = request.getHeader("Authorization");
+        String token = authorization.split(" ")[1];
+        Integer codUsuario = jwtService.obterCodUsuario(token);
         Usuario usuario = usuarioRepository
             .findById(codUsuario)
             .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
@@ -139,10 +143,6 @@ public class UsuarioService implements UserDetailsService{
             .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado"));
 
     }
-
-    
-
-
 
     private Usuario applyPatchToUsuario(JsonPatch patch, Usuario usuario) throws JsonPatchException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

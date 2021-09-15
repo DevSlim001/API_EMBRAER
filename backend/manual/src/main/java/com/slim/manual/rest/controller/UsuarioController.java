@@ -1,5 +1,6 @@
 package com.slim.manual.rest.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -71,7 +72,8 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
         @ApiResponse(code = 200,message = "Usuário autenticado."),
-        @ApiResponse(code = 401,message = "Credenciais inválidas.")
+        @ApiResponse(code = 401,message = "Senha inválida."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
     })
     public TokenDTO auth(@RequestBody CredenciaisDTO credenciais){
         try {
@@ -113,15 +115,15 @@ public class UsuarioController {
      * @param codUsuario
      * @param senha
      */
-    @PatchMapping("/senha/{codUsuario}")
+    @PatchMapping("/senha")
     @ApiOperation(value = "Faz a atualização da senha de um usuário.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
         @ApiResponse(code = 204,message = "Usuário atualizado."),
         @ApiResponse(code = 404,message = "Usuário não encontrado.")
     })
-    public void updateSenhaUsuario(@PathVariable Integer codUsuario , @RequestBody SenhaDTO senha) {
-        usuarioService.updateSenhaUsuario(codUsuario, senha);
+    public void updateSenhaUsuario(@RequestBody SenhaDTO senha, HttpServletRequest request) {
+        usuarioService.updateSenhaUsuario(senha, request);
     }
 
     /**
@@ -129,7 +131,7 @@ public class UsuarioController {
      * @param email
      * @param senha
      */
-    @PatchMapping("/senha/{email}/update")
+    @PatchMapping("/senha/{email}")
     @ApiOperation(value = "Faz a atualização da senha de um usuário.")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({

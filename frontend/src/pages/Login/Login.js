@@ -1,19 +1,41 @@
 import './index.css';
 import aviaologo from './../../images/aviaologo.png'
 import auth from '../../js/Usuario/Auth';
+import esqueciSenha from '../../js/Usuario/EsqueciSenha';
+
+import { Modal,Button } from 'react-bootstrap'
+import { useState } from 'react'
 
 
 function Login(){
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 async function handleSubmit(e){
     e.preventDefault();
     let senha = document.getElementById("senha").value
     let email = document.getElementById("email").value
     await auth(email,senha).then((res)=>{
-        console.log(res);
+        if(res.status!==200){
+
+        }
     })
 
 }
+
+async function handleEsqueceuSenha(e){
+    e.preventDefault();
+    let email = document.getElementById("email-recuperacao").value
+
+    await esqueciSenha(email).then((res)=>{
+        if(res.status!==204){
+            
+        }
+    })  
+}
+
     return(
         <div className = "Login">
             <div id ="panel-left">
@@ -41,13 +63,31 @@ async function handleSubmit(e){
                             <input className="form-check-input" type="checkbox" value="" id="conectado" />
                             <label className="form-check-label" htmlFor="conectado">Continuar conectado?</label>
                         </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <Button type="submit" variant="primary">Login</Button>
+                        
                         <br />
-                        <button type="button" className="btn btn-dark ">Esqueceu sua senha?</button>
+                        <Button type="button" variant="dark" onClick={handleShow}>Esqueceu sua senha?</Button>
+
                     </form>
                 </div>
-
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Recuperação de senha</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form className="row g-3">
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Entre com o email para recuperação de senha.</label>
+                            <input type="email" className="form-control" id="email-recuperacao" placeholder="usuario@email.com" />
+                        </div>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>Voltar</Button>
+                  <Button type="submit" variant="primary" onClick={handleEsqueceuSenha}>Confirmar</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
