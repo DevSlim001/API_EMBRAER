@@ -1,89 +1,19 @@
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-
+  
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.Login{
-  display: block;
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    text-align: center;
-    background: url(../src/aviaobackground.jpg) no-repeat bottom center scroll;
-    background-position: 30% 45%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-button{
-  border: none;
-  background-color: rgba(14, 14, 92, 0.932);
-  color: white;
-  width: 100px;
-  font-family: 'arial';
-  margin-left: 50px;
-}
-
-#panel-left{
-  background-color: rgba(44, 44, 201, 0.822);
-  position: absolute;
-  text-align: left;
-  height: 100%;
-  width: 50%;
-}
-#foto-perf{
-  margin-top: 10px;
-  margin-left: 200px;
-}
-#login-inputs{
-  margin-top: 20px;
-  margin-left: 200px;
-}
-#title-cadastro{
-  margin-left: 30px;
-}
-#cadastrarUsuario{
-  margin-top: 80px;
-  font-family: arial;
-  font-size: 25px;
-  margin-left: 40vh;
-}
-#textbox{
-  width: 80vh;
-}
 .text{
-  display: inline;
-  text-align: center;
-  color: white;
+    display: inline;
+    text-align: center;
+    color: white;
 }
-.link{
-  font-size: small;
-  display: inline;
-}
-.header{
-  background-color: rgba(11, 11, 129, 0.959);
-  height: 50px;
-}
-.cadastro-inputs{
-  text-align: right;
-  margin-top: 30px;
-  margin-right: 50vh;
-  margin-bottom: 10vh;
-}
-.inline{
-  display: inline;
-}
-.salvar{
-  margin-right: 35vh;
-}
-

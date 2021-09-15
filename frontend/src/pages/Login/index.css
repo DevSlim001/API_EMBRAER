@@ -1,0 +1,33 @@
+
+.Login{
+  display: block;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    text-align: center;
+    background: url(./../../images/aviaobackground.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    color: white;
+
+}
+
+#panel-left{
+  background-color: rgba(44, 44, 201, 0.822);
+  position: absolute;
+  text-align: left;
+  height: 100%;
+  width: 50%;
+}
+
+.form-div{
+    margin: 10px auto 0 auto;
+    width: 50%;
+}
+
+.form-label{
+    font-size: 1.2rem;
+}

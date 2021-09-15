@@ -1,26 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './index.css';
+import Login from './pages/Login/Login';
+import Cadastro from './pages/Cadastro/Cadastro';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edite <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Aprenda React
-        </a>
-      </header>
-    </div>
-  );
-}
-
+const App = ()=>(<Login/>)
 
 export default App;

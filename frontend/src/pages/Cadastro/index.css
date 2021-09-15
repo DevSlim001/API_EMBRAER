@@ -1,0 +1,37 @@
+#title-cadastro{
+    margin-left: 30px;
+}
+
+.cadastro-inputs{
+    text-align: right;
+    margin-top: 30px;
+    margin-right: 50vh;
+    margin-bottom: 10vh;
+}
+
+.inline{
+    display: inline;
+}
+
+#cadastrarUsuario{
+    margin-top: 80px;
+    font-family: arial;
+    font-size: 25px;
+    margin-left: 40vh;
+}
+
+
+.salvar{
+    margin-right: 35vh;
+}
+
+#textbox{
+    width: 80vh;
+}
+
+.header{
+    background-color: rgba(11, 11, 129, 0.959);
+    height: 50px;
+}
+  
+  
