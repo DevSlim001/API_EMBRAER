@@ -6,6 +6,8 @@ import esqueciSenha from '../../js/Usuario/EsqueciSenha';
 import { Modal,Button } from 'react-bootstrap'
 import { useState } from 'react'
 
+import $ from 'jquery';
+
 
 function Login(){
 
@@ -27,11 +29,25 @@ async function handleSubmit(e){
 
 async function handleEsqueceuSenha(e){
     e.preventDefault();
+    $("#btn-recupera-senha").attr("disabled",true)
     let email = document.getElementById("email-recuperacao").value
 
     await esqueciSenha(email).then((res)=>{
         if(res.status!==204){
-            
+            $("#msgModal").html(`<h3>✗ ${res.data.errors[0]}</h3>`);
+            setTimeout(() => {
+                $("#msgModal").html("")
+                $("#btn-recupera-senha").attr("disabled",false)
+            }, 5000);
+
+        }
+        else{
+            $("#msgModal").html(`<h3>✓Senha enviada para seu email.</h3>`)
+            setTimeout(() => {
+                handleClose()
+                $("#msgModal").html("")
+
+            }, 5000);
         }
     })  
 }
@@ -75,17 +91,18 @@ async function handleEsqueceuSenha(e){
                 <Modal.Header closeButton>
                   <Modal.Title>Recuperação de senha</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body id="modal-body">
                     <form className="row g-3">
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">Entre com o email para recuperação de senha.</label>
                             <input type="email" className="form-control" id="email-recuperacao" placeholder="usuario@email.com" />
                         </div>
                     </form>
+                    <span id="msgModal"></span>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>Voltar</Button>
-                  <Button type="submit" variant="primary" onClick={handleEsqueceuSenha}>Confirmar</Button>
+                  <Button type="button" id="btn-recupera-senha" variant="primary" onClick={handleEsqueceuSenha}>Confirmar</Button>
                 </Modal.Footer>
             </Modal>
         </div>
