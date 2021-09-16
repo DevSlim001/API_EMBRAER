@@ -10,7 +10,6 @@ function Cadastro(){
     const [showMsgCadastroSucesso, setShowMsgCadastroSucesso] = useState(false);
     const [showMsgCadastroErro, setShowMsgCadastroErro] = useState(false);
 
-
     async function handleCadastro(e){
         e.preventDefault()
         let spinner = $("#spinner-cadastro")

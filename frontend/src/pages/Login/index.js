@@ -128,8 +128,8 @@ async function handleEsqueceuSenha(e){
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>Voltar</Button>
                     <Button type="button" id="btn-recupera-senha" variant="primary" onClick={handleEsqueceuSenha}>
-                    <Spinner id="spinner-esqueci-senha" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                    Confirmar
+                        <Spinner id="spinner-esqueci-senha" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        Confirmar
                     </Button>
                 </Modal.Footer>
             </Modal>
