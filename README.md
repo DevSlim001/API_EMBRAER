@@ -32,16 +32,16 @@ http://localhost:8080/swagger-ui/index.html
               <h3>:hourglass_flowing_sand: Entregas</h3>
               <h4>Primeira entrega :clock12:</h4>
               <p align="justify">Texto sprint 1</p>
-              <img src="" width="550px" height="300px">
+              <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 1.jpeg" width="550px" height="300px">
               <h4>Segunda entrega :clock4:</h4>
               <p align="justify">Texto sprint 2</p>
-              <img src="" width="550px" height="300px">
+              <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 2.jpeg" width="550px" height="300px">
               <h4>Terceira entrega :clock8:</h4>
               <p align="justify">Texto sprint 3</p>
-              <img src="" width="550px" height="300px">
+              <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 3.jpeg" width="550px" height="300px">
               <h4>Quarta entrega :clock12:</h4>
               <p align="justify">Texto sprint 4</p>
-              <img src="" width="550px" height="300px">
+              <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 4.jpeg" width="550px" height="300px">
               <h3>Cronograma de Entregas</h3>
               <table>
                      <thead>
