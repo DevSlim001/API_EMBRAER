@@ -54,25 +54,25 @@ http://localhost:8080/swagger-ui/index.html
                             <td><p align="center">Entrega 1</p></td>
                             <td><p align="justify">Texto sprint 1</p></td>
                             <td><p align="center">19/09</p></td>
-                            <td><p align="center"><a href="">Visualizar</a></p></td>
+                            <td><p align="center"><a href="link-readme-da-branch-da-sprint">Visualizar</a></p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 2</p></td>
                             <td><p align="justify">Texto sprint 2</p></td>
                             <td><p align="center">10/10</p></td>
-                            <td><p align="center"><a href="">Visualizar</p></td>
+                            <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 3</p></td>
                             <td><p align="justify">Texto sprint 3</p></td>
                             <td><p align="center">07/11</p></td>
-                            <td><p align="center"><a href="">Visualizar</p></td>
+                            <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 4</p></td>
                             <td><p align="justify">Texto sprint 4.</p></td>
                             <td><p align="center">28/11</p></td>
-                            <td><p align="center"><a href="">Visualizar</p></td>
+                            <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
               </table>
               <h2>Integrantes da equipe :girl::boy:</h2>
