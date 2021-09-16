@@ -1,16 +1,17 @@
 import { React, useState } from 'react'
-import { Container, Row, Col, Navbar, Nav, Button, Alert, Spinner } from 'react-bootstrap'
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap'
 
 import Header from './../../components/Header';
 import Cadastro from './../Cadastro';
 import "./index.css"
 
+import { FaMarker,FaHome } from "react-icons/fa";
+
 
 function Home(){
     const [conteudo, setConteudo] = useState();
-    function renderCadastro(){
-        setConteudo(<Cadastro />);
-    }
+    const renderCadastro = () =>(setConteudo(<Cadastro />))
+
     return (
         <Container fluid>
             <Row>
@@ -21,9 +22,8 @@ function Home(){
                     <Navbar bg="dark" variant="dark">
                         <Container>
                             <Nav fill className="flex-column">
-                                <Nav.Link href="#home">Home</Nav.Link>
-                                <Nav.Link onClick={renderCadastro}>Cadastro</Nav.Link>
-                                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                                <Nav.Link href="#"><FaHome /> <span>Home</span></Nav.Link>
+                                <Nav.Link href="#cadastro" onClick={renderCadastro}><FaMarker /> <span>Cadastro</span></Nav.Link>
                             </Nav>
                         </Container>
                     </Navbar>

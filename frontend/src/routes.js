@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import isAuth from './utils/isAuth';
 import Login from './pages/Login'
-import Cadastro from './pages/Cadastro'
 import Home from './pages/Home'
 
 
@@ -29,13 +28,14 @@ function Routes(){
         )}/>
     )
 
+                
+    const NotFound = () =>(<Redirect to ={{pathname:"/home"}}/>)
     return(
         <BrowserRouter>
             <Switch>
                 <PublicRoute exact path="/" component={()=>(<Login/>)}/>
-                <PrivateRoute exact path="/cadastro" component={()=>(<Cadastro/>)}/>
                 <PrivateRoute exact path="/home" component={()=>(<Home/>)}/>
-
+                <PrivateRoute path='*' component={NotFound}/>
             </Switch>
         </BrowserRouter>
     );
