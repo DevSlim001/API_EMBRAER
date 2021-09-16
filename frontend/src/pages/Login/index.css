@@ -16,7 +16,7 @@
 }
 
 #panel-left{
-  background-color: rgba(44, 44, 201, 0.822);
+  background-color: var(--color-background);
   position: absolute;
   text-align: left;
   height: 100vh;

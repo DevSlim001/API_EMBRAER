@@ -1,37 +1,16 @@
-#title-cadastro{
-    margin-left: 30px;
+Form{
+    color: white;
 }
 
-.cadastro-inputs{
-    text-align: right;
-    margin-top: 30px;
-    margin-right: 50vh;
-    margin-bottom: 10vh;
+#form-div{
+    margin: 0 auto 0 auto;
+    width: 50%;
 }
 
-.inline{
-    display: inline;
+#form-div >Form{
+    padding: 2rem 0 0 0;
 }
 
-#cadastrarUsuario{
-    margin-top: 80px;
-    font-family: arial;
-    font-size: 25px;
-    margin-left: 40vh;
+#form-div >Form>Button{
+    float: right;
 }
-
-
-.salvar{
-    margin-right: 35vh;
-}
-
-#textbox{
-    width: 80vh;
-}
-
-.header{
-    background-color: rgba(11, 11, 129, 0.959);
-    height: 50px;
-}
-  
-  

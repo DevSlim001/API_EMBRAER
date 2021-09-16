@@ -1,23 +1,44 @@
 import './index.css';
-import aviaologo from './../../images/aviaologo.png'
+import createUser from '../../js/Usuario/CreateUser';
+
+import { Button, Form } from 'react-bootstrap'
+
+import $ from 'jquery';
 
 function Cadastro(){
-    return(
-        <div className="Cadastro">
-            <div className="header">
-                <img src={aviaologo} width='50px' alt="Logo slim"/>
-                <h4 className="text" id="title-cadastro">Slim Aircraft Manual Composer</h4>
-            </div>
-            <b><h4 id="cadastrarUsuario">Cadastrar usuário</h4></b>
-            <div className="cadastro-inputs">
-                <h6 className="inline">Nome:</h6>
-                <input id="textbox" type="text"/><br/><br/>
+    async function handleCadastro(e){
+        e.preventDefault()
+        let usuario = {};
+        $.each($('#form-cadastro').serializeArray(), function(i, field) {
+            usuario[field.name] = field.value;
+        });
 
-                <h6 className="inline">E-mail:</h6>
-                <input id="textbox" type="email"/><br/><br/>
-                <button className="salvar" onClick="">Salvar</button>
-            </div>
-            
+        await createUser(usuario).then((res)=>{
+            console.log(res)
+        })
+
+    }
+    return(
+        <div id="form-div">
+            <Form id="form-cadastro" onSubmit={handleCadastro}>
+                <Form.Group className="mb-3" controlId="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" name="email" placeholder="email@email.com" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="nome">
+                  <Form.Label>Nome</Form.Label>
+                  <Form.Control type="text" name="nome" placeholder="Fulano"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="role">
+                    <Form.Label>Função</Form.Label>
+                    <Form.Select aria-label="" name="role">
+                        <option>Selecione a função do usuário</option>
+                        <option value="USER">Usuário</option>
+                        <option value="ADMIN">Administrador</option>
+                    </Form.Select>
+                </Form.Group>
+                <Button variant="primary" type="submit">Cadastrar</Button>
+            </Form>
         </div>
     );
 }

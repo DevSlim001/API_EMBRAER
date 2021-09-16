@@ -1,10 +1,12 @@
 import './index.css';
 import aviaologo from './../../images/aviaologo.png'
-import auth from '../../js/Usuario/Auth';
+import auth from './../../js/Usuario/Auth';
 import esqueciSenha from '../../js/Usuario/EsqueciSenha';
+import Header from './../../components/Header';
+
 
 import { Modal,Button, Alert, Spinner } from 'react-bootstrap'
-import { useState } from 'react'
+import { React, useState } from 'react'
 
 import { useHistory } from 'react-router-dom';
 
@@ -37,7 +39,7 @@ async function handleSubmit(e){
         }
         else{
             localStorage.setItem("token",res.data.token)
-            hist.push("/cadastro");
+            hist.push("/home");
         }
     })
 
@@ -77,8 +79,7 @@ async function handleEsqueceuSenha(e){
         <div className = "Login">
             <div id ="panel-left">
 
-                <img src={aviaologo} width='50px' alt="LogoAvião"/>
-                <h4 className="text">  Slim Aircraft Manual Composer</h4>
+                <Header />
                 <hr/>
                 <div className="mb-3">
                     <center>
