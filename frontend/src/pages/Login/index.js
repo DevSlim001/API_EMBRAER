@@ -19,7 +19,7 @@ function Login(){
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
-    const [showMsgLogin, setshowMsgLogin] = useState(false);
+    const [showMsgLogin, setShowMsgLogin] = useState(false);
 
 
 async function handleSubmit(e){
@@ -29,11 +29,11 @@ async function handleSubmit(e){
 
     await auth(email,senha).then((res)=>{
         if(res.status!==200){
-            setshowMsgLogin(true)
+            setShowMsgLogin(true)
             let alert = `${res.data.errors[0]}`
             $("#msgLogin").html(alert)
             setTimeout(() => {
-                setshowMsgLogin(false)
+                setShowMsgLogin(false)
             }, 5000);
             
         }
@@ -56,17 +56,16 @@ async function handleEsqueceuSenha(e){
 
     let email = $("#email-recuperacao").val()
     await esqueciSenha(email).then((res)=>{
+        spinner.css("display","none")
         if(res.status!==204){
-            spinner.css("display","none")
-            msg.html(`<h3>✗ ${res.data.errors[0]}</h3>`);
+            msg.html(`<h4>✗ ${res.data.errors[0]}</h4>`);
             setTimeout(() => {
                 msg.html("")
                 btn.attr("disabled",false)
             }, 4000);
         }
         else{
-            spinner.css("display","none")
-            msg.html(`<h3>✓Senha enviada para seu email.</h3>`)
+            msg.html(`<h4>✓Senha enviada para seu email.</h4>`)
             setTimeout(() => {
                 handleCloseModal()
                 msg.html("")
@@ -90,7 +89,7 @@ async function handleEsqueceuSenha(e){
                 </div>
                 <div className="form-div">
                     {showMsgLogin &&
-                        <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setshowMsgLogin(false)} dismissible></Alert>
+                        <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setShowMsgLogin(false)} dismissible></Alert>
                     }
                     <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="mb-3">

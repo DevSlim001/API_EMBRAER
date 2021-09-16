@@ -14,3 +14,12 @@ Form{
 #form-div >Form>Button{
     float: right;
 }
+
+#spinner-cadastro{
+    display:none;
+    margin: 0 .3rem 0 0;
+}
+
+.alert{
+    margin: 1rem 0 1rem 0 ;
+}

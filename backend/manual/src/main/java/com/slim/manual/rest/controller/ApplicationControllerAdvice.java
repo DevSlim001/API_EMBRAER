@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import com.slim.manual.ApiErrors;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.UsuarioNotFoundException;
+import com.slim.manual.exception.UsuarioExistenteException;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,4 +46,13 @@ public class ApplicationControllerAdvice {
                 .collect(Collectors.toList());
         return new ApiErrors(errors);
     }
+
+    @ExceptionHandler(UsuarioExistenteException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleUsuarioExistenteException(UsuarioExistenteException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
 }
+
+

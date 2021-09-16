@@ -8,6 +8,7 @@ import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.UsuarioNotFoundException;
+import com.slim.manual.exception.UsuarioExistenteException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.SenhaDTO;
 import com.slim.manual.rest.dto.TokenDTO;
@@ -53,6 +54,10 @@ public class UsuarioService implements UserDetailsService{
      */
     @Transactional
     public UsuarioDTO create(UsuarioDTO user){
+        boolean isPresent = usuarioRepository.findByEmail(user.getEmail()).isPresent();
+        if(isPresent){
+            throw new UsuarioExistenteException("O email fornecido já está cadastrado.");
+        }
         GeradorSenha geradorSenha = new GeradorSenha();
         String senha = geradorSenha.gerarSenha();
         String senhaCripto = passwordEncoder.encode(senha);
