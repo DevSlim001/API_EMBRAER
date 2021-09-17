@@ -25,7 +25,12 @@ function Cadastro(){
             if(res.status!==201){
                 setShowMsgCadastroErro(true)
                 let msg = $("#msgCadastroErro")
-                msg.html(`<h6>✗ ${res.data.errors[0]}</h6>`)
+                if(res.status===403){
+                    msg.html(`<h6>✗ Faça login novamente.</h6>`)
+                }
+                else{
+                    msg.html(`<h6>✗ ${res.data.errors[0]}</h6>`)
+                } //Funciona, mas não é o ideal
                 btn.attr("disabled",false)
                 setTimeout(() => {
                     setShowMsgCadastroErro(false)
