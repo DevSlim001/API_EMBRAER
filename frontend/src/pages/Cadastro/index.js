@@ -22,11 +22,12 @@ function Cadastro(){
         });
         await createUser(usuario).then((res)=>{
             spinner.css("display","none")
+            console.log(res)
+
             if(res.status!==201){
                 setShowMsgCadastroErro(true)
                 let msgAlert = $("#msgCadastroErro")
-                let msg = res.status===403 ? "Faça login novamente." : res.data.errors[0] 
-                msgAlert.html(`<h6>✗ ${msg}</h6>`)
+                msgAlert.html(`<h6>✗ ${res.data.errors[0]}</h6>`)
                 btn.attr("disabled",false)
                 setTimeout(() => {
                     setShowMsgCadastroErro(false)
