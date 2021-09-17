@@ -24,26 +24,22 @@ function Cadastro(){
             spinner.css("display","none")
             if(res.status!==201){
                 setShowMsgCadastroErro(true)
-                let msg = $("#msgCadastroErro")
-                if(res.status===403){
-                    msg.html(`<h6>✗ Faça login novamente.</h6>`)
-                }
-                else{
-                    msg.html(`<h6>✗ ${res.data.errors[0]}</h6>`)
-                } //Funciona, mas não é o ideal
+                let msgAlert = $("#msgCadastroErro")
+                let msg = res.status===403 ? "Faça login novamente." : res.data.errors[0] 
+                msgAlert.html(`<h6>✗ ${msg}</h6>`)
                 btn.attr("disabled",false)
                 setTimeout(() => {
                     setShowMsgCadastroErro(false)
-                    msg.html(``)
+                    msgAlert.html(``)
                 }, 5000);
             }else{
                 setShowMsgCadastroSucesso(true)
-                let msg = $("#msgCadastroSucesso")
-                msg.html(`<h6>✓Cadastro realizado com sucesso.</h6>`)
+                let msgAlert = $("#msgCadastroSucesso")
+                msgAlert.html(`<h6>✓Cadastro realizado com sucesso.</h6>`)
                 btn.attr("disabled",false)
                 setTimeout(() => {
                     setShowMsgCadastroSucesso(false)
-                    msg.html(``)
+                    msgAlert.html(``)
                 }, 5000);
             }
         })
