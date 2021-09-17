@@ -93,7 +93,13 @@ public class UsuarioService implements UserDetailsService{
             Usuario usuario = usuarioRepository
                                 .findByEmail(credenciais.getEmail())
                                 .get();
-            String token = jwtService.gerarToken(usuario);
+            String token;
+            if(credenciais.isManterConectado()){
+                token = jwtService.gerarToken(usuario,Long.valueOf("5256000")); // 10 anos
+            }
+            else{
+                token = jwtService.gerarToken(usuario,Long.valueOf("120")); // 2 horas
+            }
             return TokenDTO
                         .builder()
                         .token(token)

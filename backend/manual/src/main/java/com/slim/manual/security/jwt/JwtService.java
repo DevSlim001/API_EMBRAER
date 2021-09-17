@@ -20,8 +20,6 @@ import com.slim.manual.domain.model.Usuario;
 @Service
 public class JwtService {
 
-    @Value("${security.jwt.expiracao}")
-    private String expiracao;
 
     @Value("${security.jwt.chave-assinatura}")
     private String chaveAssinatura;
@@ -31,9 +29,8 @@ public class JwtService {
      * @param usuario
      * @return token
      */
-    public String gerarToken(Usuario usuario){
-        long expLong = Long.valueOf(expiracao);
-        LocalDateTime dataHoraExpiracao = LocalDateTime.now().plusMinutes(expLong);
+    public String gerarToken(Usuario usuario,Long expiracao){
+        LocalDateTime dataHoraExpiracao = LocalDateTime.now().plusMinutes(expiracao);
         Instant instant = dataHoraExpiracao.atZone(ZoneId.systemDefault()).toInstant();
         Date data = Date.from(instant);
         

@@ -25,8 +25,9 @@ async function handleSubmit(e){
     e.preventDefault();
     let senha = $("#senha").val()
     let email = $("#email").val()
+    let conectado = $("#conectado").is(':checked')
 
-    await auth(email,senha).then((res)=>{
+    await auth(email,senha,conectado).then((res)=>{
         if(res.status!==200){
             setShowMsgLogin(true)
             let alert = `${res.data.errors[0]}`
@@ -98,7 +99,7 @@ async function handleEsqueceuSenha(e){
                             <input type="password" className="form-control" id="senha" />
                         </div>
                         <div className="mb-3 form-check col-auto">
-                            <input className="form-check-input" type="checkbox" value="" id="conectado" />
+                            <input className="form-check-input" type="checkbox" value={true} id="conectado" />
                             <label className="form-check-label" htmlFor="conectado">Continuar conectado?</label>
                         </div>
                         <Button type="submit" variant="primary">Login</Button>

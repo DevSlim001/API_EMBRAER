@@ -8,11 +8,10 @@ import { useHistory } from 'react-router-dom';
 
 function Header(props) {
     const hist = useHistory();
-    const logout = () =>(
+    const logout = () =>((
         localStorage.removeItem("token"),
         hist.push("/")
-        
-    )
+    ))
     return (
         <header id={props.id}>
             <img src={aviaologo} id="logo-header" alt="LogoAvião"/>

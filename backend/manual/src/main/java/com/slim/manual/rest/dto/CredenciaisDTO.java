@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class CredenciaisDTO {
     private String email;
     private String senha;
+    private boolean manterConectado = false;
 
 }
