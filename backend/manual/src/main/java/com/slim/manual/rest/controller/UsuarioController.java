@@ -91,8 +91,7 @@ public class UsuarioController {
      *      {"op":"replace","path":"/telephone","value":"001-555-5678"}, atualiza o valor do campo telephone
      *      {"op":"test","path":"/telephone","value":"001-555-5678"} verifica se o valor é igual
      * ] EXEMPLO objeto requisição
-     * ATENÇÃO: quando o campo a ser atualizado for senha, 
-     * tem que criptografar a senha no frontend antes de atualizar no backend
+     * 
      * @param codUsuario
      * @param patch
      * @return usuarioDTO

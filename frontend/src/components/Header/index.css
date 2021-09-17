@@ -1,6 +1,39 @@
 
-.text{
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100% ; 
+}
+header>h4{
     display: inline;
     text-align: center;
     color: white;
+    margin: auto 0 auto 0;
+    
 }
+header>#icone-logout{
+    border:1rem;
+    margin:  auto 0 auto auto;
+    float: right;
+    transition: .4s;
+}
+
+header>#icone-logout:hover{
+    color:gray;
+    cursor:Pointer;
+}
+
+#icone-logout{
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    
+}
+
+#logo-header{
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 1rem 0 0;
+}
+

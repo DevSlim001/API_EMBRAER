@@ -1,6 +1,6 @@
 import './index.css';
 import { React, useState } from 'react'
-import createUser from '../../js/Usuario/CreateUser';
+import createUser from './../../js/Usuario/CreateUser';
 
 import { Button, Form, Spinner, Alert } from 'react-bootstrap'
 

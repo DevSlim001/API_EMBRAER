@@ -1,8 +1,7 @@
 import './index.css';
 import aviaologo from './../../images/aviaologo.png'
 import auth from './../../js/Usuario/Auth';
-import esqueciSenha from '../../js/Usuario/EsqueciSenha';
-import Header from './../../components/Header';
+import esqueciSenha from './../../js/Usuario/EsqueciSenha';
 
 
 import { Modal,Button, Alert, Spinner } from 'react-bootstrap'
@@ -78,12 +77,10 @@ async function handleEsqueceuSenha(e){
         <div className = "Login">
             <div id ="panel-left">
 
-                <Header />
-                <hr/>
                 <div className="mb-3">
                     <center>
                         <img id="foto-perf" src={aviaologo} width= '100em' alt="Logo"/><br/>
-                        <h1 className="text">Slim</h1><br/>
+                        <h1 className="text">Manual Composer</h1><br/>
                     </center>
                     
                 </div>
