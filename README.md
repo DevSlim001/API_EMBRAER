@@ -29,6 +29,8 @@ http://localhost:8080/swagger-ui/index.html
               </ul>
               <h3>User Roles</h3>
               <img src="" width=550px height=500px>
+              <h3> Banco de dados </h3>
+              <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg" width=680px height=500px>
               <h3>:hourglass_flowing_sand: Entregas</h3>
               <h4>Primeira entrega :clock12:</h4>
               <p align="justify">Texto sprint 1</p>
@@ -48,30 +50,35 @@ http://localhost:8080/swagger-ui/index.html
                             <th width=100px>Entrega</th>
                             <th width=500px>Descrição</th>
                             <th width=45px>Data</th>
+                            <th width=45px>Entregue</th>
                             <th width=45px>Link</th>
                      </thead>
                      <tr>
                             <td><p align="center">Entrega 1</p></td>
                             <td><p align="justify">Texto sprint 1</p></td>
                             <td><p align="center">19/09</p></td>
+                            <td><p align="center">&#9989</p></td>
                             <td><p align="center"><a href="link-readme-da-branch-da-sprint">Visualizar</a></p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 2</p></td>
                             <td><p align="justify">Texto sprint 2</p></td>
                             <td><p align="center">10/10</p></td>
+                            <td><p align="center">&#10060</p></td>
                             <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 3</p></td>
                             <td><p align="justify">Texto sprint 3</p></td>
                             <td><p align="center">07/11</p></td>
+                            <td><p align="center">&#10060</p></td>
                             <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
                      <tr>
                             <td><p align="center">Entrega 4</p></td>
                             <td><p align="justify">Texto sprint 4.</p></td>
                             <td><p align="center">28/11</p></td>
+                            <td><p align="center">&#10060</p></td>
                             <td><p align="center"><a href="#">Visualizar</p></td>
                      </tr>
               </table>
