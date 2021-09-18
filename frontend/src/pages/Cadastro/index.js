@@ -22,7 +22,6 @@ function Cadastro(){
         });
         await createUser(usuario).then((res)=>{
             spinner.css("display","none")
-            console.log(res)
 
             if(res.status!==201){
                 setShowMsgCadastroErro(true)

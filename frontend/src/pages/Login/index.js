@@ -26,7 +26,7 @@ async function handleSubmit(e){
     let senha = $("#senha").val()
     let email = $("#email").val()
     let conectado = $("#conectado").is(':checked')
-
+    
     await auth(email,senha,conectado).then((res)=>{
         if(res.status!==200){
             setShowMsgLogin(true)
@@ -34,11 +34,12 @@ async function handleSubmit(e){
             $("#msgLogin").html(alert)
             setTimeout(() => {
                 setShowMsgLogin(false)
-            }, 5000);
+            }, 5500);
             
         }
         else{
             localStorage.setItem("token",res.data.token)
+            localStorage.setItem("manterConectado",conectado)
             hist.push("/home");
         }
     })
@@ -56,6 +57,7 @@ async function handleEsqueceuSenha(e){
 
     let email = $("#email-recuperacao").val()
     await esqueciSenha(email).then((res)=>{
+        console.log(res)
         spinner.css("display","none")
         if(res.status!==204){
             msg.html(`<h4>✗ ${res.data.errors[0]}</h4>`);

@@ -12,24 +12,6 @@ header>h4{
     margin: auto 0 auto 0;
     
 }
-header>#icone-logout{
-    border:1rem;
-    margin:  auto 0 auto auto;
-    float: right;
-    transition: .4s;
-}
-
-header>#icone-logout:hover{
-    color:gray;
-    cursor:Pointer;
-}
-
-#icone-logout{
-    width: 2rem;
-    height: 2rem;
-    color: white;
-    
-}
 
 #logo-header{
     width: 2.5rem;
