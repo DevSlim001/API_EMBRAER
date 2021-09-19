@@ -54,7 +54,6 @@
             <source src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/login.mp4" type="video/mp4">
             <source src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/logout.mp4" type="video/mp4">
             <source src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/redefini%C3%A7%C3%A3o-de-senha.mp4" type="video/mp4">
-
             Your browser does not support the video tag.
         </video>
     </p>
