@@ -140,7 +140,7 @@ http://localhost:8080/swagger-ui/index.html
     <table>
         <tr>
             <td align="center">
-                <a href="">
+                <a href="https://github.com/NicholasRoque">
                     <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/3f3314f982232b3c02ce80986a68c1a86766def5/prints/nicholas.jpeg" width="100px;" alt="" />
                     <br />
                     <sub><b>Nicholas Gabriel dos Santos Roque</b></sub>
@@ -148,7 +148,7 @@ http://localhost:8080/swagger-ui/index.html
                 </a>
                 <sub><b>Scrum Master</b></sub></td>
             <td align="center">
-                <a href="">
+                <a href="https://github.com/brennorichard">
                     <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/breno.jpeg" width="100px;"
                             alt="" />
                     <br />
@@ -159,7 +159,7 @@ http://localhost:8080/swagger-ui/index.html
                 <br />
             </td>
             <td align="center">
-                <a href="">
+                <a href="https://github.com/CristianMateusTB">
                     <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/cristian.jpeg" width="100px;"
                         alt="" />
                     <br />
@@ -172,7 +172,7 @@ http://localhost:8080/swagger-ui/index.html
         </tr>
         <tr>
             <td align="center">
-                <a href="">
+                <a href="https://github.com/VGabrielMelo">
                     <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/vitor.jpeg" width="100px;" alt="" />
                     <br />
                     <sub><b>Victor Gabriel Andrade de Melo</b></sub>
@@ -180,8 +180,8 @@ http://localhost:8080/swagger-ui/index.html
                 </a>
                 <sub><b>Developer</b></sub></td>
             <td align="center">
-                <a href="">
-                    <img style="border-radius: 50%;" src="" width="100px;"
+                <a href="https://github.com/Rafael-BD">
+                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/bc4f786781e1adcfa6ea0022d2d0b7bd3ed6ec86/prints/rafael.jpeg" width="100px;"
                             alt="" />
                     <br />
                     <sub><b>Rafael Bettini Dias</b></sub>
@@ -191,7 +191,7 @@ http://localhost:8080/swagger-ui/index.html
                 <br />
             </td>
             <td align="center">
-                <a href="">
+                <a href="https://github.com/BettoFranca">
                     <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/betto.jpeg" width="100px;"
                         alt="" />
                     <br />
