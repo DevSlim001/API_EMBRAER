@@ -44,15 +44,12 @@
         com as novas tecnologias necessárias para o desenvolvimento da aplicação.
     </p>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/CARD1%20(1).png"
-            width="500px">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/CARD1%20(1).png" width="500px">
     </p>
     <h2 align="center" id="funcionamento">Nosso sistema em funcionamento até o momento</h2>
     <p align="center">
-        <video width="320" height="240" autoplay muted>
-            <source src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/cadastro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/cadastro.gif" width="500px">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/login.gif" width="500px"><img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/logout.gif" width="500px"><img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/redefini%C3%A7%C3%A3o-de-senha.gif" width="500px">
     </p>
     <h2 align="center" id="userStories">User stories da entrega</h2>
     <p align="justify">
