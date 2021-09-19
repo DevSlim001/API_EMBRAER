@@ -65,38 +65,38 @@
         os dados da sua conta.
     </p>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/User%20stories/priorizacao_entregas/entrega1.png"
+        <img src=""
             width="500px">
     </p>
     <h2 align="center" id="wireframes">Wireframes da entrega :desktop_computer:</h2>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/pagina_inicial.png"
+        <img src=""
             width="400px">
     </p>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/login.png"
+        <img src=""
             width="400px">
     </p>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/inicial_adm_e_gestor_ok.png"
+        <img src=""
             width="400px">
     </p>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/cadastro_aluno.png"
+        <img src=""
             width="400px">
     </p>
     <p align="center">
         Você pode visualizar todos os wireframes clicando <a
-            href="https://github.com/giovannialves01/API-RGBA/tree/main/doc/Wireframes"><i>aqui</i></a>
+            href=""><i>aqui</i></a>
     </p>
     <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Banco%20de%20dados/conceitual2.jpeg"
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg"
             width="800px">
     </p>
     <h2 align="center" id="burndown">Burndown da Sprint</h2>
     <p align="center">
-        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Burndown/Burndown%20Sprint1.png">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/924a2f0e14ab827fa8f27c2b0137292703ea22c0/docs/Sprints/burndown/sprint 1.jpeg">
     </p>
 </body>
 
