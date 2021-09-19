@@ -95,9 +95,6 @@
             width="800px">
     </p>
     <h2 align="center" id="burndown">Burndown da Sprint</h2>
-    <p align="justify">O início da nossa Sprint foi um pouco mais corrida devido ao levantamento de requisitos e mais o
-        desenvolvimento, mas, como boa parte das funcionalidades dessa estrega já estavam priorizadas, as partes mais
-        difíceis foram resolvidas primeiro. No final tudo ocorreu bem.</p>
     <p align="center">
         <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Burndown/Burndown%20Sprint1.png">
     </p>
