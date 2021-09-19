@@ -48,32 +48,50 @@ http://localhost:8080/swagger-ui/index.html
             <tr>
                 <td>Quero realizar o login na plataforma</td>
                 <td>Para poder utilizar dos recursos da plataforma</td>
-                <td style="text-align:center;">✅</td>
-                <td style="text-align:center;">✅</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo realizar a troca da minha senha</td>
+                <td>Para que eu possa voltar a ter acesso a plataforma</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo cadastrar um novo usuário</td>
-                <td>Para poder utilizar dos recursos da plataforma</td>
-                <td style="text-align:center;">✅</td>
-                <td style="text-align:center;">❌</td>
+                <td>Para que esse novo usuário possa utilizar os recursos da plataforma</td>
+                <td>✅</td>
+                <td>❌</td>
             </tr>
             <tr>
                 <td>Desejo cadastrar novos documentos</td>
+                <td>Para que possa consulta-lo depois</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo cadastrar revisões</td>
+                <td>Para correção de possíveis erros</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo gerar LEP</td>
+                <td>Para vizualizar quais páginas foram alteradas</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo gerar documento DELTA</td>
+                <td>Para vizualizar as páginas alteradas em determinada revisão</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>Desejo gerar documento FULL</td>
+                <td>Para vizualizar o documento completo</td>
+                <td>✅</td>
+                <td>✅</td>
             </tr>
         </tbody>
     </table>
