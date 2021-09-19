@@ -58,7 +58,7 @@
     </p>
     <h2 align="center" id="userStories">Card da entrega</h2>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/cards/card%20sprint%201.png" width="500px">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/cards/card%20sprint%201.png">
     </p>
     <p align="center">
         <img src=""
