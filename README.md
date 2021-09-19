@@ -48,14 +48,17 @@ http://localhost:8080/swagger-ui/index.html
             <tr>
                 <td>Quero realizar o login na plataforma</td>
                 <td>Para poder utilizar dos recursos da plataforma</td>
-                <td><center>✅</center></td>
-                <td><center>✅</center></td>
+                <td style="text-align:center;">✅</td>
+                <td style="text-align:center;">✅</td>
             </tr>
             <tr>
                 <td>Desejo realizar a troca da minha senha</td>
             </tr>
             <tr>
                 <td>Desejo cadastrar um novo usuário</td>
+                <td>Para poder utilizar dos recursos da plataforma</td>
+                <td style="text-align:center;">✅</td>
+                <td style="text-align:center;">❌</td>
             </tr>
             <tr>
                 <td>Desejo cadastrar novos documentos</td>
