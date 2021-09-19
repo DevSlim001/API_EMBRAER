@@ -19,255 +19,87 @@
     <h2>Desafio Proposto</h2>
     <p align="justify">Desenvolver um sistema para gerar documentos de aeronaves de acordo com os padrões estabelecidos
         pela empresa parceira</p>
-    <h3>Índice</h3>
-    <ul>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#backlog-total">Backlog Total</a>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#hourglass_flowing_sand-entregas">Entregas</a>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#cronograma-de-entregas">Cronograma de Entregas</a>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#integrantes-da-equipe-girlboy">Integrantes da
-                equipe</a>
-        <li><a
-                href="https://github.com/DevSlim001/API_Slim_4Semestre#memobooksdart-disciplina-focal-point-engenharia-de-software-iii">Disciplina
-                Focal Point</a>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#disciplinas-integradas-memo">Disciplinas
-                Integradas</a>
-    </ul>
-    <h3>Backlog Total</h3>
-    <table width=100%>
-        <thead>
-            <th >O que?</th>
-            <th >Para que?</th>
-            <th >Administrador</th>
-            <th >Usuário</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Quero realizar o login na plataforma</td>
-                <td>Para poder utilizar dos recursos da plataforma</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo realizar a troca da minha senha</td>
-                <td>Para que eu possa voltar a ter acesso a plataforma</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo cadastrar um novo usuário</td>
-                <td>Para que esse novo usuário possa utilizar os recursos da plataforma</td>
-                <td>✅</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Desejo cadastrar novos documentos</td>
-                <td>Para que possa consulta-lo depois</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo cadastrar revisões</td>
-                <td>Para correção de possíveis erros</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo gerar LEP</td>
-                <td>Para vizualizar quais páginas foram alteradas</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo gerar documento DELTA</td>
-                <td>Para vizualizar as páginas alteradas em determinada revisão</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Desejo gerar documento FULL</td>
-                <td>Para vizualizar o documento completo</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-        </tbody>
-    </table>
-    <h3> Banco de dados </h3>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg" width=680px
-        height=500px>
-    <h3>:hourglass_flowing_sand: Entregas</h3>
-    <h4>Primeira entrega :clock12:</h4>
-    <p align="justify">Na primeira entrega, focamos no cadastro dos usuário na plataforma por parte do administrador, com criptografia de senha e geração automática da senha inicial do usuário e na realização do login tanto do usuário quanto do administrador.</p>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 1.jpeg"
-        width="550px" height="300px">
-    <h4>Segunda entrega :clock4:</h4>
-    <p align="justify">Na segunda entrega, focamos nem gerar o codelist e permitir que os usuários possam importar um codelist através de um arquivo excel.Também nos concentramos em fazer toda a estrutura de arquivos no backend.</p>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 2.jpeg"
-        width="550px" height="300px">
-    <h4>Terceira entrega :clock8:</h4>
-    <p align="justify">Na terceira entrega, o usuário poderá cadastrar revisões para os documentos, gerar a LEP e gerar o documento Delta das revisões e realizar o download dele.</p>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 3.jpeg"
-        width="550px" height="300px">
-    <h4>Quarta entrega :clock12:</h4>
-    <p align="justify">Na quarta entrega, o usuário poderá gerar o documento completo e realizar o download do mesmo.</p>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 4.jpeg"
-        width="550px" height="300px">
-    <h3>Cronograma de Entregas</h3>
-    <table>
-        <thead>
-            <th width=100px>Entrega</th>
-            <th width=500px>Descrição</th>
-            <th width=45px>Data</th>
-            <th width=45px>Entregue</th>
-            <th width=45px>Link</th>
-        </thead>
-        <tr>
-            <td>
-                <p align="center">Entrega 1</p>
-            </td>
-            <td>
-                <p align="justify">Usuário administrador poderá fazer cadastro de novos usuários, os usuários poderão fazer login.</p>
-            </td>
-            <td>
-                <p align="center">19/09</p>
-            </td>
-            <td>
-                <p align="center">&#9989</p>
-            </td>
-            <td>
-                <p align="center"><a href="link-readme-da-branch-da-sprint">Visualizar</a></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p align="center">Entrega 2</p>
-            </td>
-            <td>
-                <p align="justify">Usuário poderá fazer cadastro codelist e importar um codelist através de arquivos excel.</p>
-            </td>
-            <td>
-                <p align="center">10/10</p>
-            </td>
-            <td>
-                <p align="center">&#10060</p>
-            </td>
-            <td>
-                <p align="center"><a href="#">Visualizar</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p align="center">Entrega 3</p>
-            </td>
-            <td>
-                <p align="justify">O usuário poderá cadastrar revisões para documentos e gerar a LEP, além de gerar o documento Delta e fazer download do mesmo.</p>
-            </td>
-            <td>
-                <p align="center">07/11</p>
-            </td>
-            <td>
-                <p align="center">&#10060</p>
-            </td>
-            <td>
-                <p align="center"><a href="#">Visualizar</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p align="center">Entrega 4</p>
-            </td>
-            <td>
-                <p align="justify">O usuário poderá gerar o documento Full e realizar download dele.</p>
-            </td>
-            <td>
-                <p align="center">28/11</p>
-            </td>
-            <td>
-                <p align="center">&#10060</p>
-            </td>
-            <td>
-                <p align="center"><a href="#">Visualizar</p>
-            </td>
-        </tr>
-    </table>
-    <h2>Integrantes da equipe :girl::boy:</h2>
-    <table>
-        <tr>
-            <td align="center">
-                <a href="https://github.com/NicholasRoque">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/3f3314f982232b3c02ce80986a68c1a86766def5/prints/nicholas.jpeg" width="100px;" alt="" />
-                    <br />
-                    <sub><b>Nicholas Gabriel dos Santos Roque</b></sub>
-                    <br />
-                </a>
-                <sub><b>Scrum Master</b></sub></td>
-            <td align="center">
-                <a href="https://github.com/brennorichard">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/breno.jpeg" width="100px;"
-                            alt="" />
-                    <br />
-                    <sub><b>Brenno Richard Rabelo de Almeida</b></sub>
-                    <br />
-                </a>
-                <sub><b>Product Owner</b></sub>
-                <br />
-            </td>
-            <td align="center">
-                <a href="https://github.com/CristianMateusTB">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/cristian.jpeg" width="100px;"
-                        alt="" />
-                    <br />
-                    <sub><b>Cristian Mateus Teixeira Barbosa</b></sub>
-                    <br />
-                </a>
-                <sub><b>Developer</b></sub>
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <a href="https://github.com/VGabrielMelo">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/vitor.jpeg" width="100px;" alt="" />
-                    <br />
-                    <sub><b>Victor Gabriel Andrade de Melo</b></sub>
-                    <br />
-                </a>
-                <sub><b>Developer</b></sub></td>
-            <td align="center">
-                <a href="https://github.com/Rafael-BD">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/bc4f786781e1adcfa6ea0022d2d0b7bd3ed6ec86/prints/rafael.jpeg" width="100px;"
-                            alt="" />
-                    <br />
-                    <sub><b>Rafael Bettini Dias</b></sub>
-                    <br />
-                </a>
-                <sub><b>Developer</b></sub>
-                <br />
-            </td>
-            <td align="center">
-                <a href="https://github.com/BettoFranca">
-                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/ea8562cf6b302ecc46ee3abaae1bd9eeeac05768/prints/betto.jpeg" width="100px;"
-                        alt="" />
-                    <br />
-                    <sub><b>José Alberto Martins de França</b></sub>
-                    <br />
-                </a>
-                <sub><b>Developer</b></sub>
-                <br />
-            </td>
-        </tr>
-    </table>
-    <h2>:memo::books::dart: Disciplina Focal Point: Engenharia de Software III</h2>
-    <ul>
-        <li>M2 (Master dos Masters): Prof. Gerson da Penha Neto
-        <li>P2 (PO dos PO's): Prof. Juliana Forin Pasquini Martinez
-    </ul>
-    <h2>Disciplinas Integradas :memo:</h2>
-    <ul>
-        <li>Banco de dados (Ministrada por: Prof. Juliana Forin Pasquini Martinez)
-        <li>Engenharia de Software III (Ministrada por: Prof. Gerson da Penha Neto)
-        <li>Programação de Scripts (Ministrada por: Prof. Arley Ferreira de Souza)
-        <li>Sistemas Operacionais II (Ministrada por: Prof. Jean Carlos Lourenço Costa)
-    </ul>
+    <h2 align="center">Índices</h2>
+    - <a href="#primeiraEntrega">A primeira entrega</a>
+    - [O que fizemos?](#o-que-fizemos)
+    - [Quais foram as partes mais trabalhosas?](#quais-foram-as-partes-mais-trabalhosas)
+    - <a href="#funcionamento">Nosso sistema em funcionamento até o momento</a>
+    - <a href="#userStories">User stories da entrega</a>
+    - <a href="#wireframes">Wireframes da entrega</a>
+    - <a href="#modeloBanco">Modelo conceitual do banco de dados</a>
+    - <a href="#burndown">Burndown da Sprint</a>
+    <h2 align="center" id="primeiraEntrega">A primeira entrega</h2>
+    #### O que fizemos?
+    <p align="justify">
+        Focando em uma entrega de valor ao cliente, nossa aplicação possui os seguintes elementos básicos:
+    </p>
+    - Página de Login
+    - Realização de log-in de contas cadastradas
+    - Cadastro de contas com a permissão de acesso de Administrador e Usuário
+    - Ao cadastrar um novo usuário, sua senha é gerada automaticamente pelo sistema e enviada para seu email.
+    #### Quais foram as partes mais trabalhosas?
+    <p align="justify">
+        Para esta entrega, as maiores dificuldades foram organizar toda a equipe para o trabalho em conjunto, realizar o
+        levantamento de requisitos, saber de fato o que a plataforma precisará ter ao final do projeto e nos habituarmos
+        com as novas tecnologias necessárias para o desenvolvimento da aplicação.
+    </p>
+    <p align="center">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/CARD1%20(1).png"
+            width="500px">
+    </p>
+    <h2 align="center" id="funcionamento">Nosso sistema em funcionamento até o momento</h2>
+    <p align="center">
+        <video width="320" height="240" autoplay muted>
+            <source src="movie.mp4" type="video/mp4">
+            <source src="movie.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    </p>
+    <h2 align="center" id="userStories">User stories da entrega</h2>
+    <p align="justify">
+        Os story cards estão com a sua estimativa de esforço a partir da sequência de Fibonacci. A estimativa foi feita
+        através do Planning Poker e também foi utilizada para priorizar o backlog total. Cards com o valor de 0 a 8 são
+        considerados fáceis, já os de 13 a 89 (valor máximo) são de médio para difícil. Nessa entrega, os usuários
+        deverão ser cadastrados por um administrador ou gestor para que tenham acesso à plataforma, recebendo por e-mail
+        os dados da sua conta.
+    </p>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/User%20stories/priorizacao_entregas/entrega1.png"
+            width="500px">
+    </p>
+    <h2 align="center" id="wireframes">Wireframes da entrega :desktop_computer:</h2>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/pagina_inicial.png"
+            width="400px">
+    </p>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/login.png"
+            width="400px">
+    </p>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/inicial_adm_e_gestor_ok.png"
+            width="400px">
+    </p>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Wireframes/Entrega%201/cadastro_aluno.png"
+            width="400px">
+    </p>
+    <p align="center">
+        Você pode visualizar todos os wireframes clicando <a
+            href="https://github.com/giovannialves01/API-RGBA/tree/main/doc/Wireframes"><i>aqui</i></a>
+    </p>
+    <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Banco%20de%20dados/conceitual2.jpeg"
+            width="800px">
+    </p>
+    <h2 align="center" id="burndown">Burndown da Sprint</h2>
+    <p align="justify">O início da nossa Sprint foi um pouco mais corrida devido ao levantamento de requisitos e mais o
+        desenvolvimento, mas, como boa parte das funcionalidades dessa estrega já estavam priorizadas, as partes mais
+        difíceis foram resolvidas primeiro. No final tudo ocorreu bem.</p>
+    <p align="center">
+        <img src="https://raw.githubusercontent.com/giovannialves01/API-RGBA/main/doc/Burndown/Burndown%20Sprint1.png">
+    </p>
 </body>
 
 </html>
