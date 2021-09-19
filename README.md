@@ -56,13 +56,9 @@
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/logout.gif" width="650px"><br /><br />
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/redefini%C3%A7%C3%A3o-de-senha.gif" width="650px">
     </p>
-    <h2 align="center" id="userStories">User stories da entrega</h2>
-    <p align="justify">
-        Os story cards estão com a sua estimativa de esforço a partir da sequência de Fibonacci. A estimativa foi feita
-        através do Planning Poker e também foi utilizada para priorizar o backlog total. Cards com o valor de 0 a 8 são
-        considerados fáceis, já os de 13 a 89 (valor máximo) são de médio para difícil. Nessa entrega, os usuários
-        deverão ser cadastrados por um administrador ou gestor para que tenham acesso à plataforma, recebendo por e-mail
-        os dados da sua conta.
+    <h2 align="center" id="userStories">Card da entrega</h2>
+    <p align="center">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/cards/card%20sprint%201.png" width="500px">
     </p>
     <p align="center">
         <img src=""
