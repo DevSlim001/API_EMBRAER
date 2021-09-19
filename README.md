@@ -141,7 +141,7 @@ http://localhost:8080/swagger-ui/index.html
         <tr>
             <td align="center">
                 <a href="">
-                    <img style="border-radius: 50%;" src="" width="100px;" alt="" />
+                    <img style="border-radius: 50%;" src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/3f3314f982232b3c02ce80986a68c1a86766def5/prints/nicholas.jpeg" width="100px;" alt="" />
                     <br />
                     <sub><b>Nicholas Gabriel dos Santos Roque</b></sub>
                     <br />
