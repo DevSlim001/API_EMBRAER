@@ -21,8 +21,8 @@
         <li>
             <a href="#primeiraEntrega">A primeira entrega</a>
             <ul>
-                <li>[O que fizemos?](#o-que-fizemos)</li>
-                <li>[Quais foram as partes mais trabalhosas?] (#quais-foram-as-partes-mais-trabalhosas)</li>
+                <li><a href="#o-que-fizemos">O que fizemos.</a></li>
+                <li><a href="#quais-foram-as-partes-mais-trabalhosas">Quais foram as partes mais trabalhosas?</a></li>
             </ul>
         </li>
         <li><a href="#funcionamento">Nosso sistema em funcionamento até o momento</a></li>
