@@ -100,19 +100,19 @@ http://localhost:8080/swagger-ui/index.html
         height=500px>
     <h3>:hourglass_flowing_sand: Entregas</h3>
     <h4>Primeira entrega :clock12:</h4>
-    <p align="justify">Texto sprint 1</p>
+    <p align="justify">Na primeira entrega, focamos no cadastro dos usuário na plataforma por parte do administrador, com criptografia de senha e geração automática da senha inicial do usuário e na realização do login tanto do usuário quanto do administrador.</p>
     <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 1.jpeg"
         width="550px" height="300px">
     <h4>Segunda entrega :clock4:</h4>
-    <p align="justify">Texto sprint 2</p>
+    <p align="justify">Na segunda entrega, focamos nem gerar o codelist e permitir que os usuários possam importar um codelist através de um arquivo excel.Também nos concentramos em fazer toda a estrutura de arquivos no backend.</p>
     <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 2.jpeg"
         width="550px" height="300px">
     <h4>Terceira entrega :clock8:</h4>
-    <p align="justify">Texto sprint 3</p>
+    <p align="justify">Na terceira entrega, o usuário poderá cadastrar revisões para os documentos, gerar a LEP e gerar o documento Delta das revisões e realizar o download dele.</p>
     <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 3.jpeg"
         width="550px" height="300px">
     <h4>Quarta entrega :clock12:</h4>
-    <p align="justify">Texto sprint 4</p>
+    <p align="justify">Na quarta entrega, o usuário poderá gerar o documento completo e realizar o download do mesmo.</p>
     <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/45d0bd44bbb57a7baf72ea204586d150de90ecd5/docs/Sprints/Sprint 4.jpeg"
         width="550px" height="300px">
     <h3>Cronograma de Entregas</h3>
@@ -129,7 +129,7 @@ http://localhost:8080/swagger-ui/index.html
                 <p align="center">Entrega 1</p>
             </td>
             <td>
-                <p align="justify">Texto sprint 1</p>
+                <p align="justify">Usuário administrador poderá fazer cadastro de novos usuários, os usuários poderão fazer login.</p>
             </td>
             <td>
                 <p align="center">19/09</p>
@@ -146,7 +146,7 @@ http://localhost:8080/swagger-ui/index.html
                 <p align="center">Entrega 2</p>
             </td>
             <td>
-                <p align="justify">Texto sprint 2</p>
+                <p align="justify">Usuário poderá fazer cadastro codelist e importar um codelist através de arquivos excel.</p>
             </td>
             <td>
                 <p align="center">10/10</p>
@@ -163,7 +163,7 @@ http://localhost:8080/swagger-ui/index.html
                 <p align="center">Entrega 3</p>
             </td>
             <td>
-                <p align="justify">Texto sprint 3</p>
+                <p align="justify">O usuário poderá cadastrar revisões para documentos e gerar a LEP, além de gerar o documento Delta e fazer download do mesmo.</p>
             </td>
             <td>
                 <p align="center">07/11</p>
@@ -180,7 +180,7 @@ http://localhost:8080/swagger-ui/index.html
                 <p align="center">Entrega 4</p>
             </td>
             <td>
-                <p align="justify">Texto sprint 4.</p>
+                <p align="justify">O usuário poderá gerar o documento Full e realizar download dele.</p>
             </td>
             <td>
                 <p align="center">28/11</p>
