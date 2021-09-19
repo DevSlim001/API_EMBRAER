@@ -27,7 +27,7 @@
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#integrantes-da-equipe-girlboy">Integrantes da
                 equipe</a>
         <li><a
-                href="https://github.com/DevSlim001/API_Slim_4Semestre#memobooksdart-disciplina-focal-point-engenharia-de-software-ii">Disciplina
+                href="https://github.com/DevSlim001/API_Slim_4Semestre#memobooksdart-disciplina-focal-point-engenharia-de-software-iii">Disciplina
                 Focal Point</a>
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#disciplinas-integradas-memo">Disciplinas
                 Integradas</a>
