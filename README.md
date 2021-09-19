@@ -25,7 +25,7 @@ http://localhost:8080/swagger-ui/index.html
         pela empresa parceira</p>
     <h3>Índice</h3>
     <ul>
-        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#user-roles">User Roles</a>
+        <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#backlog-total">Backlog Total</a>
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#hourglass_flowing_sand-entregas">Entregas</a>
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#cronograma-de-entregas">Cronograma de Entregas</a>
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#integrantes-da-equipe-girlboy">Integrantes da
@@ -36,8 +36,44 @@ http://localhost:8080/swagger-ui/index.html
         <li><a href="https://github.com/DevSlim001/API_Slim_4Semestre#disciplinas-integradas-memo">Disciplinas
                 Integradas</a>
     </ul>
-    <h3>User Roles</h3>
-    <img src="" width=550px height=500px>
+    <h3>Backlog Total</h3>
+    <table>
+        <thead>
+            <th width=100px>O que?</th>
+            <th width=100px>Para que?</th>
+            <th width=100px>Administrador</th>
+            <th width=100px>Usuário</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Quero realizar o login na plataforma</td>
+                <td>Para poder utilizar dos recursos da plataforma</td>
+                <td style="color:green">✓</td>
+                <td style="color:green">✓</td>
+            </tr>
+            <tr>
+                <td>Desejo realizar a troca da minha senha</td>
+            </tr>
+            <tr>
+                <td>Desejo cadastrar um novo usuário</td>
+            </tr>
+            <tr>
+                <td>Desejo cadastrar novos documentos</td>
+            </tr>
+            <tr>
+                <td>Desejo cadastrar revisões</td>
+            </tr>
+            <tr>
+                <td>Desejo gerar LEP</td>
+            </tr>
+            <tr>
+                <td>Desejo gerar documento DELTA</td>
+            </tr>
+            <tr>
+                <td>Desejo gerar documento FULL</td>
+            </tr>
+        </tbody>
+    </table>
     <h3> Banco de dados </h3>
     <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg" width=680px
         height=500px>
