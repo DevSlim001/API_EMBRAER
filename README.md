@@ -96,7 +96,7 @@
     </p>
     <h2 align="center" id="burndown">Burndown da Sprint</h2>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/924a2f0e14ab827fa8f27c2b0137292703ea22c0/docs/Sprints/burndown/sprint 1.jpeg">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/924a2f0e14ab827fa8f27c2b0137292703ea22c0/docs/Sprints/burndown/sprint 1.jpeg" style="height:500px">
     </p>
 </body>
 
