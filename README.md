@@ -48,8 +48,8 @@ http://localhost:8080/swagger-ui/index.html
             <tr>
                 <td>Quero realizar o login na plataforma</td>
                 <td>Para poder utilizar dos recursos da plataforma</td>
-                <td style="color:green">✓</td>
-                <td style="color:green">✓</td>
+                <td><center>✅</center></td>
+                <td><center>✅</center></td>
             </tr>
             <tr>
                 <td>Desejo realizar a troca da minha senha</td>
