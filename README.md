@@ -32,7 +32,7 @@
         <li><a href="#burndown">Burndown da Sprint</a></li>
     </ul>
     <h2 align="center" id="primeiraEntrega">A primeira entrega</h2>
-    #### O que fizemos?
+    <h3 id="o-que-fizemos">O que fizemos?</h3>
     <p align="justify">
         Focando em uma entrega de valor ao cliente, nossa aplicação possui os seguintes elementos básicos:
     </p>
@@ -40,7 +40,7 @@
     - Realização de log-in de contas cadastradas
     - Cadastro de contas com a permissão de acesso de Administrador e Usuário
     - Ao cadastrar um novo usuário, sua senha é gerada automaticamente pelo sistema e enviada para seu email.
-    #### Quais foram as partes mais trabalhosas?
+    <h3 id="quais-foram-as-partes-mais-trabalhosas">Quais foram as partes mais trabalhosas?</h3>
     <p align="justify">
         Para esta entrega, as maiores dificuldades foram organizar toda a equipe para o trabalho em conjunto, realizar o
         levantamento de requisitos, saber de fato o que a plataforma precisará ter ao final do projeto e nos habituarmos
