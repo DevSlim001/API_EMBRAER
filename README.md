@@ -37,12 +37,12 @@ http://localhost:8080/swagger-ui/index.html
                 Integradas</a>
     </ul>
     <h3>Backlog Total</h3>
-    <table>
+    <table width=100%>
         <thead>
-            <th width=100px>O que?</th>
-            <th width=100px>Para que?</th>
-            <th width=100px>Administrador</th>
-            <th width=100px>Usuário</th>
+            <th >O que?</th>
+            <th >Para que?</th>
+            <th >Administrador</th>
+            <th >Usuário</th>
         </thead>
         <tbody>
             <tr>
