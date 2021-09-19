@@ -26,7 +26,7 @@
             </ul>
         </li>
         <li><a href="#funcionamento">Nosso sistema em funcionamento até o momento</a></li>
-        <li><a href="#userStories">User stories da entrega</a></li>
+        <li><a href="#cardEntrega">Card da entrega</a></li>
         <li><a href="#modeloBanco">Modelo conceitual do banco de dados</a></li>
         <li><a href="#burndown">Burndown da Sprint</a></li>
     </ul>
@@ -55,7 +55,7 @@
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/logout.gif" width="650px"><br /><br />
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/redefini%C3%A7%C3%A3o-de-senha.gif" width="650px">
     </p>
-    <h2 align="center" id="userStories">Card da entrega</h2>
+    <h2 align="center" id="cardEntrega">Card da entrega</h2>
     <p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/cards/card%20sprint%201.png">
     </p>
