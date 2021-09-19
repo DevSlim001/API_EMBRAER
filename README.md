@@ -7,10 +7,12 @@
     <img src="https://img.shields.io/badge/JavaScript-F7DF1Estyle=for-the-badge&logo=javascript&logoColor=black">
     <img src="https://img.shields.io/badge/ReactJS-61DAFBstyle=for-the-badge&logo=react&logoColor=black">
 </p>
-<p align="center"><img
-        src="https://img.shields.io/badge/status-em_desenvolvimento-bluestyle=for-the-badge&logo=appveyor"></p>
-<p align="center"><img
-        src="https://img.shields.io/badge/Sprint%20atual-Sprint 1-bluestyle=for-the-badge&logo=appveyor"></p>
+<p align="center">
+    <img src="https://img.shields.io/badge/status-em_desenvolvimento-bluestyle=for-the-badge&logo=appveyor">
+</p>
+<p align="center">
+    <img src="https://img.shields.io/badge/Sprint%20atual-Sprint 1-bluestyle=for-the-badge&logo=appveyor">
+</p>
 <h2>Desafio Proposto</h2>
 <p align="justify">Desenvolver um sistema para gerar documentos deaeronaves de acordo com os padrões estabelecidos
     pela empresa parceira</p>
