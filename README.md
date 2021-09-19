@@ -27,7 +27,6 @@
         </li>
         <li><a href="#funcionamento">Nosso sistema em funcionamento até o momento</a></li>
         <li><a href="#userStories">User stories da entrega</a></li>
-        <li><a href="#wireframes">Wireframes da entrega</a></li>
         <li><a href="#modeloBanco">Modelo conceitual do banco de dados</a></li>
         <li><a href="#burndown">Burndown da Sprint</a></li>
     </ul>
@@ -59,31 +58,6 @@
     <h2 align="center" id="userStories">Card da entrega</h2>
     <p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/cards/card%20sprint%201.png">
-    </p>
-    <p align="center">
-        <img src=""
-            width="500px">
-    </p>
-    <h2 align="center" id="wireframes">Wireframes da entrega :desktop_computer:</h2>
-    <p align="center">
-        <img src=""
-            width="400px">
-    </p>
-    <p align="center">
-        <img src=""
-            width="400px">
-    </p>
-    <p align="center">
-        <img src=""
-            width="400px">
-    </p>
-    <p align="center">
-        <img src=""
-            width="400px">
-    </p>
-    <p align="center">
-        Você pode visualizar todos os wireframes clicando <a
-            href=""><i>aqui</i></a>
     </p>
     <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
     <p align="center">
