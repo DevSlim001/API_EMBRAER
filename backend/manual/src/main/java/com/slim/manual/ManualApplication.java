@@ -2,6 +2,8 @@ package com.slim.manual;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
@@ -9,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 @SpringBootApplication
-public class ManualApplication implements CommandLineRunner {
+public class ManualApplication extends SpringBootServletInitializer implements CommandLineRunner {
     
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-	public static void main(String[] args) {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder){
+        return springApplicationBuilder.sources(ManualApplication.class);
+    }
+    public static void main(String[] args) {
 		SpringApplication.run(ManualApplication.class, args);
 	}
 

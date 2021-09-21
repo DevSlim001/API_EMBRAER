@@ -1,0 +1,79 @@
+# services:
+#   app:
+#     image: 'docker-spring-boot-postgres:latest'
+#     ports:
+#       - "8080:8080"
+#     build:
+#       context: .
+#       dockerfile: ./backend/Dockerfile
+#     container_name: backend
+#     depends_on:
+#       - db
+#     environment:
+#       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/api
+#       - SPRING_DATASOURCE_USERNAME=postgres
+#       - SPRING_DATASOURCE_PASSWORD=root
+#       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+          
+#   db:
+#     image: 'postgres:13.4-alpine'
+#     container_name: db
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=root
+#       - POSTGRES_DB=api
+
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+# Define services
+services:
+  servidor:
+    container_name: backend
+    build:
+      context: backend/manual 
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    restart: always
+    depends_on: 
+      - db 
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/api
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create    
+    networks: 
+      - backend
+      - frontend
+  cliente:
+    container_name: frontend
+    build:
+      context:  frontend # Use an image built from the specified dockerfile in the `polling-app-client` directory.
+      dockerfile: Dockerfile
+      args:
+        API_BASE_URL: http://127.0.0.1:8080
+    ports:
+      - "9090:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+    restart: always
+    depends_on:
+      - servidor
+    networks:
+      - frontend  
+
+  db:
+    container_name: PostgreSQL
+    image: 'postgres:13.4-alpine'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=api
+    volumes:
+      - db-data:/var/lib/postgresql
+    networks:
+      - backend  
+volumes:
+  db-data:
+
+networks:
+  backend:
+  frontend:    
