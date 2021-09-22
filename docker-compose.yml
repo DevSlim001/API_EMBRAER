@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080" 
-    restart: always
     depends_on: 
       - db 
     environment:
@@ -26,7 +25,6 @@ services:
         API_BASE_URL: http://127.0.0.1:8080
     ports:
       - "9090:80" # Map the exposed port 80 on the container to port 9090 on the host machine
-    restart: always
     depends_on:
       - servidor
     networks:
@@ -35,7 +33,6 @@ services:
   db:
     container_name: PostgreSQL
     image: 'postgres:13.4-alpine'
-    restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
