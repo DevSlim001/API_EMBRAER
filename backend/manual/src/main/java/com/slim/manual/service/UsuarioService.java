@@ -99,7 +99,7 @@ public class UsuarioService implements UserDetailsService{
                 token = jwtService.gerarToken(usuario,Long.valueOf("5256000")); // 5256000 minutos = 10 anos
             }
             else{
-                token = jwtService.gerarToken(usuario,Long.valueOf("1")); // 120 minutos = 2 horas
+                token = jwtService.gerarToken(usuario,Long.valueOf("120")); // 120 minutos = 2 horas
             }
             return TokenDTO
                         .builder()

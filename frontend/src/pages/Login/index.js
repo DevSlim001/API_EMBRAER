@@ -4,7 +4,7 @@ import auth from './../../js/Usuario/Auth';
 import esqueciSenha from './../../js/Usuario/EsqueciSenha';
 
 
-import { Modal,Button, Alert, Spinner } from 'react-bootstrap'
+import { Modal,Button, Alert, Spinner, Container, Row, Col, Form } from 'react-bootstrap'
 import { React, useState } from 'react'
 
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,8 @@ function Login(){
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
     const [showMsgLogin, setShowMsgLogin] = useState(false);
+    const [showSpinnerEsqueciSenha, setShowSpinnerEsqueciSenha] = useState(false);
+
 
 
 async function handleSubmit(e){
@@ -48,17 +50,13 @@ async function handleSubmit(e){
 
 async function handleEsqueceuSenha(e){
     e.preventDefault();
-
-    let spinner = $("#spinner-esqueci-senha")
     let btn = $("#btn-recupera-senha")
     let msg = $("#msgModal")
     btn.attr("disabled",true)
-    spinner.css("display","inline-block")
-
+    setShowSpinnerEsqueciSenha(true)
     let email = $("#email-recuperacao").val()
     await esqueciSenha(email).then((res)=>{
-        console.log(res)
-        spinner.css("display","none")
+        setShowSpinnerEsqueciSenha(false)
         if(res.status!==204){
             msg.html(`<h4>✗ ${res.data.errors[0]}</h4>`);
             setTimeout(() => {
@@ -75,43 +73,43 @@ async function handleEsqueceuSenha(e){
         }
     })  
 }
-
     return(
-        <div className = "Login">
-            <div id ="panel-left">
+        <Container fluid id="login">
+            <Row>
+                <Col sm={6} id="col-form-login">
+                    <Row>
+                        <center>
+                            <img id="foto-perf" src={aviaologo} width= '100em' alt="Logo"/><br/>
+                            <h1 className="text">AirDocs</h1>
+                            
+                        </center>
+                    </Row>
+                    <Row xs={2}>
 
-                <div className="mb-3">
-                    <center>
-                        <img id="foto-perf" src={aviaologo} width= '100em' alt="Logo"/><br/>
-                        <h1 className="text">AirDocs</h1><br/>
-                    </center>
-                    
-                </div>
-                <div className="form-div">
-                    {showMsgLogin &&
-                        <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setShowMsgLogin(false)} dismissible></Alert>
-                    }
-                    <form className="row g-3" onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">Email</label>
-                            <input type="email" className="form-control" id="email" placeholder="usuario@email.com" />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="senha" className="form-label">Senha</label>
-                            <input type="password" className="form-control" id="senha" />
-                        </div>
-                        <div className="mb-3 form-check col-auto">
-                            <input className="form-check-input" type="checkbox" value={true} id="conectado" />
-                            <label className="form-check-label" htmlFor="conectado">Continuar conectado?</label>
-                        </div>
-                        <Button type="submit" variant="primary">Login</Button>
-                        
-                        <br />
-                        <Button type="button" variant="dark" onClick={handleShowModal}>Esqueceu sua senha?</Button>
-
-                    </form>
-                </div>
-            </div>
+                            <Form onSubmit={handleSubmit}>
+                                {showMsgLogin &&
+                                    <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setShowMsgLogin(false)} dismissible></Alert>
+                                }
+                                <Form.Group className="mb-3" controlId="email">
+                                  <Form.Label>Email</Form.Label>
+                                  <Form.Control type="email" placeholder="usuario@email.com" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="senha">
+                                  <Form.Label>Senha</Form.Label>
+                                  <Form.Control type="password" placeholder="Senha" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" value={true} controlId="conectado">
+                                  <Form.Check type="checkbox" label="Continuar conectado?" />
+                                </Form.Group>
+                                <br />
+                                <div className="d-grid gap-2">
+                                    <Button type="submit" id="btn-submit" variant="primary">Login</Button>
+                                    <Button type="button" variant="dark"  onClick={handleShowModal}>Esqueceu sua senha?</Button>
+                                </div>
+                            </Form>
+                    </Row>
+                </Col>
+            </Row>
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                   <Modal.Title>Recuperação de senha</Modal.Title>
@@ -128,12 +126,14 @@ async function handleEsqueceuSenha(e){
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>Voltar</Button>
                     <Button type="button" id="btn-recupera-senha" variant="primary" onClick={handleEsqueceuSenha}>
-                        <Spinner id="spinner-esqueci-senha" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        {showSpinnerEsqueciSenha &&
+                            <Spinner id="spinner-esqueci-senha" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        }
                         Confirmar
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </Container>
     );
 }
 

@@ -1,4 +1,4 @@
-
+/* 
 .Login{
   display: flex;
     width: 100vw;
@@ -52,5 +52,50 @@
     }
     .form-div{
         margin-top:7vh;
+    }
+} */
+
+
+#login{
+      height: 100vh;
+      background: url(./../../images/aviaobackground.jpg) no-repeat bottom center scroll;
+      background-position: 30% 45%;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+      -o-background-size: cover;
+      color:white;
+}
+
+#col-form-login{
+    height: 100vh;
+    background-color: var(--color-background);
+}
+
+#col-form-login Form{
+    margin: 1.5rem auto 0 auto;
+    font-size: 1.1rem;
+    width: 60%;
+
+}
+
+#foto-perf{
+    margin: 2rem auto 0 auto;
+}
+#email, #senha{
+    margin-bottom: 1.5rem;
+}
+#btn-submit{
+    margin-bottom: .3rem;
+}
+#msgLogin, #conectado, .form-check-label{
+    font-size: 1rem;
+}
+#spinner-esqueci-senha{
+    margin-right: .4rem;
+}
+@media (max-width: 700px){
+    :root{
+        font-size: 80.5%;
     }
 }
