@@ -83,7 +83,7 @@ async function handleEsqueceuSenha(e){
                 <div className="mb-3">
                     <center>
                         <img id="foto-perf" src={aviaologo} width= '100em' alt="Logo"/><br/>
-                        <h1 className="text">Manual Composer</h1><br/>
+                        <h1 className="text">AirDocs</h1><br/>
                     </center>
                     
                 </div>
