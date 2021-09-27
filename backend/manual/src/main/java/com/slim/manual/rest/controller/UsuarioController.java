@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.slim.manual.exception.CredencialException;
+import com.slim.manual.exception.ValidateTokenException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.SenhaDTO;
 import com.slim.manual.rest.dto.TokenDTO;
@@ -60,6 +61,23 @@ public class UsuarioController {
         } catch (CredencialException e) {
             throw new CredencialException(e.getMessage());
         }
+    }
+
+    /**
+     * Endpoint para validar um token JWT de um usuário
+     * @param token
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/valid")
+    @ApiOperation(value = "Válida um token.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Token válido."),
+        @ApiResponse(code = 401,message = "Token inválido.")
+    })
+    public void verifyToken(@RequestBody TokenDTO token ) throws ValidateTokenException {
+        usuarioService.verifyToken(token);
     }
 
     /**

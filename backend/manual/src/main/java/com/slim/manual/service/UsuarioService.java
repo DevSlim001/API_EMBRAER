@@ -8,6 +8,7 @@ import com.slim.manual.domain.model.Usuario;
 import com.slim.manual.domain.repository.UsuarioRepository;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.UsuarioNotFoundException;
+import com.slim.manual.exception.ValidateTokenException;
 import com.slim.manual.exception.UsuarioExistenteException;
 import com.slim.manual.rest.dto.CredenciaisDTO;
 import com.slim.manual.rest.dto.SenhaDTO;
@@ -98,7 +99,7 @@ public class UsuarioService implements UserDetailsService{
                 token = jwtService.gerarToken(usuario,Long.valueOf("5256000")); // 5256000 minutos = 10 anos
             }
             else{
-                token = jwtService.gerarToken(usuario,Long.valueOf("120")); // 120 minutos = 2 horas
+                token = jwtService.gerarToken(usuario,Long.valueOf("1")); // 120 minutos = 2 horas
             }
             return TokenDTO
                         .builder()
@@ -106,6 +107,13 @@ public class UsuarioService implements UserDetailsService{
                         .build();
         }
         throw new CredencialException("Senha inválida.");
+    }
+
+    public void verifyToken(TokenDTO token){
+        boolean isValid = jwtService.validarToken(token.getToken());
+        if(!isValid){
+            throw new ValidateTokenException("Token inválido.");
+        }
     }
 
     public void updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{

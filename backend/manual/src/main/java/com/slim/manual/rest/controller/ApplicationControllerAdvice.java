@@ -7,6 +7,8 @@ import com.slim.manual.ApiErrors;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.UsuarioNotFoundException;
 import com.slim.manual.exception.UsuarioExistenteException;
+import com.slim.manual.exception.ValidateTokenException;
+
 
 
 import org.springframework.http.HttpStatus;
@@ -50,6 +52,13 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(UsuarioExistenteException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleUsuarioExistenteException(UsuarioExistenteException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
+
+    @ExceptionHandler(ValidateTokenException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiErrors handleValidateTokenException(ValidateTokenException ex){
         String mensagem = ex.getMessage();
         return new ApiErrors(mensagem);
     }
