@@ -9,19 +9,21 @@ import $ from 'jquery';
 function Cadastro(){
     const [showMsgCadastroSucesso, setShowMsgCadastroSucesso] = useState(false);
     const [showMsgCadastroErro, setShowMsgCadastroErro] = useState(false);
+    const [showSpinnerCadastro, setShowSpinnerCadastro] = useState(false);
+
 
     async function handleCadastro(e){
         e.preventDefault()
-        let spinner = $("#spinner-cadastro")
         let btn = $("#btn-cadastro")
         btn.attr("disabled",true)
-        spinner.css("display","inline-block")
+        setShowSpinnerCadastro(true)
         let usuario = {};
         $.each($('#form-cadastro').serializeArray(), function(i, field) {
             usuario[field.name] = field.value;
         });
         await createUser(usuario).then((res)=>{
-            spinner.css("display","none")
+            setShowSpinnerCadastro(false)
+
 
             if(res.status!==201){
                 setShowMsgCadastroErro(true)
@@ -71,7 +73,9 @@ function Cadastro(){
                     </Form.Select>
                 </Form.Group>
                 <Button id="btn-cadastro" variant="primary" type="submit">
-                    <Spinner id="spinner-cadastro" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                    {showSpinnerCadastro &&
+                        <Spinner id="spinner-cadastro" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                    }
                     Cadastrar
                 </Button>
             </Form>

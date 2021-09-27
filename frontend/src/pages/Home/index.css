@@ -1,81 +1,46 @@
-
-#header{
-  background-color: var(--color-background);
-  height: 7vh;
-}
-
-#body{
-    background: url(./../../images/aviaobackground.jpg) no-repeat bottom center scroll;
-    width: 100vw;
-    height: 93vh;
-    padding: 0;
-    background-position: 30% 45%;
-    background-size: cover;
-}
-
-#div-body{
-    display: flex;    
-    width: 100%;
-    height: 100%;
+#row-header{
+    height: 7vh;
     background-color: var(--color-background);
-    position: relative;
 }
-#navbar-col {
-    padding: 0;
-    font-size: 1.3rem;
+#row-body{
+    background: url(./../../images/aviaobackground.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    color:white;
+    height: 93vh;
 }
-#menu-container{
-    padding: 0 ;
-    height: 100%;
+#col-body{
+    background-color: var(--color-background);
 }
-#menu-nav{
-    height: 100%;
-    width: 100%;
-    justify-content:flex-start;
+#col-navbar{
+    font-size: 1.4rem;
+    padding: 2rem 2rem;
+    margin: 0;
+    background-color: #212529;
+}
+#col-navbar a{
+    color: #c4c5c6;
+    transition: .3s;
+    margin-bottom: .1rem;
+}
+#col-navbar a:hover{
+    color:white;
 }
 
-#menu-nav>a{
-    flex:none;
-}
-#navbar {
-    height: 100%;
-}
-#home-nav{
-    margin-top: 2.5rem;
-}
-#logout-nav{
-    margin: auto auto 1rem auto
-}
-
-.nav-link span{
-    margin-left: 1rem;
-}
- 
-
-@media (max-width: 700px){
+@media (max-width: 768px){
     :root{
         font-size: 80.5%;
     }
-
-    #navbar-col{
-        line-height: 2.5rem;
-        font-size: 1.5rem;
+    #col-navbar{
+        padding: 2rem 0;
     }
-    .nav-link span{
+    #col-navbar a{
+        text-align: center;
+    }
+    #col-navbar a span{
         display: none;
     }
-
-    #logout-nav{
-        margin: 0 auto auto auto
-    }
-    
 }
-
-@media(max-width:768px){
-    .nav-link span{
-        margin-left: .3rem;
-    }
-}
-
-
-
