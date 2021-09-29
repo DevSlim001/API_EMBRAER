@@ -95,4 +95,8 @@ public class JwtService {
         return (String) obterClaims(token).get("role").toString();
     }
 
+    public String obterNomeUsuario(String token){
+        return (String) obterClaims(token).get("nome").toString();
+    }
+
 }

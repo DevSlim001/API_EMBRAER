@@ -19,6 +19,11 @@ function Login(){
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
     const [showMsgLogin, setShowMsgLogin] = useState(false);
+    const [msgModalLogin, setMsgModalLogin] = useState("");
+    const [msgAlertLogin, setMsgAlertLogin] = useState("");
+
+    
+
     const [showSpinnerEsqueciSenha, setShowSpinnerEsqueciSenha] = useState(false);
 
 
@@ -32,8 +37,7 @@ async function handleSubmit(e){
     await auth(email,senha,conectado).then((res)=>{
         if(res.status!==200){
             setShowMsgLogin(true)
-            let alert = `${res.data.errors[0]}`
-            $("#msgLogin").html(alert)
+            setMsgAlertLogin(`${res.data.errors[0]}`)
             setTimeout(() => {
                 setShowMsgLogin(false)
             }, 5500);
@@ -51,24 +55,21 @@ async function handleSubmit(e){
 async function handleEsqueceuSenha(e){
     e.preventDefault();
     let btn = $("#btn-recupera-senha")
-    let msg = $("#msgModal")
     btn.attr("disabled",true)
     setShowSpinnerEsqueciSenha(true)
     let email = $("#email-recuperacao").val()
     await esqueciSenha(email).then((res)=>{
         setShowSpinnerEsqueciSenha(false)
         if(res.status!==204){
-            msg.html(`<h4>✗ ${res.data.errors[0]}</h4>`);
+            setMsgModalLogin(`✗ ${res.data.errors[0]}`)
             setTimeout(() => {
-                msg.html("")
                 btn.attr("disabled",false)
             }, 4000);
         }
         else{
-            msg.html(`<h4>✓Senha enviada para seu email.</h4>`)
+            setMsgModalLogin(`✓ Senha enviada para seu email.`)
             setTimeout(() => {
                 handleCloseModal()
-                msg.html("")
             }, 4000);
         }
     })  
@@ -88,7 +89,7 @@ async function handleEsqueceuSenha(e){
 
                             <Form onSubmit={handleSubmit}>
                                 {showMsgLogin &&
-                                    <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setShowMsgLogin(false)} dismissible></Alert>
+                                    <Alert id="msgLogin" key="alertLogin" variant="danger" onClose={() => setShowMsgLogin(false)} dismissible>{msgAlertLogin}</Alert>
                                 }
                                 <Form.Group className="mb-3" controlId="email">
                                   <Form.Label>Email</Form.Label>
@@ -121,7 +122,7 @@ async function handleEsqueceuSenha(e){
                             <input type="email" className="form-control" id="email-recuperacao" placeholder="usuario@email.com" />
                         </div>
                     </form>
-                    <span id="msgModal"></span>
+                    <span id="msgModal">{msgModalLogin}</span>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>Voltar</Button>

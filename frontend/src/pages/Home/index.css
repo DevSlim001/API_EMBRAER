@@ -32,7 +32,7 @@
 
 @media (max-width: 768px){
     :root{
-        font-size: 80.5%;
+        font-size: 90%;
     }
     #col-navbar{
         padding: 2rem 0;

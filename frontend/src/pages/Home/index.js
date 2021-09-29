@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { FaSignOutAlt, FaUserEdit, FaMarker,FaHome } from 'react-icons/fa'
-import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap'
+import { Container, Row, Col, Nav } from 'react-bootstrap'
 
 import Header from './../../components/Header';
 import Cadastro from './../Cadastro';

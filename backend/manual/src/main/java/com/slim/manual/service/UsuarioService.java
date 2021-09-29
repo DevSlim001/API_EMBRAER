@@ -116,12 +116,19 @@ public class UsuarioService implements UserDetailsService{
         }
     }
 
-    public void updateUsuario(Integer codUsuario, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+    public TokenDTO updateUsuario(HttpServletRequest request, JsonPatch patch) throws JsonProcessingException, JsonPatchException{
+            String authorization = request.getHeader("Authorization");
+            String token = authorization.split(" ")[1];
+            Integer codUsuario = jwtService.obterCodUsuario(token);
             Usuario usuario = usuarioRepository
                 .findById(codUsuario)
                 .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado."));
             Usuario usuarioAtualizado = applyPatchToUsuario(patch,usuario);
             usuarioRepository.save(usuarioAtualizado);
+            return TokenDTO
+                        .builder()
+                        .token(jwtService.gerarToken(usuario, Long.valueOf(120)))
+                        .build();
     }
 
     public void updateSenhaUsuario(SenhaDTO senha, HttpServletRequest request){
@@ -163,9 +170,24 @@ public class UsuarioService implements UserDetailsService{
 
     }
 
+    public UsuarioDTO getUsuario(HttpServletRequest request){
+        String authorization = request.getHeader("Authorization");
+        String token = authorization.split(" ")[1];
+        Integer codUsuario = jwtService.obterCodUsuario(token);
+
+        return usuarioRepository.findById(codUsuario)
+            .map((usuario) -> {
+                return usuario.toUserDTO();
+            })
+            .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado."));
+        
+    }
+
     private Usuario applyPatchToUsuario(JsonPatch patch, Usuario usuario) throws JsonPatchException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode patched = patch.apply(objectMapper.convertValue(usuario, JsonNode.class));
         return objectMapper.treeToValue(patched, Usuario.class);
     }
+
+
 }

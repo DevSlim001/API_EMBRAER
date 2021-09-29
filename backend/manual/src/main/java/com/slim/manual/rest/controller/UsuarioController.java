@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,21 +111,20 @@ public class UsuarioController {
      *      {"op":"test","path":"/telephone","value":"001-555-5678"} verifica se o valor é igual
      * ] EXEMPLO objeto requisição
      * 
-     * @param codUsuario
      * @param patch
      * @return usuarioDTO
      * @throws JsonProcessingException
      * @throws JsonPatchException
      */
-    @PatchMapping(path="{codUsuario}",consumes = "application/json-patch+json")
+    @PatchMapping(consumes = "application/json-patch+json")
     @ApiOperation(value = "Faz a atualização parcial de um usuário.")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
-        @ApiResponse(code = 204,message = "Usuário atualizado."),
+        @ApiResponse(code = 200,message = "Usuário atualizado."),
         @ApiResponse(code = 404,message = "Usuário não encontrado.")
     })
-    public void updateUsuario(@PathVariable Integer codUsuario , @RequestBody JsonPatch patch) throws JsonProcessingException, JsonPatchException{
-        usuarioService.updateUsuario(codUsuario, patch);
+    public TokenDTO updateUsuario(@RequestBody JsonPatch patch, HttpServletRequest request) throws JsonProcessingException, JsonPatchException{
+        return usuarioService.updateUsuario(request, patch);
     }
 
     /**
@@ -173,4 +173,18 @@ public class UsuarioController {
     public void deleteUsuario(@PathVariable Integer codUsuario){
         usuarioService.deleteUsuario(codUsuario);
     }
+    /**
+     * Retorna as informações de um usuário
+     */
+    @GetMapping
+    @ApiOperation(value = "Retorna as informações de um usuário.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Usuário encontrado."),
+        @ApiResponse(code = 404,message = "Usuário não encontrado.")
+    })
+    public UsuarioDTO getUsuario(HttpServletRequest request) {
+        return usuarioService.getUsuario(request);
+    }
+    
 }
