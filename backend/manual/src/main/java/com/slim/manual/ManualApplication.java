@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+import com.slim.manual.domain.model.Manual;
 import com.slim.manual.domain.model.Usuario;
+import com.slim.manual.domain.repository.ManualRepository;
 import com.slim.manual.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +18,9 @@ public class ManualApplication extends SpringBootServletInitializer implements C
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ManualRepository manualRepository;
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder){
@@ -37,5 +42,11 @@ public class ManualApplication extends SpringBootServletInitializer implements C
             .build();
         usuarioRepository.save(usuario);
 
+        Manual manual = Manual.builder()
+                            .nome("ABC")
+                            .partNumber("1234")
+                            .build();
+
+        manualRepository.save(manual);
     }
 }
