@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class Traco {
     @Column
     private Integer traco;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tracos")
     List<Bloco> blocos;
 

@@ -31,6 +31,7 @@ public class Manual {
     public ManualDTO toManualDTO(){
         return ManualDTO
                     .builder()
+                    .codManual(this.codManual)
                     .partNumber(this.partNumber)
                     .nome(this.nome)
                     .build();

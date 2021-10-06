@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ManualDTO {
 
+    private Integer codManual;
+
     @NotEmpty(message = "{campo.partNumber.obrigatorio}")
     private String partNumber;
 
@@ -25,6 +27,7 @@ public class ManualDTO {
         new Manual();
         return Manual
                     .builder()
+                    .codManual(codManual)
                     .partNumber(partNumber)
                     .nome(nome)
                     .build();

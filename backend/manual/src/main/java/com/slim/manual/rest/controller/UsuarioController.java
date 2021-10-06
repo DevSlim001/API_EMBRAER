@@ -173,6 +173,7 @@ public class UsuarioController {
     public void deleteUsuario(@PathVariable Integer codUsuario){
         usuarioService.deleteUsuario(codUsuario);
     }
+    
     /**
      * Retorna as informações de um usuário
      */

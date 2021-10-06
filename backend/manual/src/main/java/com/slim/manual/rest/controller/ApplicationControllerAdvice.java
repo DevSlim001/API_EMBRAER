@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import com.slim.manual.ApiErrors;
 import com.slim.manual.exception.CredencialException;
+import com.slim.manual.exception.ManualNotFoundException;
+import com.slim.manual.exception.UploadCodelistException;
 import com.slim.manual.exception.UsuarioNotFoundException;
 import com.slim.manual.exception.UsuarioExistenteException;
 import com.slim.manual.exception.ValidateTokenException;
@@ -62,6 +64,21 @@ public class ApplicationControllerAdvice {
         String mensagem = ex.getMessage();
         return new ApiErrors(mensagem);
     }
+    @ExceptionHandler(UploadCodelistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleUploadCodelistException(UploadCodelistException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
+
+    @ExceptionHandler(ManualNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleManualNotFoundException(ManualNotFoundException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
+
+    
 }
 
 

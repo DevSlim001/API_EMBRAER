@@ -22,14 +22,18 @@ import java.util.List;
 import com.slim.manual.domain.model.Bloco;
 import com.slim.manual.domain.model.Codelist;
 import com.slim.manual.domain.model.CodelistLinha;
+import com.slim.manual.domain.model.Manual;
 import com.slim.manual.domain.model.Secao;
 import com.slim.manual.domain.model.SubSecao;
 import com.slim.manual.domain.model.Traco;
 import com.slim.manual.domain.repository.ManualRepository;
 import com.slim.manual.domain.repository.TracoRepository;
+import com.slim.manual.exception.ManualNotFoundException;
+import com.slim.manual.exception.UploadCodelistException;
+import com.slim.manual.rest.dto.ManualDTO;
 
 @Service
-public class CodelistService {
+public class ManualService {
 
     @Autowired
     private TracoRepository tracoRepository;
@@ -38,10 +42,23 @@ public class CodelistService {
     private ManualRepository manualRepository;
 
 
-
+    public List<ManualDTO> getManuais(){
+        List<ManualDTO> manuais = new ArrayList<ManualDTO>();
+        manualRepository
+            .findAll()
+            .forEach(manual -> {
+                manuais.add(manual.toManualDTO());
+            });
+        return manuais;
+    }
+    public Manual getManualById(Integer codManual){
+        return manualRepository
+            .findById(codManual)
+            .orElseThrow(() -> new ManualNotFoundException("Manual não encontrado."));
+    }
+    
     public void importCodelist(MultipartFile arquivo,Integer codManual) throws IOException{
-        manualRepository.findById(codManual).ifPresent((manual) -> {
-            
+        manualRepository.findById(codManual).ifPresentOrElse((manual)->{
             try {
                 @Cleanup FileInputStream codelistFile = (FileInputStream) arquivo.getInputStream();
                 @Cleanup Workbook workbook = new XSSFWorkbook(codelistFile);
@@ -116,7 +133,6 @@ public class CodelistService {
                             //Fim bloco
 
                             //Começo Adiciona o bloco na seção
-                            secao.getBlocos().add(bloco);
                             //Fim Adiciona o bloco na seção
                             if(secoes.size()==0){ 
                                 ultimoNumSecao[0] = secao.getNumSecao();
@@ -126,6 +142,8 @@ public class CodelistService {
                                     secao.getSubSecoes().add(subSecao);
                                     secoes.add(secao);
                                 } else {
+                                    secao.getBlocos().add(bloco);
+
                                     secoes.add(secao);
                                 }
                             } else {
@@ -138,6 +156,7 @@ public class CodelistService {
                                         secao.getSubSecoes().add(subSecao);
                                         secoes.add(secao);
                                     } else {
+                                        secao.getBlocos().add(bloco);
                                         secoes.add(secao);
                                     }
                                 } else {
@@ -167,11 +186,14 @@ public class CodelistService {
                 manualRepository.save(manual);
 
             } catch (IOException e) {
-                
+                new UploadCodelistException(e.getMessage());
             }
-             
             
+        },()-> {
+            throw new ManualNotFoundException("Manual não encontrado.");
         });
+
+        
 
     }
 }
