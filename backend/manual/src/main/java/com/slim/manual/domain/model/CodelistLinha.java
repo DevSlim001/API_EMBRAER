@@ -2,43 +2,23 @@ package com.slim.manual.domain.model;
 
 import java.util.List;
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/* 
-@Builder @Data @AllArgsConstructor @NoArgsConstructor */
-//@Entity(name = "codelist_linha")
+@AllArgsConstructor @Builder @Data @NoArgsConstructor
 public class CodelistLinha {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-/*     private Integer codCodelistLinha;
+
+    private String numSecao;
     
-    @Column
-    private String secao;
+    private String numSubSecao;
     
-    @Column
-    private String subSecao;
+    private String numBloco;
     
-    @Column
-    private String numeroBloco;
-    
-    @Column
     private String nomeBloco;
     
-    @Column
-    private String codBloco; */
-    
-    /* @OneToMany(cascade = CascadeType.ALL,mappedBy = "codelistLinha")
-    private List<Traco> tracos; */
+    private String codBlocoCodelist;
 
-/*     @ManyToMany
-    @JoinTable(
-        name = "bloco_tracos", 
-        joinColumns = @JoinColumn(name = "codCodelistLinha"), 
-        inverseJoinColumns = @JoinColumn(name = "cod_traco")
-    )
-    private List<Traco> tracos; */
+    private List<String> tracos;
+
 }

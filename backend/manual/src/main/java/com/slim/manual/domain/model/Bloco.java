@@ -27,6 +27,10 @@ public class Bloco {
     @Column
     private String codBlocoCodelist;
   
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "codArquivo", referencedColumnName = "codArquivo")
+    private Arquivo arquivo;
+
     @ManyToMany
     @JoinTable(
         name = "bloco_tracos", 

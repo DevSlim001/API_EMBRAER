@@ -4,8 +4,11 @@ package com.slim.manual.rest.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import com.slim.manual.domain.model.Codelist;
+import com.slim.manual.domain.model.CodelistLinha;
 import com.slim.manual.domain.model.Manual;
 import com.slim.manual.rest.dto.ManualDTO;
 import com.slim.manual.service.ManualService;
@@ -45,17 +48,34 @@ public class ManualController {
      * @param codManual
      * @throws IOException
      */
-    @PostMapping("/codelist/{codManual}")
+    @PostMapping("/{codManual}/codelist")
     @ApiOperation(value = "Faz upload de um codelist através de um arquivo excel.")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses({
-        @ApiResponse(code = 200,message = "Codelist importado com sucesso."),
+        @ApiResponse(code = 201,message = "Codelist importado com sucesso."),
         @ApiResponse(code = 400,message = "Erro ao importar codelist."),
         @ApiResponse(code = 404,message = "Manual não encontrado.")
     })
-    public void uploadCodeList(@RequestParam MultipartFile arquivo, @PathVariable Integer codManual) throws IOException{
-        manualService.importCodelist(arquivo,codManual);
+    public Manual uploadCodeList(@RequestParam MultipartFile arquivo, @PathVariable Integer codManual) throws IOException{
+        return manualService.importCodelist(arquivo,codManual);
         
+    }
+
+    /**
+     * Endpoint para criar um codelist. TESTAR
+     * @param codelist
+     * @param codManual
+     */
+    @PostMapping("/{codManual}/codelist/create")
+    @ApiOperation(value = "Cria um codelist.")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Codelist criado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao criar codelist."),
+        @ApiResponse(code = 404,message = "Manual não encontrado.")
+    })
+    public Manual createCodelist(@RequestBody Codelist codelist, @PathVariable Integer codManual){
+        return manualService.createCodelist(codelist,codManual);   
     }
 
     /**
@@ -84,5 +104,40 @@ public class ManualController {
     })
     public Manual getManualById(@PathVariable Integer codManual) {
         return manualService.getManualById(codManual);
+    }
+
+    @PostMapping
+    @ApiOperation(value = "Cria um manual.")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Manual criado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao criar manual.")
+    })
+    public ManualDTO createManual(@RequestBody @Valid ManualDTO manual) {
+        return manualService.createManual(manual);
+    }
+
+    @DeleteMapping("/{codManual}/bloco/{codBloco}")
+    @ApiOperation(value = "Deleta um bloco.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Manual criado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao criar manual.")
+    })
+    public Manual deleteBloco(@PathVariable Integer codManual, @PathVariable Integer codBloco) {
+        return manualService.deleteBloco(codManual,codBloco);
+    }
+
+    @PostMapping("/bloco/{codBloco}")
+    @ApiOperation(value = "Faz upload de um arquivo para o bloco especificado.")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Arquivo importado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao importar Arquivo."),
+        @ApiResponse(code = 404,message = "Manual não encontrado."),
+        @ApiResponse(code = 404,message = "Bloco não encontrado.")
+    })
+    public void uploadArquivoBloco(@RequestParam MultipartFile arquivo, @PathVariable Integer codBloco) throws IOException{
+        manualService.importArquivoBloco(arquivo,codBloco);
     }
 }

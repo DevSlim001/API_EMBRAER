@@ -1,6 +1,8 @@
 
 :root {
     --color-background: rgba(44, 44, 201, 0.822);
+    --color-background-header: rgba(39, 39, 180, 0.9);
+
 }
 
 body, html {

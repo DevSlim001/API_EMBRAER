@@ -1,25 +1,27 @@
 #row-header{
     height: 7vh;
-    background-color: var(--color-background);
+    background-color: var(--color-background-header);
 }
 #row-body{
+    height: 93vh;
+    background-color: var(--color-background);
+    overflow:auto;
+}
+#home{
     background: url(./../../images/aviaobackground.jpg) no-repeat bottom center scroll;
-    background-position: 30% 45%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
     color:white;
-    height: 93vh;
-}
-#col-body{
-    background-color: var(--color-background);
+    height: 100vh;
 }
 #col-navbar{
     font-size: 1.4rem;
     padding: 2rem 2rem;
     margin: 0;
     background-color: #212529;
+    
 }
 #col-navbar a{
     color: #c4c5c6;

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.slim.manual.ApiErrors;
 import com.slim.manual.exception.CredencialException;
 import com.slim.manual.exception.ManualNotFoundException;
+import com.slim.manual.exception.UploadArquivoBlocoException;
 import com.slim.manual.exception.UploadCodelistException;
 import com.slim.manual.exception.UsuarioNotFoundException;
 import com.slim.manual.exception.UsuarioExistenteException;
@@ -70,6 +71,15 @@ public class ApplicationControllerAdvice {
         String mensagem = ex.getMessage();
         return new ApiErrors(mensagem);
     }
+
+    @ExceptionHandler(UploadArquivoBlocoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleUploadArquivoBlocoException(UploadArquivoBlocoException ex){
+        String mensagem = ex.getMessage();
+        return new ApiErrors(mensagem);
+    }
+
+    
 
     @ExceptionHandler(ManualNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
