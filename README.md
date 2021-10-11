@@ -19,7 +19,7 @@
     <h2 align="center">Índices</h2>
     <ul>
         <li>
-            <a href="#primeiraEntrega">A primeira entrega</a>
+            <a href="#primeiraEntrega">A segunda entrega</a>
             <ul>
                 <li><a href="#o-que-fizemos">O que fizemos.</a></li>
                 <li><a href="#quais-foram-as-partes-mais-trabalhosas">Quais foram as partes mais trabalhosas?</a></li>
