@@ -104,12 +104,12 @@ function Codelist() {
         });
         createManual(manual).then((res) => {
             if (res.status !==201) {
+                setMsgModalCadastroManual(`✗ ${res.data.errors[0]}`)
+            } else {
                 setShowSpinnerCadastroManual(false)
                 setMsgModalCadastroManual(`✓ Cadastro realizado com sucesso.`)
                 btnCadastro.attr("disabled", false)
                 loadManuals()
-            } else {
-                setMsgModalCadastroManual(`✗ ${res.data.errors[0]}`)
             }
         }).catch((err) => {
             console.log(err)
