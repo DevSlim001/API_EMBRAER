@@ -61,7 +61,7 @@
     </p>
     <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg"
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/Sprint-1/docs/banco/modelo_conceitual.jpg"
             width="800px">
     </p>
     <h2 align="center" id="burndown">Burndown da Sprint</h2>
