@@ -26,8 +26,6 @@
             </ul>
         </li>
         <li><a href="#funcionamento">Nosso sistema em funcionamento até o momento</a></li>
-        <h3>Card da entrega</h3>
-        ![sp2 (1)](https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/sp2%20(1).png)
         <li><a href="#modeloBanco">Modelo conceitual do banco de dados</a></li>
         <li><a href="#burndown">Burndown da Sprint</a></li>
     </ul>
