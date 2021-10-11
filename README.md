@@ -92,7 +92,7 @@
         </tbody>
     </table>
     <h3> Banco de dados </h3>
-    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo_conceitual.jpg" width=680px
+    <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/banco/modelo%20conceitual%20atualizado.jpg" width=680px
         height=500px>
     <h3>:hourglass_flowing_sand: Entregas</h3>
     <h4>Primeira entrega :clock12:</h4>
