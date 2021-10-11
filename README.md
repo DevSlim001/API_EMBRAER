@@ -151,7 +151,7 @@
                 <p align="center">&#10060</p>
             </td>
             <td>
-                <p align="center"><a href="#">Visualizar</p>
+                <p align="center"><a href="https://github.com/DevSlim001/API_Slim_4Semestre/tree/Sprint-2">Visualizar</p>
             </td>
         </tr>
         <tr>
