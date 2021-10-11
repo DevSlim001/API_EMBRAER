@@ -50,7 +50,7 @@
     </p>
     <h2 align="center" id="cardEntrega">Card da entrega</h2>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/sp2%20(1).png">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/sp2%20(1).png" width="500px">
     </p>
     <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
     <p align="center">
