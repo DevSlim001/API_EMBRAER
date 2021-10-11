@@ -46,10 +46,7 @@
     </p>
     <h2 align="center" id="funcionamento">Nosso sistema em funcionamento até o momento</h2>
     <p align="center">
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/cadastro.gif" width="650px"><br /><br />
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/login.gif" width="650px"><br /><br />
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/logout.gif" width="650px"><br /><br />
-        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/videos/Sprint%201/redefini%C3%A7%C3%A3o-de-senha.gif" width="650px">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/import%20file%20bloco.gif" width="650px"><br /><br />
     </p>
     <h2 align="center" id="cardEntrega">Card da entrega</h2>
     <p align="center">
