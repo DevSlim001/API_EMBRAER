@@ -48,6 +48,9 @@
     <p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/import%20file%20bloco.gif" width="650px"><br /><br />
     </p>
+    <p>
+        <h3>Devido ao tamanho dos arquivos, disponibilzamos todos eles em uma pasta no google drive: https://drive.google.com/drive/folders/1e2K0AXq1AId87zFTttQ7wBNYQWeo0k-g?usp=sharing</h3>
+    </p>
     <h2 align="center" id="cardEntrega">Card da entrega</h2>
     <p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/sp2%20(1).png">
