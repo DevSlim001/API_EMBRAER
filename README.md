@@ -41,9 +41,9 @@
     <p align="justify">
         Para esta entrega, as maiores dificuldades foram converter o arquivo do codelist para a estrutura do nosso banco e realizar o upload de arquivos.
     </p>
-    <p align="center">
+    */<p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/docs/Sprints/CARD1%20(1).png" width="650px">
-    </p>
+    </p>*/
     <h2 align="center" id="funcionamento">Nosso sistema em funcionamento até o momento</h2>
     <p align="center">
         <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/main/prints/import%20file%20bloco.gif" width="650px"><br /><br />
