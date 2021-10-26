@@ -16,7 +16,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -353,14 +356,19 @@ public class ManualService {
         blocoRepository.findById(codBloco).ifPresentOrElse((bloco)->{
             try {
                 if (arquivo != null && !arquivo.isEmpty()) {
-                    String path = servletContext.getRealPath("/") + "resources/arquivos/" + arquivo.getOriginalFilename();
+                   /*  String path = servletContext.getRealPath("/") + "resources/arquivos/" + arquivo.getOriginalFilename();
                     System.out.println(path);
                     Path diretorioPath = Paths.get(path);
-		            Path arquivoPath = diretorioPath.resolve(arquivo.getOriginalFilename());
-                    
+		            Path arquivoPath = diretorioPath.resolve(arquivo.getOriginalFilename()); */
+                    String filePath = "./Downloads/"+arquivo.getOriginalFilename();
                     try {
-                        Files.createDirectories(diretorioPath);
-			            arquivo.transferTo(arquivoPath.toFile());
+                       /*  Files.createDirectories(diretorioPath);
+			            arquivo.transferTo(arquivoPath.toFile()); */
+                        File file = new File(filePath);
+                        System.out.println(file.getAbsolutePath());
+
+                        FileOutputStream saida = new FileOutputStream(file); 
+                        copiar(arquivo.getInputStream(), saida);
                         Arquivo arquivoBloco = Arquivo.builder()
                                                 .nomeArquivo(arquivo.getOriginalFilename())
                                                 .build();
@@ -378,5 +386,38 @@ public class ManualService {
         },()-> {
             throw new ManualNotFoundException("Bloco não encontrado.");
         });
+    }
+    private void copiar(InputStream origem, OutputStream destino) {
+        int bite = 0; byte[] 
+        tamanhoMaximo = new byte[1024 * 100 * 1024]; // 8KB
+        try { 
+        // enquanto bytes forem sendo lidos 
+           while((bite = origem.read(tamanhoMaximo)) >= 0) { 
+            // pegue o byte lido e escreva no destino 
+             destino.write(tamanhoMaximo, 0, bite);
+             } 
+           } catch (IOException e) { 
+             // TODO Auto-generated catch block e.printStackTrace();
+        } 
+    }
+    /* ----------------------------------------------------------------------- */
+    File raiz = new File("./src/main/resources/arquivos");
+
+    public String[] listDiretorioManuais() throws IOException{
+        return raiz.list();
+
+    }
+
+    public void createDiretorioManual(ManualDTO manual) throws IOException{
+        File diretorioManual = new File(raiz.getPath()+"/"+manual.getNome()+"-"+manual.getPartNumber());
+        diretorioManual.mkdir();
+
+    }
+
+    public String[] listDiretorioSecao(String manual) throws IOException{
+        System.out.println(raiz.getPath()+"/"+manual+"/Master/");
+        File diretorioManual = new File(raiz.getPath()+"/"+manual+"/Master/");
+        return diretorioManual.list();
+
     }
 }

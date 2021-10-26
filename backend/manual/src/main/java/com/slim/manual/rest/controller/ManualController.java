@@ -58,7 +58,9 @@ public class ManualController {
     })
     public Manual uploadCodeList(@RequestParam MultipartFile arquivo, @PathVariable Integer codManual) throws IOException{
         return manualService.importCodelist(arquivo,codManual);
-        
+        // /(manual+pn)/Master/(numSecao)(vai precisar arrumar algum jeito de identificar pq eu nao salvo o nome da secao)/(numBloco+nomeBloco)/(nomeManual+pn)-(numSecao)-(numBloco)c(codBlocoCodelist)
+        // /(manual+pn)/Master/(numSecao)/(numSubsecao)(msm esquema da secao)/(numBloco+nomeBloco)/(nomeManual+pn)-(numSecao)-(numBloco)c(codBlocoCodelist)
+
     }
 
     /**
@@ -139,5 +141,38 @@ public class ManualController {
     })
     public void uploadArquivoBloco(@RequestParam MultipartFile arquivo, @PathVariable Integer codBloco) throws IOException{
         manualService.importArquivoBloco(arquivo,codBloco);
+    }
+    /* ------------------------------ROTAS DE TESTE----------------------------------- */
+    @GetMapping("/listManuais")
+    @ApiOperation(value = "Retorna todos os manuais no diretório.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Manuais encontrados com sucesso."),
+        @ApiResponse(code = 404,message = "Manuais não encontrado.")
+    })
+    public String[] listManuais() throws IOException {
+        return manualService.listDiretorioManuais();
+    }
+
+    @PostMapping("/listSecao")
+    @ApiOperation(value = "Lista as seções do manual.")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Manual criado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao criar manual.")
+    })
+    public void createManualDiretorio(@RequestBody ManualDTO manual) throws IOException {
+        manualService.createDiretorioManual(manual);
+    }
+
+    @GetMapping("/listSecoes/{manual}")
+    @ApiOperation(value = "Retorna todas as seções de um manual.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Seções encontradas com sucesso."),
+        @ApiResponse(code = 404,message = "Seções não encontradas.")
+    })
+    public String[] listSecoes(@PathVariable String manual) throws IOException {
+        return manualService.listDiretorioSecao(manual);
     }
 }
