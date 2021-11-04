@@ -15,7 +15,7 @@
     <p align="center"><img
             src="https://img.shields.io/badge/status-em_desenvolvimento-blue?style=for-the-badge&logo=appveyor"></p>
     <p align="center"><img
-            src="https://img.shields.io/badge/Sprint%20atual-Sprint 1-blue?style=for-the-badge&logo=appveyor"></p>
+            src="https://img.shields.io/badge/Sprint%20atual-Sprint 3-blue?style=for-the-badge&logo=appveyor"></p>
     <h2>Desafio Proposto</h2>
     <p align="justify">Desenvolver um sistema para gerar documentos de aeronaves de acordo com os padrões estabelecidos
         pela empresa parceira</p>
@@ -148,7 +148,7 @@
                 <p align="center">10/10</p>
             </td>
             <td>
-                <p align="center">&#10060</p>
+                <p align="center">&#9989</p>
             </td>
             <td>
                 <p align="center"><a href="https://github.com/DevSlim001/API_Slim_4Semestre/tree/Sprint-2">Visualizar</p>
