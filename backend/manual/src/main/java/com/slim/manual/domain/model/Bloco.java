@@ -4,15 +4,19 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.slim.manual.rest.dto.ManualDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity(name = "bloco")
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder @ToString
 public class Bloco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +34,16 @@ public class Bloco {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codArquivo", referencedColumnName = "codArquivo")
     private Arquivo arquivo;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="codSecao")
+    private Secao secao;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="codSubSecao")
+    private SubSecao subSecao;
 
     @ManyToMany
     @JoinTable(

@@ -1,5 +1,6 @@
 package com.slim.manual.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -9,10 +10,12 @@ import com.slim.manual.rest.dto.ManualDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "manual")
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Manual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +27,14 @@ public class Manual {
     @Column
     private String nome;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "manual")
     private List<Secao> secoes ;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "manual")
+    private List<Revisao> revisoes = new ArrayList<Revisao>();
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "manual")
+    private List<Traco> tracos = new ArrayList<Traco>();
 
     public ManualDTO toManualDTO(){
         return ManualDTO
@@ -38,39 +47,3 @@ public class Manual {
 
 }
 
-/* 
-
-package com.slim.manual.domain.model;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-
-import com.slim.manual.rest.dto.ManualDTO;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity(name = "manual")
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class Manual {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codManual;
-    
-    @Column
-    private String partNumber;
-    
-    @Column
-    private String nome;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codCodelist", referencedColumnName = "codCodelist")
-    private Codelist codelist;
-
-
-}
-*/

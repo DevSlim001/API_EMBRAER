@@ -28,6 +28,11 @@ public class Traco {
     @ManyToMany(mappedBy = "tracos")
     List<Bloco> blocos;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="codManual")
+    private Manual manual; 
+
     public void removeBloco(Bloco bloco){
         this.blocos.remove(bloco);
         bloco.removeTraco(this);

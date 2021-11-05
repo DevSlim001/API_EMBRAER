@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import com.slim.manual.domain.model.Codelist;
 import com.slim.manual.domain.model.CodelistLinha;
 import com.slim.manual.domain.model.Manual;
+import com.slim.manual.domain.model.Revisao;
+import com.slim.manual.domain.model.Secao;
+import com.slim.manual.domain.model.Traco;
 import com.slim.manual.rest.dto.ManualDTO;
 import com.slim.manual.service.ManualService;
 
@@ -141,6 +144,43 @@ public class ManualController {
     })
     public void uploadArquivoBloco(@RequestParam MultipartFile arquivo, @PathVariable Integer codBloco) throws IOException{
         manualService.importArquivoBloco(arquivo,codBloco);
+    }
+
+    @GetMapping("/{codManual}/{numSecao}")
+    @ApiOperation(value = "Faz upload de um codelist através de um arquivo excel.")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiResponses({
+        @ApiResponse(code = 201,message = "Codelist importado com sucesso."),
+        @ApiResponse(code = 400,message = "Erro ao importar codelist."),
+        @ApiResponse(code = 404,message = "Manual não encontrado.")
+    })
+    public Secao teste(@PathVariable Integer codManual, @PathVariable String numSecao){
+        return manualService.testeSecao(numSecao, codManual);
+
+    }
+
+    @GetMapping("/{codManual}/revisoes")
+    @ApiOperation(value = "Retorna todas as revisões cadastradas de um determinado manual.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Revisões encontradas com sucesso."),
+        @ApiResponse(code = 404,message = "Manual não encontrado.")
+    })
+    public List<Revisao> getRevisoes(@PathVariable Integer codManual){
+        return manualService.getRevisoesByCodManual(codManual);
+
+    }
+
+    @GetMapping("/{codManual}/tracos")
+    @ApiOperation(value = "Retorna todos os tracos cadastrados de um determinado manual.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Traços encontrados com sucesso."),
+        @ApiResponse(code = 404,message = "Manual não encontrado.")
+    })
+    public List<Traco> getTracos(@PathVariable Integer codManual){
+        return manualService.getTracosByCodManual(codManual);
+
     }
     /* ------------------------------ROTAS DE TESTE----------------------------------- */
     @GetMapping("/listManuais")
