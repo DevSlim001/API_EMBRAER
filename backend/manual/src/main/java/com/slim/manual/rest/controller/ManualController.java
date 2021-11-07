@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -171,6 +172,18 @@ public class ManualController {
     })
     public List<Traco> getTracos(@PathVariable Integer codManual){
         return manualService.getTracosByCodManual(codManual);
+
+    }
+
+    @PutMapping("/{codManual}/revisoes")
+    @ApiOperation(value = "Atualiza o registro de revisões de um determinado manual.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Revisões atualizadas com sucesso."),
+        @ApiResponse(code = 404,message = "Manual não encontrado.")
+    })
+    public void atualizarRevisoes(@PathVariable Integer codManual){
+        manualService.atualizarRev(codManual);
 
     }
 

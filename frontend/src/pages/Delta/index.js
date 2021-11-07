@@ -9,6 +9,7 @@ import getManualById from './../../js/Manual/getManualById'
 import getTracosByCodManual from './../../js/Manual/getTracosByCodManual';
 import getRevisoesByCodManual from './../../js/Manual/getRevisoesByCodManual';
 import downloadDelta from './../../js/Manual/downloadDelta';
+import updateRevisoes from './../../js/Manual/updateRevisaoManual';
 
 function Delta() {
 
@@ -16,7 +17,7 @@ function Delta() {
     const [revisoes, setRevisoes] = useState([])
     const [tracos, setTracos] = useState([])
     const [showFormRevisao, setShowFormRevisao] = useState(false)
-    
+
 
     const loadManuals = () => {
         getManuals().then((res) => {
@@ -49,19 +50,37 @@ function Delta() {
         })
     }
 
+    const handleUpdateRevisoes = (e) => {
+        e.preventDefault()
+        let form = $("#form-manual-delta")
+        let opt = form.serializeArray()[0].value
+        let codManual = parseInt(opt)
+        updateRevisoes(codManual).then((res) => {
+            getRevisoesByCodManual(codManual).then((res) => {
+                setRevisoes(res.data)
+                setShowFormRevisao(true)
+            }).catch(err => {
+                console.log(err)
+            })
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     const handleDownloadDelta = (e) => {
         e.preventDefault()
         let form = $("#form-download-delta")
         let data = {}
-        $.each(form.serializeArray(), function(i, field) {
+        $.each(form.serializeArray(), function (i, field) {
             data[field.name] = parseInt(field.value);
         });
         data.codManual = parseInt($("#form-manual-delta").serializeArray()[0].value)
-        downloadDelta(data.codManual,data.codRevisao,data.traco).then(res => {
+        downloadDelta(data.codManual, data.codRevisao, data.traco).then(res => {
             console.log(res)
             let nomeDeltaFile = res.headers["content-disposition"].split("filename=\"")[1].split('"')[0]
-            let deltaBlob =res.data
-            let urlDeltaFile = URL.createObjectURL(deltaBlob) 
+            let deltaBlob = res.data
+            let urlDeltaFile = URL.createObjectURL(deltaBlob)
             const downloadDelta = window.document.createElement('a');
             downloadDelta.href = urlDeltaFile;
             downloadDelta.download = nomeDeltaFile
@@ -91,6 +110,13 @@ function Delta() {
             <br />
             {showFormRevisao &&
                 <Form onSubmit={handleDownloadDelta} id="form-download-delta">
+                    {/* <center>
+                        <h4>Caso não encontre a revisão desejada e já tenha transferido os arquivos para o servidor, clique no botao abaixo para atualizar os registros de revisão.</h4>
+                    </center> */}
+                    <div className="d-grid gap-2">
+                        <Button type="button" id="btn-att-revisoes" onClick={handleUpdateRevisoes} variant="primary">Atualizar registro das revisões</Button>
+                    </div>
+                    <br />
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="revisao">

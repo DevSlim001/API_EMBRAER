@@ -141,7 +141,7 @@ public class ManualService {
     }
 
     private String findDiretorio(String path, String numberSecao) {
-        
+
         File raizDoc = new File(path);
         List<String> diretorios = new ArrayList<String>(Arrays.asList(raizDoc.list()));
         Iterator<String> diretoriosIterator = diretorios.iterator();
@@ -243,7 +243,6 @@ public class ManualService {
 
                                 // Começo bloco
                                 Bloco bloco;
-                                
 
                                 if (!subSecao.equals(new SubSecao())) {
                                     String findDiretorioSubSecao = findDiretorio(filePath[0],
@@ -276,24 +275,18 @@ public class ManualService {
                                     });
                                 }
                                 // Fim traços do bloco
-                                if(subSecao.equals(new SubSecao())){
-                                    bloco = Bloco.builder()
-                                        .numBloco(celulas.get(2).toString())
-                                        .nomeBloco(celulas.get(3).toString())
-                                        .codBlocoCodelist(celulas.get(4).toString())
-                                        .tracos(tracosBloco)
-                                        .secao(secao)
-                                        .build();
+                                if (subSecao.equals(new SubSecao())) {
+                                    bloco = Bloco.builder().numBloco(celulas.get(2).toString())
+                                            .nomeBloco(celulas.get(3).toString())
+                                            .codBlocoCodelist(celulas.get(4).toString()).tracos(tracosBloco)
+                                            .secao(secao).build();
                                 } else {
-                                    bloco = Bloco.builder()
-                                        .numBloco(celulas.get(2).toString())
-                                        .nomeBloco(celulas.get(3).toString())
-                                        .codBlocoCodelist(celulas.get(4).toString())
-                                        .tracos(tracosBloco)
-                                        .subSecao(subSecao)
-                                        .build();
+                                    bloco = Bloco.builder().numBloco(celulas.get(2).toString())
+                                            .nomeBloco(celulas.get(3).toString())
+                                            .codBlocoCodelist(celulas.get(4).toString()).tracos(tracosBloco)
+                                            .subSecao(subSecao).build();
                                 }
-                                
+
                                 String findDiretorioBloco = findDiretorio(filePath[0], bloco.getNumBloco());
                                 if (!findDiretorioBloco.equals("false")) {
                                     filePath[0] = filePath[0].concat(findDiretorioBloco + "/");
@@ -377,9 +370,7 @@ public class ManualService {
             } catch (IOException e) {
                 throw new UploadCodelistException(e.getMessage());
             }
-            manualRepository.save(manual);
-            cadRevisao(manual.getCodManual());
-            return manual;
+            return manualRepository.save(manual);
         }).orElseThrow(() -> new ManualNotFoundException("Manual não encontrado."));
     }
 
@@ -492,34 +483,26 @@ public class ManualService {
         }).orElseThrow(() -> new ManualNotFoundException("Manual não encontrado."));
     }
 
-/*     public void importArquivoBloco(MultipartFile arquivo, Integer codBloco) throws IOException {
-        blocoRepository.findById(codBloco).ifPresentOrElse((bloco) -> {
-            try {
-                if (arquivo != null && !arquivo.isEmpty()) {
-                    
-                    String filePath = "./Downloads/" + arquivo.getOriginalFilename();
-                    try {
-                       
-                        File file = new File(filePath);
-
-                        FileOutputStream saida = new FileOutputStream(file);
-                        copiar(arquivo.getInputStream(), saida);
-                        Arquivo arquivoBloco = Arquivo.builder().nomeArquivo(arquivo.getOriginalFilename()).build();
-                        bloco.setArquivo(arquivoBloco);
-                        blocoRepository.save(bloco);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } catch (Exception e) {
-                new UploadArquivoBlocoException(e.getMessage());
-            }
-
-        }, () -> {
-            throw new ManualNotFoundException("Bloco não encontrado.");
-        });
-    } */
+    /*
+     * public void importArquivoBloco(MultipartFile arquivo, Integer codBloco)
+     * throws IOException {
+     * blocoRepository.findById(codBloco).ifPresentOrElse((bloco) -> { try { if
+     * (arquivo != null && !arquivo.isEmpty()) {
+     * 
+     * String filePath = "./Downloads/" + arquivo.getOriginalFilename(); try {
+     * 
+     * File file = new File(filePath);
+     * 
+     * FileOutputStream saida = new FileOutputStream(file);
+     * copiar(arquivo.getInputStream(), saida); Arquivo arquivoBloco =
+     * Arquivo.builder().nomeArquivo(arquivo.getOriginalFilename()).build();
+     * bloco.setArquivo(arquivoBloco); blocoRepository.save(bloco); } catch
+     * (IOException e) { e.printStackTrace(); } }
+     * 
+     * } catch (Exception e) { new UploadArquivoBlocoException(e.getMessage()); }
+     * 
+     * }, () -> { throw new ManualNotFoundException("Bloco não encontrado."); }); }
+     */
 
     private void cadRevisao(Integer codManual) {
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
@@ -528,101 +511,101 @@ public class ManualService {
             List<String> listRevisoes = Arrays.asList(raizRevisao.list());
 
             listRevisoes.forEach((rev) -> {
-                File revDiret = new File(raizRevisao.getPath()+"/" + rev + "/Edição/");
-                if (revDiret.exists()) {
-                    Revisao revisao = Revisao
-                                        .builder()
-                                        .nomeRevisao(rev)
-                                        .manual(manual)
-                                        .build();
-                    revisao.setCodRevisao(revisaoRepository.save(revisao).getCodRevisao());
-                    List<String> secaoList = Arrays.asList(revDiret.list());
-                    if (secaoList.size() > 0) {
-                        secaoList.forEach((s) -> {
-                            secaoRepository.findByNumSecaoAndManual(s.split(" ")[0], manual)
-                                    .ifPresentOrElse((secao) -> {
-                                        File secaoDiret = new File(revDiret.getPath()+"/" + s + "/");
-                                        List<String> itemsSecaoDiret = Arrays.asList(secaoDiret.list());
-                                        itemsSecaoDiret.forEach(i -> {
-                                            File itemDiret = new File(secaoDiret.getPath()+"/" + i + "/");
-                                            List<String> items = Arrays.asList(itemDiret.list());
-                                            items.forEach(it -> {
+                if (!revisaoRepository.findByNomeRevisaoAndManual(rev, manual).isPresent()) {
+                    File revDiret = new File(raizRevisao.getPath() + "/" + rev + "/Edição/");
+                    if (revDiret.exists()) {
+                        Revisao revisao = Revisao.builder().nomeRevisao(rev).manual(manual).build();
+                        revisao.setCodRevisao(revisaoRepository.save(revisao).getCodRevisao());
+                        List<String> secaoList = Arrays.asList(revDiret.list());
+                        if (secaoList.size() > 0) {
+                            secaoList.forEach((s) -> {
+                                secaoRepository.findByNumSecaoAndManual(s.split(" ")[0], manual)
+                                        .ifPresentOrElse((secao) -> {
+                                            File secaoDiret = new File(revDiret.getPath() + "/" + s + "/");
+                                            List<String> itemsSecaoDiret = Arrays.asList(secaoDiret.list());
+                                            itemsSecaoDiret.forEach(i -> {
+                                                File itemDiret = new File(secaoDiret.getPath() + "/" + i + "/");
+                                                List<String> items = Arrays.asList(itemDiret.list());
+                                                items.forEach(it -> {
 
-                                                File item = new File(itemDiret.getPath()+"/"+it);
-                                                if(item.isDirectory()){
-                                                    //item vai ser uma subseção
+                                                    File item = new File(itemDiret.getPath() + "/" + it);
+                                                    if (item.isDirectory()) {
+                                                        // item vai ser uma subseção
 
-                                                    List<String> arquivos = Arrays.asList(item.list());
-                                                    arquivos.forEach(arquivoNome -> {
-                                                        String nomeArquivoBloco = (item.getPath()+"/"+arquivoNome).replaceAll("Rev/"+rev+"/Edição","Master");
+                                                        List<String> arquivos = Arrays.asList(item.list());
+                                                        arquivos.forEach(arquivoNome -> {
+                                                            String nomeArquivoBloco = (item.getPath() + "/"
+                                                                    + arquivoNome).replaceAll("Rev/" + rev + "/Edição",
+                                                                            "Master");
 
-                                                        arquivoRepository.findByNomeArquivoLike(nomeArquivoBloco).ifPresentOrElse((arquivo) -> {
-                                                            blocoRepository.findByArquivo(arquivo).ifPresentOrElse((bloco) -> {
-                                                                Arquivo arquivoBlocoRev = Arquivo
-                                                                                                .builder()
-                                                                                                .nomeArquivo(item.getPath()+"/"+arquivoNome)
-                                                                                                .build();
-                                                                BlocoRevisao blocoRevisao = BlocoRevisao
-                                                                                                .builder()
-                                                                                                .arquivo(arquivoBlocoRev)
-                                                                                                .bloco(bloco)
-                                                                                                .revisao(revisao)
-                                                                                                .build();
+                                                            arquivoRepository.findByNomeArquivoLike(nomeArquivoBloco)
+                                                                    .ifPresentOrElse((arquivo) -> {
+                                                                        blocoRepository.findByArquivo(arquivo)
+                                                                                .ifPresentOrElse((bloco) -> {
+                                                                                    Arquivo arquivoBlocoRev = Arquivo
+                                                                                            .builder()
+                                                                                            .nomeArquivo(item.getPath()
+                                                                                                    + "/" + arquivoNome)
+                                                                                            .build();
+                                                                                    BlocoRevisao blocoRevisao = BlocoRevisao
+                                                                                            .builder()
+                                                                                            .arquivo(arquivoBlocoRev)
+                                                                                            .bloco(bloco)
+                                                                                            .revisao(revisao).build();
 
-                                                                blocoRevisaoRepository.save(blocoRevisao);
-                                                            }, () -> {
+                                                                                    blocoRevisaoRepository
+                                                                                            .save(blocoRevisao);
+                                                                                }, () -> {
 
-                                                            });
-                                                        }, () -> {
+                                                                                });
+                                                                    }, () -> {
 
+                                                                    });
                                                         });
-                                                    });
-                                                } else {
-                                                        String nomeArquivoBloco = (item.getPath()).replaceAll("Rev/"+rev+"/Edição","Master");
-                                                        arquivoRepository.findByNomeArquivoLike(nomeArquivoBloco).ifPresentOrElse((arquivo) -> {
-                                                            blocoRepository.findByArquivo(arquivo).ifPresentOrElse((bloco) -> {
-                                                                Arquivo arquivoBlocoRev = Arquivo
-                                                                .builder()
-                                                                .nomeArquivo(item.getPath())
-                                                                .build();
-                                                                BlocoRevisao blocoRevisao = BlocoRevisao
-                                                                                                .builder()
-                                                                                                .arquivo(arquivoBlocoRev)
-                                                                                                .bloco(bloco)
-                                                                                                .revisao(revisao)
-                                                                                                .build();
+                                                    } else {
+                                                        String nomeArquivoBloco = (item.getPath())
+                                                                .replaceAll("Rev/" + rev + "/Edição", "Master");
+                                                        arquivoRepository.findByNomeArquivoLike(nomeArquivoBloco)
+                                                                .ifPresentOrElse((arquivo) -> {
+                                                                    blocoRepository.findByArquivo(arquivo)
+                                                                            .ifPresentOrElse((bloco) -> {
+                                                                                Arquivo arquivoBlocoRev = Arquivo
+                                                                                        .builder()
+                                                                                        .nomeArquivo(item.getPath())
+                                                                                        .build();
+                                                                                BlocoRevisao blocoRevisao = BlocoRevisao
+                                                                                        .builder()
+                                                                                        .arquivo(arquivoBlocoRev)
+                                                                                        .bloco(bloco).revisao(revisao)
+                                                                                        .build();
 
-                                                                blocoRevisaoRepository.save(blocoRevisao);
-                                                            }, () -> {
+                                                                                blocoRevisaoRepository
+                                                                                        .save(blocoRevisao);
+                                                                            }, () -> {
 
-                                                            });
-                                                        }, () -> {
+                                                                            });
+                                                                }, () -> {
 
-                                                        });
-                                                }
+                                                                });
+                                                    }
+                                                });
+
                                             });
 
-                                                
+                                        }, () -> {
+
                                         });
-
-                                    }, () -> {
-
-                                    });
-                        });
+                            });
+                        }
                     }
                 }
-                gerarDocumentoDelta(manual.getCodManual(),1,50);
-                gerarDocumentoDelta(manual.getCodManual(),1,55);
-                gerarDocumentoDelta(manual.getCodManual(),1,60);
-
-
-
             });
         }, () -> {
             throw new ManualNotFoundException("Manual não encontrado.");
         });
     }
-    public List<Revisao> getRevisoesByCodManual(Integer codManual){
+
+    public List<Revisao> getRevisoesByCodManual(Integer codManual) {
         List<Revisao> revisoes = new ArrayList<Revisao>();
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
             revisoes.addAll(revisaoRepository.findByManual(manual));
@@ -632,37 +615,39 @@ public class ManualService {
         return revisoes;
     }
 
-    public void gerarDocumentoDelta(Integer codManual, Integer codRevisao,Integer traco){
-        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {    
+    public void gerarDocumentoDelta(Integer codManual, Integer codRevisao, Integer traco) {
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
             revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
-                String caminhoDeltaTemp = raiz.getPath()+"/"+manual.getNome()+"-"+manual.getPartNumber()+"/Rev/"+revisao.getNomeRevisao()+"/"+manual.getNome()+"-"+manual.getPartNumber()+"-"+traco.toString()+"-"+revisao.getNomeRevisao().toUpperCase()+"-"+"DELTA.pdf";
+                String caminhoDeltaTemp = raiz.getPath() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                        + "/Rev/" + revisao.getNomeRevisao() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                        + "-" + traco.toString() + "-" + revisao.getNomeRevisao().toUpperCase() + "-" + "DELTA.pdf";
                 PDDocument documentoDelta = new PDDocument();
-                
+
                 List<ModificacaoBloco> modificacaoBlocos = new ArrayList<ModificacaoBloco>();
                 blocoRevisaoRepository.findByRevisaoOrderByBloco(revisao).forEach(blocoRevisao -> {
                     List<Integer> tracos = new ArrayList<Integer>();
                     blocoRevisao.getBloco().getTracos().forEach(t -> {
                         tracos.add(t.getTraco());
                     });
-                    if(tracos.contains(traco)){
+                    if (tracos.contains(traco)) {
                         try {
                             File arquivoRev = new File(blocoRevisao.getArquivo().getNomeArquivo());
                             File arquivoMaster = new File(blocoRevisao.getBloco().getArquivo().getNomeArquivo());
-                            RandomAccessBufferedFileInputStream aRev = new RandomAccessBufferedFileInputStream(arquivoRev);
-                            RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(arquivoMaster);
-                            
+                            RandomAccessBufferedFileInputStream aRev = new RandomAccessBufferedFileInputStream(
+                                    arquivoRev);
+                            RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(
+                                    arquivoMaster);
+
                             PDFParser parserRev = new PDFParser(aRev);
                             PDFParser parserMaster = new PDFParser(aMaster);
                             parserRev.parse();
                             parserMaster.parse();
-
 
                             COSDocument cosDocRev = parserRev.getDocument();
                             COSDocument cosDocMaster = parserMaster.getDocument();
 
                             PDFTextStripper pdfStripperRev = new PDFTextStripper();
                             PDFTextStripper pdfStripperMaster = new PDFTextStripper();
-
 
                             PDDocument pdDocRev = new PDDocument(cosDocRev);
                             PDDocument pdDocMaster = new PDDocument(cosDocMaster);
@@ -673,65 +658,47 @@ public class ManualService {
 
                                 pdfStripperMaster.setStartPage(i);
                                 pdfStripperMaster.setEndPage(i);
-                                
+
                                 String parsedTextRev = pdfStripperRev.getText(pdDocRev);
                                 String parsedTextMaster = pdfStripperMaster.getText(pdDocMaster);
-                                if(parsedTextMaster.equals(parsedTextRev)){
-                                    
-                                    modificacaoBlocos.add(
-                                        ModificacaoBloco.builder()
-                                            .blocoRevisao(blocoRevisao)
+                                if (parsedTextMaster.equals(parsedTextRev)) {
+
+                                    modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
                                             .paginaBloco(String.valueOf(i))
-                                            .revisaoNome("REVISION 0"+revisao.getNomeRevisao().split("Rev")[1])
-                                            .build()
-                                    );
+                                            .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                            .build());
                                 } else {
-                                    if(pdDocRev.getNumberOfPages()<pdDocMaster.getNumberOfPages()){
-                                        if(i>pdDocRev.getNumberOfPages()){
-                                            modificacaoBlocos.add(
-                                                ModificacaoBloco.builder()
-                                                    .blocoRevisao(blocoRevisao)
+                                    if (pdDocRev.getNumberOfPages() < pdDocMaster.getNumberOfPages()) {
+                                        if (i > pdDocRev.getNumberOfPages()) {
+                                            modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
                                                     .paginaBloco(String.valueOf(i))
-                                                    .revisaoNome("REVISION 0"+revisao.getNomeRevisao().split("Rev")[1])
-                                                    .operacao("* del")
-                                                    .build()
-                                            );
+                                                    .revisaoNome(
+                                                            "REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                    .operacao("* del").build());
                                         } else {
-                                            modificacaoBlocos.add(
-                                                ModificacaoBloco.builder()
-                                                    .blocoRevisao(blocoRevisao)
+                                            modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
                                                     .paginaBloco(String.valueOf(i))
-                                                    .revisaoNome("REVISION 0"+revisao.getNomeRevisao().split("Rev")[1])
-                                                    .operacao("*")
-                                                    .build()
-                                            );
+                                                    .revisaoNome(
+                                                            "REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                    .operacao("*").build());
                                         }
                                     } else {
-                                        modificacaoBlocos.add(
-                                            ModificacaoBloco.builder()
-                                                .blocoRevisao(blocoRevisao)
+                                        modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
                                                 .paginaBloco(String.valueOf(i))
-                                                .revisaoNome("REVISION 0"+revisao.getNomeRevisao().split("Rev")[1])
-                                                .operacao("*")
-                                                .build()
-                                        );
+                                                .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                .operacao("*").build());
                                     }
-                                    
-                                   
+
                                 }
 
-                                
                             }
-                            if(pdDocRev.getNumberOfPages()>pdDocMaster.getNumberOfPages()){
-                                for (int i = pdDocMaster.getNumberOfPages()+1; i <= pdDocRev.getNumberOfPages(); i++) {
-                                    modificacaoBlocos.add(
-                                        ModificacaoBloco.builder()
-                                            .blocoRevisao(blocoRevisao)
+                            if (pdDocRev.getNumberOfPages() > pdDocMaster.getNumberOfPages()) {
+                                for (int i = pdDocMaster.getNumberOfPages() + 1; i <= pdDocRev
+                                        .getNumberOfPages(); i++) {
+                                    modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
                                             .paginaBloco(String.valueOf(i))
-                                            .revisaoNome("REVISION 0"+revisao.getNomeRevisao().split("Rev")[1])
-                                            .operacao("* new")
-                                            .build()
-                                    );
+                                            .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                            .operacao("* new").build());
                                 }
                             }
                             pdDocRev.close();
@@ -739,46 +706,39 @@ public class ManualService {
                         } catch (Exception e) {
                         }
                     }
-                    
 
                 });
                 List<PDDocument> documents = new ArrayList<PDDocument>();
 
                 modificacaoBlocos.forEach(m -> {
-                    System.out.println(
-                        m.getBlocoRevisao().getBloco().getCodBloco()+"|"
-                        +m.getBlocoRevisao().getBloco().getNomeBloco()+"|"
-                        +m.getBlocoRevisao().getBloco().getCodBlocoCodelist()+"|"
-                        +m.getPaginaBloco()+"|"
-                        +m.getOperacao()+"|"
-                        +m.getRevisaoNome()
-                    );
-                    if(m.getOperacao()!=null){
-                        if(!m.getOperacao().equals("* del")){
+                    System.out.println(m.getBlocoRevisao().getBloco().getCodBloco() + "|"
+                            + m.getBlocoRevisao().getBloco().getNomeBloco() + "|"
+                            + m.getBlocoRevisao().getBloco().getCodBlocoCodelist() + "|" + m.getPaginaBloco() + "|"
+                            + m.getOperacao() + "|" + m.getRevisaoNome());
+                    if (m.getOperacao() != null) {
+                        if (!m.getOperacao().equals("* del")) {
                             try {
-                                if(documentoDelta.getNumberOfPages()==1 || documentoDelta.getNumberOfPages()==3){
+                                if (documentoDelta.getNumberOfPages() == 1 || documentoDelta.getNumberOfPages() == 3) {
                                     PDPage pagina = new PDPage();
                                     PDRectangle size = documentoDelta.getPage(0).getMediaBox();
                                     pagina.setMediaBox(size);
                                     documentoDelta.addPage(pagina);
                                 }
-                                //Pega a pagina
-                                Integer numeroPagina = Integer.valueOf(m.getPaginaBloco())-1;
+                                // Pega a pagina
+                                Integer numeroPagina = Integer.valueOf(m.getPaginaBloco()) - 1;
                                 File file = new File(m.getBlocoRevisao().getArquivo().getNomeArquivo());
                                 PDDocument document = PDDocument.load(file);
-                                
-    
+
                                 PDPage pagina = document.getPage(numeroPagina);
                                 documentoDelta.addPage(pagina);
                                 documents.add(document);
-    
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                        
+
                     }
-                    
 
                 });
                 try {
@@ -791,7 +751,6 @@ public class ManualService {
                         }
                     });
                     documentoDelta.close();
-                    //PODE DAR ERRO
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -804,7 +763,7 @@ public class ManualService {
         });
     }
 
-    public List<Traco> getTracosByCodManual(Integer codManual){
+    public List<Traco> getTracosByCodManual(Integer codManual) {
         List<Traco> tracos = new ArrayList<Traco>();
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
             tracos.addAll(tracoRepository.findByManual(manual));
@@ -814,17 +773,18 @@ public class ManualService {
         return tracos;
     }
 
-    public ArquivoDeltaDTO getManualDelta(Integer codManual, Integer traco, Integer codRevisao){
+    public ArquivoDeltaDTO getManualDelta(Integer codManual, Integer traco, Integer codRevisao) {
         ArquivoDeltaDTO deltaDTO = new ArquivoDeltaDTO();
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
             revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
                 try {
-                    String nomeManual = manual.getNome()+"-"+manual.getPartNumber();
-                    String pathDelta = raiz.getPath()+"/"+nomeManual+"/"+"Rev/"+revisao.getNomeRevisao()+"/"+nomeManual+"-"+traco+"-"+revisao.getNomeRevisao().toUpperCase()+"-DELTA.pdf";
-                    File arquivoDelta = new File(pathDelta);
-                    if(!arquivoDelta.exists()){
-                        throw new ManualNotFoundException("Arquivo delta não encontrado.Por favor, atualize os registros com o botão acima.");
+                    String nomeManual = manual.getNome() + "-" + manual.getPartNumber();
+                    String pathDelta = raiz.getPath() + "/" + nomeManual + "/" + "Rev/" + revisao.getNomeRevisao() + "/"
+                            + nomeManual + "-" + traco + "-" + revisao.getNomeRevisao().toUpperCase() + "-DELTA.pdf";
+                    if (!new File(pathDelta).exists()) {
+                        gerarDocumentoDelta(manual.getCodManual(), revisao.getCodRevisao(), traco);
                     }
+                    File arquivoDelta = new File(pathDelta);
                     InputStream obj = new FileInputStream(arquivoDelta);
                     byte[] content = IOUtils.toByteArray(obj);
                     obj.close();
@@ -842,21 +802,11 @@ public class ManualService {
         });
         return deltaDTO;
 
-        
-        
     }
 
-    /*  public byte[] getFile(String key) {
-        try {
-            InputStream obj = minioClient.getObject(defaultBucketName, defaultBaseFolder + "/" + key);
+    public void atualizarRev(Integer codManual) {
+        cadRevisao(codManual);
 
-            byte[] content = IOUtils.toByteArray(obj);
-            obj.close();
-            return content;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    } */
+    }
 
 }
