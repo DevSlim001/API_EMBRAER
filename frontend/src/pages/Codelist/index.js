@@ -1,29 +1,36 @@
-import './index.css';
 import { React, useState, useEffect } from 'react'
 import { Button, Modal, Form, Spinner, Table, Row, Col } from 'react-bootstrap'
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import $ from 'jquery';
+
+import './index.css';
+
+import FormCreateCodelist from './../../components/FormCreateCodelist';
+
 import getManuals from './../../js/Manual/getManuals'
 import createManual from './../../js/Manual/createManual'
 import getManualById from './../../js/Manual/getManualById'
 import importCodelist from './../../js/Manual/importCodelist'
 import createCodelist from './../../js/Manual/createCodelist'
 import deleteBloco from './../../js/Manual/deleteBloco'
-
-import { FaTrashAlt } from 'react-icons/fa';
-
-
-
-import FormCreateCodelist from './../../components/FormCreateCodelist';
-
-
-
-
-import $ from 'jquery';
+import getTracosByCodManual from '../../js/Manual/getTracosByCodManual';
+import getTracoById from './../../js/Manual/getTracoById';
+import putTraco from './../../js/Manual/putTraco';
 
 function Codelist() {
 
     const [manuais, setManuais] = useState([])
+    const [tracos, setTracos] = useState([])
+    const [traco, setTraco] = useState({nome:null,codTraco:null})
+
+
     const [manualTable, setManualTable] = useState()
 
+    const [showModalUpdateTraco, setShowModalUpdateTraco] = useState(false)
+
+    const handleCloseModalUpdateTraco = () => setShowModalUpdateTraco(false);
+    const handleShowModalUpdateTraco = () => setShowModalUpdateTraco(true);
+    
     const [showSpinnerCadastroManual, setShowSpinnerCadastroManual] = useState(false)
     const [showModalCadastroManual, setShowModalCadastroManual] = useState(false)
     const [msgModalCadastroManual, setMsgModalCadastroManual] = useState(false)
@@ -179,6 +186,7 @@ function Codelist() {
             })
         })
         setManualTable(manual)
+        loadTracos(manualRes.codManual)
         setShowTableCodelist(true)
     }
 
@@ -188,6 +196,46 @@ function Codelist() {
         }).catch((err) => {
             console.log(err)
         })
+    }
+
+    const loadTracos = (codManual) => {
+        getTracosByCodManual(codManual).then((res) => {
+            setTracos(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+        
+    }
+
+    const editaTraco = (codTraco) => {
+        getTracoById(codTraco).then(res => {
+            console.log(res.data)
+            setTraco(res.data)
+            handleShowModalUpdateTraco()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const handleChangeTraco = (e) => {
+        const value = e.target.value;
+        setTraco({
+            ...traco,
+            [e.target.name]: value
+        })
+    }
+
+    const handleUpdateTraco = () => {
+        console.log(traco)
+
+        putTraco(traco).then(res => {
+            console.log(res)
+            let codManual = parseInt($("#form-manuais").serializeArray()[0].value)
+            loadTracos(codManual)
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
 
     useEffect(() => {
@@ -242,6 +290,26 @@ function Codelist() {
                 <Table responsive striped bordered hover variant="light">
                     <thead>
                         <tr>
+                            <th>Nome do traço</th>
+                            <th>Traço</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tracos.map((traco, index) => (
+                            <tr>
+                                <td>{traco.nome}</td>
+                                <td>{traco.traco}</td>
+                                <td onClick={() => editaTraco(traco.codTraco)} ><center><FaEdit /></center></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            }
+            {showTableCodelist &&
+                <Table responsive striped bordered hover variant="light">
+                    <thead>
+                        <tr>
                             <th>Nº Seção</th>
                             <th>Nº Sub Seção</th>
                             <th>Nº Bloco</th>
@@ -260,7 +328,7 @@ function Codelist() {
                                 <td>{linha.nomeBloco}</td>
                                 <td>{linha.codBlocoCodelist}</td>
                                 <td>{linha.traco}</td>
-                                <td onClick={() => removeBloco(linha.codBloco)} ><FaTrashAlt /></td>
+                                <td onClick={() => removeBloco(linha.codBloco)} ><center><FaTrashAlt /></center></td>
                             </tr>
                         ))}
                     </tbody>
@@ -289,6 +357,30 @@ function Codelist() {
                     <Button type="button" id="btn-cadastro-manual" variant="primary" onClick={handleCreateManual}>
                         {showSpinnerCadastroManual &&
                             <Spinner id="spinner-form-cadastro-manual" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        }
+                        Confirmar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showModalUpdateTraco} onHide={handleCloseModalUpdateTraco}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update de traco</Modal.Title>
+                </Modal.Header>
+                <Modal.Body id="modal-body">
+                    <Form id="form-update-traco">
+                        <Form.Group className="mb-3" controlId="nome">
+                            <Form.Label>Nome do traço</Form.Label>
+                            <Form.Control onChange={handleChangeTraco} type="text" name="nome" placeholder="Mars" required />
+                        </Form.Group>
+                    </Form>
+                    <span id="msgModalCadastroManual">{msgModalCadastroManual}</span>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModalUpdateTraco}>Voltar</Button>
+                    <Button type="button" id="btn-update-traco" variant="primary" onClick={handleUpdateTraco}>
+                        {showSpinnerCadastroManual &&
+                            <Spinner id="spinner-form-update-traco" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
                         }
                         Confirmar
                     </Button>

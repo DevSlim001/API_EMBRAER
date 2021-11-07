@@ -15,6 +15,7 @@ import com.slim.manual.domain.model.Secao;
 import com.slim.manual.domain.model.Traco;
 import com.slim.manual.rest.dto.ArquivoDeltaDTO;
 import com.slim.manual.rest.dto.ManualDTO;
+import com.slim.manual.rest.dto.TracoPutDTO;
 import com.slim.manual.service.ManualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,6 +176,30 @@ public class ManualController {
 
     }
 
+    @GetMapping(path = "/traco/{codTraco}")
+    @ApiOperation(value = "Retorna um traco.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Traço encontrado com sucesso."),
+        @ApiResponse(code = 404,message = "Traço não encontrado.")
+    })
+    public Traco getTracoById(@PathVariable Integer codTraco){
+        return manualService.getTracoById(codTraco);
+
+    }
+
+    @PutMapping(path = "/traco/{codTraco}")
+    @ApiOperation(value = "Atualiza um traco.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Traço atualizado com sucesso."),
+        @ApiResponse(code = 404,message = "Traço não encontrado.")
+    })
+    public void updateTraco(@RequestBody TracoPutDTO tracoDTO, @PathVariable Integer codTraco){
+        manualService.updateTraco(tracoDTO.getNome(),codTraco);
+
+    }
+
     @PutMapping("/{codManual}/revisoes")
     @ApiOperation(value = "Atualiza o registro de revisões de um determinado manual.")
     @ResponseStatus(HttpStatus.OK)
@@ -186,6 +211,7 @@ public class ManualController {
         manualService.atualizarRev(codManual);
 
     }
+    
 
 
 

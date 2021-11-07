@@ -809,4 +809,17 @@ public class ManualService {
 
     }
 
+    public Traco getTracoById(Integer codTraco){
+        return tracoRepository.findById(codTraco).map((traco) -> {
+            return traco;
+        }).orElseThrow(() -> new ManualNotFoundException("Traco não encontrado"));
+    }
+
+    public void updateTraco(String nome, Integer codTraco){
+        tracoRepository.findById(codTraco).map((t) -> {
+            t.setNome(nome);
+            return tracoRepository.save(t);
+        }).orElseThrow(() -> new ManualNotFoundException("Traco não encontrado"));
+    }
+
 }
