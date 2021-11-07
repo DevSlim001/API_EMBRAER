@@ -13,11 +13,14 @@ import com.slim.manual.domain.model.Manual;
 import com.slim.manual.domain.model.Revisao;
 import com.slim.manual.domain.model.Secao;
 import com.slim.manual.domain.model.Traco;
+import com.slim.manual.rest.dto.ArquivoDeltaDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 import com.slim.manual.service.ManualService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +40,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(exposedHeaders = "Content-disposition")
 @RequestMapping("/manual")
 @Api(tags = "Manual")
 public class ManualController {
@@ -133,7 +136,7 @@ public class ManualController {
         return manualService.deleteBloco(codManual,codBloco);
     }
 
-    @PostMapping("/bloco/{codBloco}")
+    /* @PostMapping("/bloco/{codBloco}")
     @ApiOperation(value = "Faz upload de um arquivo para o bloco especificado.")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses({
@@ -144,20 +147,8 @@ public class ManualController {
     })
     public void uploadArquivoBloco(@RequestParam MultipartFile arquivo, @PathVariable Integer codBloco) throws IOException{
         manualService.importArquivoBloco(arquivo,codBloco);
-    }
+    } */
 
-    @GetMapping("/{codManual}/{numSecao}")
-    @ApiOperation(value = "Faz upload de um codelist através de um arquivo excel.")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses({
-        @ApiResponse(code = 201,message = "Codelist importado com sucesso."),
-        @ApiResponse(code = 400,message = "Erro ao importar codelist."),
-        @ApiResponse(code = 404,message = "Manual não encontrado.")
-    })
-    public Secao teste(@PathVariable Integer codManual, @PathVariable String numSecao){
-        return manualService.testeSecao(numSecao, codManual);
-
-    }
 
     @GetMapping("/{codManual}/revisoes")
     @ApiOperation(value = "Retorna todas as revisões cadastradas de um determinado manual.")
@@ -182,37 +173,27 @@ public class ManualController {
         return manualService.getTracosByCodManual(codManual);
 
     }
-    /* ------------------------------ROTAS DE TESTE----------------------------------- */
-    @GetMapping("/listManuais")
-    @ApiOperation(value = "Retorna todos os manuais no diretório.")
+
+
+
+    @GetMapping(path = "/{codManual}/{traco}/{codRevisao}/delta")
+    @ApiOperation(value = "Retorna um arquivo de manual delta.")
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
-        @ApiResponse(code = 200,message = "Manuais encontrados com sucesso."),
-        @ApiResponse(code = 404,message = "Manuais não encontrado.")
+        @ApiResponse(code = 200,message = "Transferência do arquivo DELTA realizada com sucesso."),
+        @ApiResponse(code = 404,message = "Erro ao realizar transferência do arquivo DELTA.")
     })
-    public String[] listManuais() throws IOException {
-        return manualService.listDiretorioManuais();
-    }
+    public ResponseEntity<ByteArrayResource> downloadDelta(@PathVariable Integer codManual, @PathVariable Integer traco, @PathVariable Integer codRevisao ) throws IOException {
+        ArquivoDeltaDTO deltaDTO = manualService.getManualDelta(codManual, traco, codRevisao);
+        ByteArrayResource resource = new ByteArrayResource(deltaDTO.getConteudo());
 
-    @PostMapping("/listSecao")
-    @ApiOperation(value = "Lista as seções do manual.")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses({
-        @ApiResponse(code = 201,message = "Manual criado com sucesso."),
-        @ApiResponse(code = 400,message = "Erro ao criar manual.")
-    })
-    public void createManualDiretorio(@RequestBody ManualDTO manual) throws IOException {
-        manualService.createDiretorioManual(manual);
-    }
+        return ResponseEntity
+                .ok()
+                .contentLength(deltaDTO.getConteudo().length)
+                .header("Content-type", "application/pdf")
+                .header("Content-disposition", "attachment; filename=\"" + deltaDTO.getNomeArquivo() + "\"")
+                .body(resource);
 
-    @GetMapping("/listSecoes/{manual}")
-    @ApiOperation(value = "Retorna todas as seções de um manual.")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiResponses({
-        @ApiResponse(code = 200,message = "Seções encontradas com sucesso."),
-        @ApiResponse(code = 404,message = "Seções não encontradas.")
-    })
-    public String[] listSecoes(@PathVariable String manual) throws IOException {
-        return manualService.listDiretorioSecao(manual);
     }
+  
 }

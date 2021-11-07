@@ -1,15 +1,16 @@
 import { React, useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { FaSignOutAlt, FaUserEdit, FaMarker, FaHome, FaRegClipboard } from 'react-icons/fa'
+import { FaSignOutAlt, FaUserEdit, FaMarker, FaHome, FaRegClipboard, FaFilePdf } from 'react-icons/fa'
 import { Container, Row, Col, Nav } from 'react-bootstrap'
+
+import "./index.css"
 
 import Header from './../../components/Header';
 import Cadastro from './../Cadastro';
 import Perfil from './../Perfil';
 import Codelist from './../Codelist';
+import Delta from './../Delta';
 
-
-import "./index.css"
 
 
 
@@ -18,6 +19,8 @@ function Home(){
     const renderCadastro = () =>(setConteudo(<Cadastro />))
     const renderPerfil = () =>(setConteudo(<Perfil />))
     const renderCodelist = () =>(setConteudo(<Codelist />))
+    const renderDelta = () =>(setConteudo(<Delta />))
+
 
 
     const hist = useHistory();
@@ -39,6 +42,7 @@ function Home(){
                         <Nav.Link onClick={renderCadastro}><FaMarker /><span>Cadastro</span></Nav.Link>
                         <Nav.Link onClick={renderPerfil}><FaUserEdit /><span>Perfil</span></Nav.Link>
                         <Nav.Link onClick={renderCodelist}><FaRegClipboard /><span>Codelist</span></Nav.Link>
+                        <Nav.Link onClick={renderDelta}><FaFilePdf /><span>Delta</span></Nav.Link>
                         <Nav.Link onClick={logout}><FaSignOutAlt /><span>Logout</span></Nav.Link>
                     </Nav>
                 </Col>

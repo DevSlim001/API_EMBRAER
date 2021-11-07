@@ -1,6 +1,7 @@
 package com.slim.manual.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,6 +9,7 @@ import lombok.Cleanup;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
@@ -64,6 +66,7 @@ import com.slim.manual.domain.repository.TracoRepository;
 import com.slim.manual.exception.ManualNotFoundException;
 import com.slim.manual.exception.UploadArquivoBlocoException;
 import com.slim.manual.exception.UploadCodelistException;
+import com.slim.manual.rest.dto.ArquivoDeltaDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 
 @Service
@@ -138,11 +141,7 @@ public class ManualService {
     }
 
     private String findDiretorio(String path, String numberSecao) {
-        /*
-         * return diretorios.map((diretorio) -> { boolean isPresent =
-         * diretorio.split(" ")[0].equals(numberSecao); return
-         * diretorio.split(" ")[0].equals(numberSecao) ? diretorio : "false"; });
-         */
+        
         File raizDoc = new File(path);
         List<String> diretorios = new ArrayList<String>(Arrays.asList(raizDoc.list()));
         Iterator<String> diretoriosIterator = diretorios.iterator();
@@ -156,7 +155,6 @@ public class ManualService {
             } else {
                 res = "false";
             }
-            /* System.out.println(res); */
 
         }
         return res;
@@ -494,22 +492,14 @@ public class ManualService {
         }).orElseThrow(() -> new ManualNotFoundException("Manual não encontrado."));
     }
 
-    public void importArquivoBloco(MultipartFile arquivo, Integer codBloco) throws IOException {
+/*     public void importArquivoBloco(MultipartFile arquivo, Integer codBloco) throws IOException {
         blocoRepository.findById(codBloco).ifPresentOrElse((bloco) -> {
             try {
                 if (arquivo != null && !arquivo.isEmpty()) {
-                    /*
-                     * String path = servletContext.getRealPath("/") + "resources/arquivos/" +
-                     * arquivo.getOriginalFilename(); System.out.println(path); Path diretorioPath =
-                     * Paths.get(path); Path arquivoPath =
-                     * diretorioPath.resolve(arquivo.getOriginalFilename());
-                     */
+                    
                     String filePath = "./Downloads/" + arquivo.getOriginalFilename();
                     try {
-                        /*
-                         * Files.createDirectories(diretorioPath);
-                         * arquivo.transferTo(arquivoPath.toFile());
-                         */
+                       
                         File file = new File(filePath);
 
                         FileOutputStream saida = new FileOutputStream(file);
@@ -529,7 +519,7 @@ public class ManualService {
         }, () -> {
             throw new ManualNotFoundException("Bloco não encontrado.");
         });
-    }
+    } */
 
     private void cadRevisao(Integer codManual) {
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
@@ -643,10 +633,8 @@ public class ManualService {
     }
 
     public void gerarDocumentoDelta(Integer codManual, Integer codRevisao,Integer traco){
-        PDFMergerUtility pdfMerger = new PDFMergerUtility(); 
         manualRepository.findById(codManual).ifPresentOrElse((manual) -> {    
             revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
-                //String caminhoDeltaTemp = "/tmp/"+manual.getNome()+"-"+manual.getPartNumber()+"-"+traco.toString()+"-"+revisao.getNomeRevisao().toUpperCase()+"-"+"DELTA.pdf";
                 String caminhoDeltaTemp = raiz.getPath()+"/"+manual.getNome()+"-"+manual.getPartNumber()+"/Rev/"+revisao.getNomeRevisao()+"/"+manual.getNome()+"-"+manual.getPartNumber()+"-"+traco.toString()+"-"+revisao.getNomeRevisao().toUpperCase()+"-"+"DELTA.pdf";
                 PDDocument documentoDelta = new PDDocument();
                 
@@ -802,13 +790,10 @@ public class ManualService {
                             e.printStackTrace();
                         }
                     });
+                    documentoDelta.close();
+                    //PODE DAR ERRO
 
-                    /* pdfMerger.setDestinationFileName(caminhoDeltaTemp);
-                    pdfMerger.mergeDocuments(null); */
-                    
-                    //File temp = new File(raiz.getPath()+"/temp/");
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }, () -> {
@@ -829,43 +814,49 @@ public class ManualService {
         return tracos;
     }
 
-    /* ----------------------------------------------------------------------- */
+    public ArquivoDeltaDTO getManualDelta(Integer codManual, Integer traco, Integer codRevisao){
+        ArquivoDeltaDTO deltaDTO = new ArquivoDeltaDTO();
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
+            revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
+                try {
+                    String nomeManual = manual.getNome()+"-"+manual.getPartNumber();
+                    String pathDelta = raiz.getPath()+"/"+nomeManual+"/"+"Rev/"+revisao.getNomeRevisao()+"/"+nomeManual+"-"+traco+"-"+revisao.getNomeRevisao().toUpperCase()+"-DELTA.pdf";
+                    File arquivoDelta = new File(pathDelta);
+                    if(!arquivoDelta.exists()){
+                        throw new ManualNotFoundException("Arquivo delta não encontrado.Por favor, atualize os registros com o botão acima.");
+                    }
+                    InputStream obj = new FileInputStream(arquivoDelta);
+                    byte[] content = IOUtils.toByteArray(obj);
+                    obj.close();
+                    /* deltaDTO.setConteudo(new ByteArrayResource(content)); */
+                    deltaDTO.setConteudo(content);
+                    deltaDTO.setNomeArquivo(arquivoDelta.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, () -> {
 
-    private void copiar(InputStream origem, OutputStream destino) {
-        int bite = 0;
-        byte[] tamanhoMaximo = new byte[1024 * 100 * 1024]; // 8KB
+            });
+        }, () -> {
+            throw new ManualNotFoundException("Manual não encontrado.");
+        });
+        return deltaDTO;
+
+        
+        
+    }
+
+    /*  public byte[] getFile(String key) {
         try {
-            // enquanto bytes forem sendo lidos
-            while ((bite = origem.read(tamanhoMaximo)) >= 0) {
-                // pegue o byte lido e escreva no destino
-                destino.write(tamanhoMaximo, 0, bite);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block e.printStackTrace();
+            InputStream obj = minioClient.getObject(defaultBucketName, defaultBaseFolder + "/" + key);
+
+            byte[] content = IOUtils.toByteArray(obj);
+            obj.close();
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
+        return null;
+    } */
 
-    public String[] listDiretorioManuais() throws IOException {
-        return raiz.list();
-
-    }
-
-    public void createDiretorioManual(ManualDTO manual) throws IOException {
-        File diretorioManual = new File(raiz.getPath() + "/" + manual.getNome() + "-" + manual.getPartNumber());
-        diretorioManual.mkdir();
-
-    }
-
-    public String[] listDiretorioSecao(String manual) throws IOException {
-        System.out.println(raiz.getPath() + "/" + manual + "/Master/");
-        File diretorioManual = new File(raiz.getPath() + "/" + manual + "/Master/");
-        return diretorioManual.list();
-
-    }
-
-    public Secao testeSecao(String numSecao, Integer codManual) {
-        return manualRepository.findById(codManual).map(m -> {
-            return secaoRepository.findByNumSecaoAndManual(numSecao, m).get();
-        }).get();
-    }
 }
