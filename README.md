@@ -165,10 +165,10 @@
                 <p align="center">07/11</p>
             </td>
             <td>
-                <p align="center">&#10060</p>
+                <p align="center">&#9989</p>
             </td>
             <td>
-                <p align="center"><a href="#">Visualizar</p>
+                <p align="center"><a href="https://github.com/DevSlim001/API_Slim_4Semestre/tree/Sprint-3">Visualizar</p>
             </td>
         </tr>
         <tr>
