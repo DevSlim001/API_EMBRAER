@@ -19,12 +19,12 @@ services:
   cliente:
     container_name: frontend
     build:
-      context:  frontend # Use an image built from the specified dockerfile in the `polling-app-client` directory.
+      context:  frontend 
       dockerfile: Dockerfile
       args:
         API_BASE_URL: http://127.0.0.1:8080
     ports:
-      - "3000:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+      - "3000:80" 
     depends_on:
       - servidor
     networks:

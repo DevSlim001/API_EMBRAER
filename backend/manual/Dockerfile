@@ -1,9 +1,3 @@
-#FROM adoptopenjdk:16-jre-hotspot
-#ARG JAR_FILE=./target/manual-0.0.1-SNAPSHOT.jar
-#COPY ${JAR_FILE} airdocs.jar
-#EXPOSE 8080
-#ENTRYPOINT ["java", "-jar", "airdocs.jar"]
-
 FROM adoptopenjdk/openjdk16:jdk-16.0.1_9-alpine as build
 WORKDIR /app
 COPY mvnw .
