@@ -14,6 +14,7 @@ import com.slim.manual.domain.model.Revisao;
 import com.slim.manual.domain.model.Secao;
 import com.slim.manual.domain.model.Traco;
 import com.slim.manual.rest.dto.ArquivoDeltaDTO;
+import com.slim.manual.rest.dto.ArquivoFullDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 import com.slim.manual.rest.dto.TracoPutDTO;
 import com.slim.manual.service.ManualService;
@@ -231,6 +232,26 @@ public class ManualController {
                 .contentLength(deltaDTO.getConteudo().length)
                 .header("Content-type", "application/pdf")
                 .header("Content-disposition", "attachment; filename=\"" + deltaDTO.getNomeArquivo() + "\"")
+                .body(resource);
+
+    }
+
+    @GetMapping(path = "/{codManual}/{traco}/{revType}/full")
+    @ApiOperation(value = "Retorna um arquivo de manual full.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Transferência do arquivo FULL realizada com sucesso."),
+        @ApiResponse(code = 404,message = "Erro ao realizar transferência do arquivo FULL.")
+    })
+    public ResponseEntity<ByteArrayResource> downloadFull(@PathVariable Integer codManual, @PathVariable Integer traco, @PathVariable String revType ) throws IOException {
+        ArquivoFullDTO fullDTO = manualService.getManualFull(codManual, traco, revType);
+        ByteArrayResource resource = new ByteArrayResource(fullDTO.getConteudo());
+
+        return ResponseEntity
+                .ok()
+                .contentLength(fullDTO.getConteudo().length)
+                .header("Content-type", "application/pdf")
+                .header("Content-disposition", "attachment; filename=\"" + fullDTO.getNomeArquivo() + "\"")
                 .body(resource);
 
     }

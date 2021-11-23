@@ -67,6 +67,7 @@ import com.slim.manual.exception.ManualNotFoundException;
 import com.slim.manual.exception.UploadArquivoBlocoException;
 import com.slim.manual.exception.UploadCodelistException;
 import com.slim.manual.rest.dto.ArquivoDeltaDTO;
+import com.slim.manual.rest.dto.ArquivoFullDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 
 @Service
@@ -788,7 +789,6 @@ public class ManualService {
                     InputStream obj = new FileInputStream(arquivoDelta);
                     byte[] content = IOUtils.toByteArray(obj);
                     obj.close();
-                    /* deltaDTO.setConteudo(new ByteArrayResource(content)); */
                     deltaDTO.setConteudo(content);
                     deltaDTO.setNomeArquivo(arquivoDelta.getName());
                 } catch (Exception e) {
@@ -803,7 +803,6 @@ public class ManualService {
         return deltaDTO;
 
     }
-
     public void atualizarRev(Integer codManual) {
         cadRevisao(codManual);
 
@@ -820,6 +819,408 @@ public class ManualService {
             t.setNome(nome);
             return tracoRepository.save(t);
         }).orElseThrow(() -> new ManualNotFoundException("Traco não encontrado"));
+    }
+    public ArquivoFullDTO getManualFull(Integer codManual, Integer traco, String revType) {
+        ArquivoFullDTO fullDTO = new ArquivoFullDTO();
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
+            if(revType.equals("master")){
+                try {
+                    String nomeManual = manual.getNome() + "-" + manual.getPartNumber();
+                    String pathFull = raiz.getPath() + "/" + nomeManual + "/" + "Master/"+nomeManual + "-" + traco +"-FULL.pdf";
+                    if (!new File(pathFull).exists()) {
+                        //gerarDocumentoDelta(manual.getCodManual(), revisao.getCodRevisao(), traco);
+                        gerarDocumentoFullMaster(manual.getCodManual(),traco);
+                    }
+                    File arquivoFull = new File(pathFull);
+                    InputStream obj = new FileInputStream(arquivoFull);
+                    byte[] content = IOUtils.toByteArray(obj);
+                    obj.close();
+                    fullDTO.setConteudo(content);
+                    fullDTO.setNomeArquivo(arquivoFull.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            } else {
+                Integer codRevisao = Integer.valueOf(revType);
+                revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
+                    try {
+                        String nomeManual = manual.getNome() + "-" + manual.getPartNumber();
+                        String pathFull = raiz.getPath() + "/" + nomeManual + "/" + "Rev/" + revisao.getNomeRevisao() + "/"
+                                + nomeManual + "-" + traco + "-" + revisao.getNomeRevisao().toUpperCase() + "-FULL.pdf";
+                        if (!new File(pathFull).exists()) {
+                            gerarDocumentoFullRev(manual.getCodManual(), revisao.getCodRevisao(), traco);
+                            //gerarDocumentoFullRev
+                        }
+                        File arquivoFull = new File(pathFull);
+                        InputStream obj = new FileInputStream(arquivoFull);
+                        byte[] content = IOUtils.toByteArray(obj);
+                        obj.close();
+                        fullDTO.setConteudo(content);
+                        fullDTO.setNomeArquivo(arquivoFull.getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, () -> {
+    
+                });
+            }
+            
+        }, () -> {
+            throw new ManualNotFoundException("Manual não encontrado.");
+        });
+        return fullDTO;
+
+    }
+
+    public void gerarDocumentoFullMaster(Integer codManual, Integer traco) {
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
+                String caminhoFullTemp = raiz.getPath() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                        + "/Master/"+ manual.getNome() + "-" + manual.getPartNumber()+ "-" + traco.toString() + "-" 
+                        +"FULL.pdf";
+                PDDocument documentoFull = new PDDocument();
+                List<PDDocument> documents = new ArrayList<PDDocument>();
+
+                manual.getSecoes().forEach(secao -> {
+                    if(secao.getSubSecoes().size()>0){
+                        secao.getSubSecoes().forEach(subSecao -> {
+                            subSecao.getBlocos().forEach(bloco -> {
+                                List<Integer> tracos = new ArrayList<Integer>();
+                                bloco.getTracos().forEach(t -> {
+                                    tracos.add(t.getTraco());
+                                });
+                                if (tracos.contains(traco)) {
+                                    try {
+                                        File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+                                        RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(arquivoMaster);
+                                    
+                                        PDFParser parserMaster = new PDFParser(aMaster);
+                                        parserMaster.parse();
+                                        PDDocument pdDocMaster = PDDocument.load(arquivoMaster);
+                                        
+                                        for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+
+                                            Integer numeroPagina = Integer.valueOf(i) - 1;
+                                            PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                            documentoFull.addPage(pagina);   
+                                            documents.add(pdDocMaster);                                   
+
+                                        }
+                                    } catch (Exception e) {
+                                    }
+                                } 
+                            });
+                        });
+                    } else {
+                        secao.getBlocos().forEach(bloco -> {
+                            List<Integer> tracos = new ArrayList<Integer>();
+                            bloco.getTracos().forEach(t -> {
+                                tracos.add(t.getTraco());
+                            });
+                            if (tracos.contains(traco)) {
+                                try {
+                                    File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+                                    RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(arquivoMaster);
+                                    
+                                    PDFParser parserMaster = new PDFParser(aMaster);
+                                    parserMaster.parse();
+
+                                    PDDocument pdDocMaster = PDDocument.load(arquivoMaster);
+                                    
+                                    for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                        Integer numeroPagina = Integer.valueOf(i) - 1;
+                                        PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                        documentoFull.addPage(pagina);     
+                                        documents.add(pdDocMaster);                                   
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } 
+                        });
+                    }
+                });
+                try {
+                    documentoFull.removePage(1);
+                    documentoFull.removePage(0);
+                    documentoFull.save(caminhoFullTemp);
+                    documentoFull.close();
+                    documents.forEach(d -> {
+                        try {
+                            d.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }, () -> {
+            throw new ManualNotFoundException("Manual não encontrado.");
+        });
+    }
+    public void gerarDocumentoFullRev(Integer codManual, Integer codRevisao, Integer traco) {
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
+            revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
+                List<PDDocument> documents = new ArrayList<PDDocument>();
+
+                String caminhoFullTemp = raiz.getPath() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                        + "/Rev/" + revisao.getNomeRevisao() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                        + "-" + traco.toString() + "-" + revisao.getNomeRevisao().toUpperCase() + "-" + "FULL.pdf";
+                PDDocument documentoFull = new PDDocument();
+                manual.getSecoes().forEach(secao -> {
+                    if(secao.getSubSecoes().size()>0){
+                        System.out.println("-------------------chegou subSecao-------------------");
+
+                        secao.getSubSecoes().forEach(subSecao -> {
+                            subSecao.getBlocos().forEach(bloco -> {
+                                List<BlocoRevisao> blocosRevisao = blocoRevisaoRepository.findByRevisaoAndBloco(revisao,bloco);
+                                if(blocosRevisao.size()>0){
+                                    blocosRevisao.forEach(blocoRevisao -> {
+                                        List<Integer> tracos = new ArrayList<Integer>();
+                                        blocoRevisao.getBloco().getTracos().forEach(t -> {
+                                            tracos.add(t.getTraco());
+                                        });
+                                        if (tracos.contains(traco)) {
+                                            try {
+                                                File arquivoRev = new File(blocoRevisao.getArquivo().getNomeArquivo());
+                                                File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+                                                RandomAccessBufferedFileInputStream aRev = new RandomAccessBufferedFileInputStream(
+                                                        arquivoRev);
+                                                RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(
+                                                        arquivoMaster);
+                    
+                                                PDFParser parserRev = new PDFParser(aRev);
+                                                PDFParser parserMaster = new PDFParser(aMaster);
+                                                parserRev.parse();
+                                                parserMaster.parse();
+                    
+                                                COSDocument cosDocRev = parserRev.getDocument();
+                                                COSDocument cosDocMaster = parserMaster.getDocument();
+                    
+                                                PDFTextStripper pdfStripperRev = new PDFTextStripper();
+                                                PDFTextStripper pdfStripperMaster = new PDFTextStripper();
+                    
+                                                PDDocument pdDocRev = new PDDocument(cosDocRev);
+                                                PDDocument pdDocMaster = new PDDocument(cosDocMaster);
+                                                
+                                                pdfStripperRev.setStartPage(1);
+                                                pdfStripperRev.setEndPage(pdDocRev.getNumberOfPages());
+                    
+                                                pdfStripperMaster.setStartPage(1);
+                                                pdfStripperMaster.setEndPage(pdDocMaster.getNumberOfPages());
+                    
+                                                String parsedTextRev = pdfStripperRev.getText(pdDocRev);
+                                                String parsedTextMaster = pdfStripperMaster.getText(pdDocMaster);
+                    
+                                                if (parsedTextMaster.equals(parsedTextRev)) {
+                                                    for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                                        Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                        PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                                        documentoFull.addPage(pagina);     
+                                                        documents.add(pdDocMaster); 
+                                                        documents.add(pdDocRev); 
+
+                                                    }
+                                                } else {
+                                                    for (int i = 1; i <= pdDocRev.getNumberOfPages(); i++) {
+                                                        Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                        PDPage pagina = pdDocRev.getPage(numeroPagina);
+                                                        documentoFull.addPage(pagina);     
+                                                        documents.add(pdDocRev); 
+                                                        documents.add(pdDocMaster); 
+
+                                                    }
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                    
+                                    });
+                                } else {
+                                    List<Integer> tracos = new ArrayList<Integer>();
+                                    bloco.getTracos().forEach(t -> {
+                                        tracos.add(t.getTraco());
+                                    });
+                                    if (tracos.contains(traco)) {
+                                        try {
+                                            File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+                
+                                            PDDocument pdDocMaster = PDDocument.load(arquivoMaster);
+                
+                                                for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                                    Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                    PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                                    documentoFull.addPage(pagina);     
+                                                    documents.add(pdDocMaster); 
+                                                }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                                
+                            });
+                        });
+                        
+                    } else {
+                        System.out.println("-------------------chegou secao-------------------");
+                        secao.getBlocos().forEach(bloco -> {
+                            List<BlocoRevisao> blocosRevisao = blocoRevisaoRepository.findByRevisaoAndBloco(revisao,bloco);
+                            if(blocosRevisao.size()>0){
+                                blocosRevisao.forEach(blocoRevisao -> {
+                                    List<Integer> tracos = new ArrayList<Integer>();
+                                    blocoRevisao.getBloco().getTracos().forEach(t -> {
+                                        tracos.add(t.getTraco());
+                                    });
+                                    if (tracos.contains(traco)) {
+                                        try {
+                                            File arquivoRev = new File(blocoRevisao.getArquivo().getNomeArquivo());
+                                            File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+                                            RandomAccessBufferedFileInputStream aRev = new RandomAccessBufferedFileInputStream(
+                                                    arquivoRev);
+                                            RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(
+                                                    arquivoMaster);
+                
+                                            PDFParser parserRev = new PDFParser(aRev);
+                                            PDFParser parserMaster = new PDFParser(aMaster);
+                                            parserRev.parse();
+                                            parserMaster.parse();
+                
+                                            COSDocument cosDocRev = parserRev.getDocument();
+                                            COSDocument cosDocMaster = parserMaster.getDocument();
+                
+                                            PDFTextStripper pdfStripperRev = new PDFTextStripper();
+                                            PDFTextStripper pdfStripperMaster = new PDFTextStripper();
+                
+                                            PDDocument pdDocRev = new PDDocument(cosDocRev);
+                                            PDDocument pdDocMaster = new PDDocument(cosDocMaster);
+                                            
+                                            pdfStripperRev.setStartPage(1);
+                                            pdfStripperRev.setEndPage(pdDocRev.getNumberOfPages());
+                
+                                            pdfStripperMaster.setStartPage(1);
+                                            pdfStripperMaster.setEndPage(pdDocMaster.getNumberOfPages());
+                
+                                            String parsedTextRev = pdfStripperRev.getText(pdDocRev);
+                                            String parsedTextMaster = pdfStripperMaster.getText(pdDocMaster);
+                
+                                            if (parsedTextMaster.equals(parsedTextRev)) {
+                                                for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                                    Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                    PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                                    documentoFull.addPage(pagina);     
+                                                    documents.add(pdDocMaster); 
+                                                }
+                                            } else {
+                                                for (int i = 1; i <= pdDocRev.getNumberOfPages(); i++) {
+                                                    Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                    PDPage pagina = pdDocRev.getPage(numeroPagina);
+                                                    documentoFull.addPage(pagina);     
+                                                    documents.add(pdDocRev); 
+                                                }
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                
+                                });
+                            } else {
+                                List<Integer> tracos = new ArrayList<Integer>();
+                                bloco.getTracos().forEach(t -> {
+                                    tracos.add(t.getTraco());
+                                });
+                                if (tracos.contains(traco)) {
+                                    try {
+                                        File arquivoMaster = new File(bloco.getArquivo().getNomeArquivo());
+            
+                                        PDDocument pdDocMaster = PDDocument.load(arquivoMaster);
+            
+                                            for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                                Integer numeroPagina = Integer.valueOf(i) - 1;
+                                                PDPage pagina = pdDocMaster.getPage(numeroPagina);
+                                                documentoFull.addPage(pagina);     
+                                                documents.add(pdDocMaster); 
+                                            }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+                
+
+                try {
+                    documentoFull.removePage(1);
+                    documentoFull.removePage(0);
+                    documentoFull.save(caminhoFullTemp);
+                    documentoFull.close();
+                    documents.forEach(d -> {
+                        try {
+                            d.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /* modificacaoBlocos.forEach(m -> {
+                    System.out.println(m.getBlocoRevisao().getBloco().getCodBloco() + "|"
+                            + m.getBlocoRevisao().getBloco().getNomeBloco() + "|"
+                            + m.getBlocoRevisao().getBloco().getCodBlocoCodelist() + "|" + m.getPaginaBloco() + "|"
+                            + m.getOperacao() + "|" + m.getRevisaoNome());
+                    if (m.getOperacao() != null) {
+                        if (!m.getOperacao().equals("* del")) {
+                            try {
+                                if (documentoDelta.getNumberOfPages() == 1 || documentoDelta.getNumberOfPages() == 3) {
+                                    PDPage pagina = new PDPage();
+                                    PDRectangle size = documentoDelta.getPage(0).getMediaBox();
+                                    pagina.setMediaBox(size);
+                                    documentoDelta.addPage(pagina);
+                                }
+                                // Pega a pagina
+                                Integer numeroPagina = Integer.valueOf(m.getPaginaBloco()) - 1;
+                                File file = new File(m.getBlocoRevisao().getArquivo().getNomeArquivo());
+                                PDDocument document = PDDocument.load(file);
+
+                                PDPage pagina = document.getPage(numeroPagina);
+                                documentoDelta.addPage(pagina);
+                                documents.add(document);
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+
+                });
+                try {
+                    documentoDelta.save(caminhoDeltaTemp);
+                    documents.forEach(d -> {
+                        try {
+                            d.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    documentoDelta.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } */
+            }, () -> {
+
+            });
+        }, () -> {
+            throw new ManualNotFoundException("Manual não encontrado.");
+        });
     }
 
 }
