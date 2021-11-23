@@ -10,9 +10,7 @@ import Cadastro from './../Cadastro';
 import Perfil from './../Perfil';
 import Codelist from './../Codelist';
 import Delta from './../Delta';
-
-
-
+import Full from './../Full';
 
 function Home(){
     const [conteudo, setConteudo] = useState();
@@ -20,8 +18,7 @@ function Home(){
     const renderPerfil = () =>(setConteudo(<Perfil />))
     const renderCodelist = () =>(setConteudo(<Codelist />))
     const renderDelta = () =>(setConteudo(<Delta />))
-
-
+    const renderFull = () =>(setConteudo(<Full />))
 
     const hist = useHistory();
 
@@ -43,6 +40,8 @@ function Home(){
                         <Nav.Link onClick={renderPerfil}><FaUserEdit /><span>Perfil</span></Nav.Link>
                         <Nav.Link onClick={renderCodelist}><FaRegClipboard /><span>Codelist</span></Nav.Link>
                         <Nav.Link onClick={renderDelta}><FaFilePdf /><span>Delta</span></Nav.Link>
+                        <Nav.Link onClick={renderFull}><FaFilePdf /><span>Full</span></Nav.Link>
+
                         <Nav.Link onClick={logout}><FaSignOutAlt /><span>Logout</span></Nav.Link>
                     </Nav>
                 </Col>
