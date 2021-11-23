@@ -970,7 +970,6 @@ public class ManualService {
                 PDDocument documentoFull = new PDDocument();
                 manual.getSecoes().forEach(secao -> {
                     if(secao.getSubSecoes().size()>0){
-                        System.out.println("-------------------chegou subSecao-------------------");
 
                         secao.getSubSecoes().forEach(subSecao -> {
                             subSecao.getBlocos().forEach(bloco -> {
@@ -1065,7 +1064,6 @@ public class ManualService {
                         });
                         
                     } else {
-                        System.out.println("-------------------chegou secao-------------------");
                         secao.getBlocos().forEach(bloco -> {
                             List<BlocoRevisao> blocosRevisao = blocoRevisaoRepository.findByRevisaoAndBloco(revisao,bloco);
                             if(blocosRevisao.size()>0){
@@ -1170,51 +1168,6 @@ public class ManualService {
                     e.printStackTrace();
                 }
 
-                /* modificacaoBlocos.forEach(m -> {
-                    System.out.println(m.getBlocoRevisao().getBloco().getCodBloco() + "|"
-                            + m.getBlocoRevisao().getBloco().getNomeBloco() + "|"
-                            + m.getBlocoRevisao().getBloco().getCodBlocoCodelist() + "|" + m.getPaginaBloco() + "|"
-                            + m.getOperacao() + "|" + m.getRevisaoNome());
-                    if (m.getOperacao() != null) {
-                        if (!m.getOperacao().equals("* del")) {
-                            try {
-                                if (documentoDelta.getNumberOfPages() == 1 || documentoDelta.getNumberOfPages() == 3) {
-                                    PDPage pagina = new PDPage();
-                                    PDRectangle size = documentoDelta.getPage(0).getMediaBox();
-                                    pagina.setMediaBox(size);
-                                    documentoDelta.addPage(pagina);
-                                }
-                                // Pega a pagina
-                                Integer numeroPagina = Integer.valueOf(m.getPaginaBloco()) - 1;
-                                File file = new File(m.getBlocoRevisao().getArquivo().getNomeArquivo());
-                                PDDocument document = PDDocument.load(file);
-
-                                PDPage pagina = document.getPage(numeroPagina);
-                                documentoDelta.addPage(pagina);
-                                documents.add(document);
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                });
-                try {
-                    documentoDelta.save(caminhoDeltaTemp);
-                    documents.forEach(d -> {
-                        try {
-                            d.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    documentoDelta.close();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } */
             }, () -> {
 
             });
