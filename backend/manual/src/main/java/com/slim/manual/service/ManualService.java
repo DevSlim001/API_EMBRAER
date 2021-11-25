@@ -30,9 +30,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,6 +70,7 @@ import com.slim.manual.exception.UploadArquivoBlocoException;
 import com.slim.manual.exception.UploadCodelistException;
 import com.slim.manual.rest.dto.ArquivoDeltaDTO;
 import com.slim.manual.rest.dto.ArquivoFullDTO;
+import com.slim.manual.rest.dto.ArquivoLepDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 
 @Service
@@ -1174,6 +1177,147 @@ public class ManualService {
         }, () -> {
             throw new ManualNotFoundException("Manual não encontrado.");
         });
+    }
+
+    public ArquivoLepDTO gerarLep(Integer codManual, Integer traco, Integer codRevisao) {
+        ArquivoLepDTO lepDTO = new ArquivoLepDTO();
+        manualRepository.findById(codManual).ifPresentOrElse((manual) -> {
+
+            revisaoRepository.findById(codRevisao).ifPresentOrElse((revisao) -> {
+
+                List<ModificacaoBloco> modificacaoBlocos = new ArrayList<ModificacaoBloco>();
+                blocoRevisaoRepository.findByRevisaoOrderByBloco(revisao).forEach(blocoRevisao -> {
+                    
+                    List<Integer> tracos = new ArrayList<Integer>();
+                    blocoRevisao.getBloco().getTracos().forEach(t -> {
+                        tracos.add(t.getTraco());
+                    });
+                    if (tracos.contains(traco)) {
+                        try {
+                            File arquivoRev = new File(blocoRevisao.getArquivo().getNomeArquivo());
+                            File arquivoMaster = new File(blocoRevisao.getBloco().getArquivo().getNomeArquivo());
+                            RandomAccessBufferedFileInputStream aRev = new RandomAccessBufferedFileInputStream(
+                                    arquivoRev);
+                            RandomAccessBufferedFileInputStream aMaster = new RandomAccessBufferedFileInputStream(
+                                    arquivoMaster);
+
+                            PDFParser parserRev = new PDFParser(aRev);
+                            PDFParser parserMaster = new PDFParser(aMaster);
+                            parserRev.parse();
+                            parserMaster.parse();
+
+                            COSDocument cosDocRev = parserRev.getDocument();
+                            COSDocument cosDocMaster = parserMaster.getDocument();
+
+                            PDFTextStripper pdfStripperRev = new PDFTextStripper();
+                            PDFTextStripper pdfStripperMaster = new PDFTextStripper();
+
+                            PDDocument pdDocRev = new PDDocument(cosDocRev);
+                            PDDocument pdDocMaster = new PDDocument(cosDocMaster);
+
+                            for (int i = 1; i <= pdDocMaster.getNumberOfPages(); i++) {
+                                pdfStripperRev.setStartPage(i);
+                                pdfStripperRev.setEndPage(i);
+
+                                pdfStripperMaster.setStartPage(i);
+                                pdfStripperMaster.setEndPage(i);
+
+                                String parsedTextRev = pdfStripperRev.getText(pdDocRev);
+                                String parsedTextMaster = pdfStripperMaster.getText(pdDocMaster);
+                                if (parsedTextMaster.equals(parsedTextRev)) {
+
+                                    modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
+                                            .paginaBloco(String.valueOf(i))
+                                            .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                            .build());
+                                } else {
+                                    if (pdDocRev.getNumberOfPages() < pdDocMaster.getNumberOfPages()) {
+                                        if (i > pdDocRev.getNumberOfPages()) {
+                                            modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
+                                                    .paginaBloco(String.valueOf(i))
+                                                    .revisaoNome(
+                                                            "REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                    .operacao("* del").build());
+                                        } else {
+                                            modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
+                                                    .paginaBloco(String.valueOf(i))
+                                                    .revisaoNome(
+                                                            "REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                    .operacao("*").build());
+                                        }
+                                    } else {
+                                        modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
+                                                .paginaBloco(String.valueOf(i))
+                                                .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                                .operacao("*").build());
+                                    }
+
+                                }
+
+                            }
+                            if (pdDocRev.getNumberOfPages() > pdDocMaster.getNumberOfPages()) {
+                                for (int i = pdDocMaster.getNumberOfPages() + 1; i <= pdDocRev
+                                        .getNumberOfPages(); i++) {
+                                    modificacaoBlocos.add(ModificacaoBloco.builder().blocoRevisao(blocoRevisao)
+                                            .paginaBloco(String.valueOf(i))
+                                            .revisaoNome("REVISION 0" + revisao.getNomeRevisao().split("Rev")[1])
+                                            .operacao("* new").build());
+                                }
+                            }
+                            pdDocRev.close();
+                            pdDocMaster.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                });
+                List<PDDocument> documents = new ArrayList<PDDocument>();
+                String caminhoLepTemp = raiz.getPath() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                + "/Rev/" + revisao.getNomeRevisao() + "/" + manual.getNome() + "-" + manual.getPartNumber()
+                + "-" + traco.toString() + "-" + revisao.getNomeRevisao().toUpperCase() + "-" + "LEP.txt";
+                try {
+                    FileWriter arqLep = new FileWriter(caminhoLepTemp);
+                    PrintWriter gravarArqLep = new PrintWriter(arqLep);
+                    gravarArqLep.printf("Código | Nome | Página | Operação | Revisão%n");
+
+                    modificacaoBlocos.forEach(m -> {
+                        String linhaLep = m.getBlocoRevisao().getBloco().getCodBlocoCodelist() + "|"
+                        + m.getBlocoRevisao().getBloco().getNomeBloco() + "|"
+                        + m.getPaginaBloco() + "|" + m.getOperacao() + "|" + m.getRevisaoNome();
+                        if(m.getOperacao()!= null){
+                            gravarArqLep.printf(linhaLep+"%n");
+
+                        }
+                    });
+                    arqLep.close();
+                    File arquivoLep = new File(caminhoLepTemp);
+                    InputStream obj = new FileInputStream(arquivoLep);
+                    byte[] content = IOUtils.toByteArray(obj);
+                    obj.close();
+                    lepDTO.setConteudo(content);
+                    lepDTO.setNomeArquivo(arquivoLep.getName());
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                documents.forEach(d -> {
+                    try {
+                        d.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            }, () -> {
+
+            });
+
+        }, () -> {
+            throw new ManualNotFoundException("Manual não encontrado.");
+        });
+        return lepDTO;
+
     }
 
 }

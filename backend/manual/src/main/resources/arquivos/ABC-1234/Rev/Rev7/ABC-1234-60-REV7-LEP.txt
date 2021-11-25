@@ -1,0 +1,13 @@
+Código | Nome | Página | Operação | Revisão
+60|Letter|1|*|REVISION 07
+03|Cover|1|*|REVISION 07
+03|LEP|1|*|REVISION 07
+03|LEP|2|*|REVISION 07
+03|LEP|3|*|REVISION 07
+03|LEP|4|*|REVISION 07
+03|Introduction|1|*|REVISION 07
+03|Introduction|4|*|REVISION 07
+01|Episódio 4|1|*|REVISION 07
+01|Episódio 4|2|*|REVISION 07
+01|Episódio 4|3|* del|REVISION 07
+01|Episódio 4|4|* del|REVISION 07

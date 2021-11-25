@@ -15,6 +15,7 @@ import com.slim.manual.domain.model.Secao;
 import com.slim.manual.domain.model.Traco;
 import com.slim.manual.rest.dto.ArquivoDeltaDTO;
 import com.slim.manual.rest.dto.ArquivoFullDTO;
+import com.slim.manual.rest.dto.ArquivoLepDTO;
 import com.slim.manual.rest.dto.ManualDTO;
 import com.slim.manual.rest.dto.TracoPutDTO;
 import com.slim.manual.service.ManualService;
@@ -252,6 +253,27 @@ public class ManualController {
                 .contentLength(fullDTO.getConteudo().length)
                 .header("Content-type", "application/pdf")
                 .header("Content-disposition", "attachment; filename=\"" + fullDTO.getNomeArquivo() + "\"")
+                .body(resource);
+
+    }
+
+
+    @GetMapping(path = "/{codManual}/{traco}/{codRevisao}/lep")
+    @ApiOperation(value = "Retorna um arquivo de lep de um manual.")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses({
+        @ApiResponse(code = 200,message = "Transferência do arquivo da LEP realizada com sucesso."),
+        @ApiResponse(code = 404,message = "Erro ao realizar transferência do arquivo da LEP.")
+    })
+    public ResponseEntity<ByteArrayResource> downloadLep(@PathVariable Integer codManual, @PathVariable Integer traco, @PathVariable Integer codRevisao ) throws IOException {
+        ArquivoLepDTO lepDTO = manualService.gerarLep(codManual, traco, codRevisao);
+        ByteArrayResource resource = new ByteArrayResource(lepDTO.getConteudo());
+
+        return ResponseEntity
+                .ok()
+                .contentLength(lepDTO.getConteudo().length)
+                .header("Content-type", "text/plain")
+                .header("Content-disposition", "attachment; filename=\"" + lepDTO.getNomeArquivo() + "\"")
                 .body(resource);
 
     }

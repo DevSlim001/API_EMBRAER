@@ -1,0 +1,9 @@
+Código | Nome | Página | Operação | Revisão
+50|Letter|1|*|REVISION 07
+01|Cover|1|*|REVISION 07
+01|LEP|1|*|REVISION 07
+01|LEP|2|*|REVISION 07
+01|LEP|3|*|REVISION 07
+01|LEP|4|*|REVISION 07
+02|Episódio 4|5|* new|REVISION 07
+02|Episódio 4|6|* new|REVISION 07
