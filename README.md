@@ -32,7 +32,7 @@
         <li><a href="#modeloBanco">Modelo conceitual do banco de dados</a></li>
         <li><a href="#burndown">Burndown da Sprint</a></li>
     </ul> <br/>
-    <h2 align="center" id="QuartaEntrega">A terceira entrega</h2>
+    <h2 align="center" id="QuartaEntrega">A Quarta entrega</h2>
     <h3 id="o-que-fizemos">O que fizemos?</h3>
     <p align="justify">
         Focando em uma entrega de valor ao cliente, nossa aplicação possui os seguintes elementos básicos:
