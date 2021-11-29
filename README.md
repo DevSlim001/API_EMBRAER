@@ -52,7 +52,7 @@
     </p>
     <h2 align="center" id="cardEntrega">Card da entrega</h2>
     <p align="center">
-        <img src="">
+        <img src="https://github.com/DevSlim001/API_Slim_4Semestre/blob/Sprint-4/docs/Sprints/cards/card4.png">
     </p>
     <h2 align="center" id="modeloBanco">Modelo conceitual do banco de dados :card_file_box:</h2>
     <p align="center">
