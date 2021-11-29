@@ -182,7 +182,7 @@
                 <p align="center">28/11</p>
             </td>
             <td>
-                <p align="center">&#10060</p>
+                <p align="center">&#9989</p>
             </td>
             <td>
                 <p align="center"><a href="#">Visualizar</p>
