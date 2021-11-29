@@ -15,7 +15,7 @@
     <p align="center"><img
             src="https://img.shields.io/badge/status-em_desenvolvimento-blue?style=for-the-badge&logo=appveyor"></p>
     <p align="center"><img
-            src="https://img.shields.io/badge/Sprint%20atual-Sprint 3-blue?style=for-the-badge&logo=appveyor"></p>
+            src="https://img.shields.io/badge/Sprint%20atual-Sprint 4-blue?style=for-the-badge&logo=appveyor"></p>
     <h2>Desafio Proposto</h2>
     <p align="justify">Desenvolver um sistema para gerar documentos de aeronaves de acordo com os padrões estabelecidos
         pela empresa parceira</p>
